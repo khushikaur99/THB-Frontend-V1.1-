@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #954C2E;  /* Dark Brown */
+            --secondary: #4E1F00; /* Light Brown */
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+    </style>
+</head>
+<body class="bg-[#fef5f8] font-sans antialiased">
+    <!-- Header -->
+    <header class="header text-white py-8 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight">My Wishlist</h1>
+            <p class="mt-2 text-lg opacity-80">Explore the items you love!</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Wishlist Items Grid -->
+        <div id="wishlist-items" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Items will be dynamically inserted here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-wishlist" class="text-center py-16 hidden">
+            <svg class="mx-auto h-16 w-16 text-[var(--primary)] opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+            <p class="mt-4 text-[var(--primary)] text-xl font-semibold">Your wishlist is empty</p>
+            <p class="mt-2 text-[var(--secondary)] opacity-80">Start adding items you love to make your wishlist shine!</p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlistContainer = document.getElementById('wishlist-items');
+            const emptyMessage = document.getElementById('empty-wishlist');
+            let wishlist = JSON.parse(localStorage.getItem('wishlistDetails')) || [];
+
+            function displayWishlist() {
+                wishlistContainer.innerHTML = '';
+
+                if (wishlist.length === 0) {
+                    emptyMessage.classList.remove('hidden');
+                    return;
+                }
+
+                emptyMessage.classList.add('hidden');
+
+                wishlist.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'card bg-white rounded-xl overflow-hidden shadow-md';
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">${item.name}</h3>
+                            <div class="text-[var(--primary)] font-bold text-lg mb-4">₹${item.price}</div>
+                            <button class="w-full btn-primary text-white py-3 px-4 rounded-lg font-medium remove-btn" data-index="${index}">
+                                Remove from Wishlist
+                            </button>
+                        </div>
+                    `;
+                    wishlistContainer.appendChild(itemElement);
+                });
+
+                document.querySelectorAll('.remove-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        wishlist.splice(index, 1);
+                        localStorage.setItem('wishlistDetails', JSON.stringify(wishlist));
+                        displayWishlist();
+                        updateWishlistCount?.();
+                    });
+                });
+            }
+
+            displayWishlist();
+        });
+    </script>
+</body>
+</html>

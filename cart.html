@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Shopping Cart</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4E1F00;
+      --secondary: #F5F5DC;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .empty-cart {
+      background-image: url('https://cdn.dribbble.com/users/5107895/screenshots/14532312/media/a7e6c2e9333d0989e3a54c95dd8321d7.jpg');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 350px;
+    }
+
+    .cart-item {
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .cart-item:hover {
+      background-color: #fafafa;
+      transform: scale(1.01);
+    }
+
+    .quantity-btn {
+      transition: all 0.2s ease;
+    }
+
+    .quantity-btn:hover {
+      background-color: #e5e7eb;
+    }
+
+    .remove-btn:hover {
+      color: #dc2626;
+      transform: translateX(3px);
+    }
+
+    #checkout-btn {
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(78, 31, 0, 0.3);
+    }
+
+    #checkout-btn:hover {
+      background-color: #3a1800;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px -1px rgba(78, 31, 0, 0.4);
+    }
+
+    #item-count {
+      background-color: var(--primary);
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body class="bg-[var(--secondary)] min-h-screen flex justify-center items-start py-10">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
+      <h1 class="text-3xl font-extrabold mb-8 flex items-center">
+        <i class="fas fa-shopping-cart mr-3 text-[var(--primary)]"></i>
+        Your Shopping Cart
+        <span id="item-count" class="ml-3 text-xs font-semibold text-white px-2 py-0.5 rounded-full"></span>
+      </h1>
+
+      <div id="cart-container">
+        <div id="cart-items" class="divide-y divide-gray-100"></div>
+
+        <div id="order-summary" class="bg-gray-50 rounded-xl shadow-inner p-6 mt-6 hidden">
+          <h2 class="text-xl font-semibold mb-4 border-b pb-2">Order Summary</h2>
+          <div class="flex justify-between mb-3">
+            <span class="text-gray-600">Subtotal</span>
+            <span id="subtotal" class="font-medium">₹0</span>
+          </div>
+          <div class="flex justify-between mb-3">
+            <span class="text-gray-600">Delivery</span>
+            <span id="delivery" class="font-medium">₹99</span>
+          </div>
+          <div class="flex justify-between mb-4 border-b pb-4">
+            <span class="text-gray-600">Taxes</span>
+            <span id="taxes" class="text-sm text-gray-500">Calculated at checkout</span>
+          </div>
+          <div class="flex justify-between items-center mt-4">
+            <h3 class="text-lg font-semibold">Total</h3>
+            <p id="cart-total" class="text-2xl font-bold text-[var(--primary)]">₹0</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="empty-cart-message" class="empty-cart text-center py-8 hidden">
+        <p class="text-gray-700 text-lg mb-4">Your cart is feeling light!</p>
+        <a href="index.html" class="mt-6 inline-block bg-[var(--primary)] hover:bg-[#3a1800] text-white px-6 py-3 rounded-lg font-medium transition-transform transform hover:-translate-x-1">
+          <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+        </a>
+      </div>
+
+      <div id="cart-actions" class="flex flex-col sm:flex-row justify-between gap-4 mt-8 hidden">
+        <a href="index.html" class="px-6 py-3 border border-gray-300 rounded-xl text-[var(--primary)] hover:bg-gray-50 transition flex items-center justify-center">
+          <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+        </a>
+        <button id="checkout-btn" class="px-6 py-3 text-white rounded-xl font-medium transition flex items-center justify-center">
+          Proceed to Checkout <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItemsContainer = document.getElementById('cart-items');
+      const emptyCartMessage = document.getElementById('empty-cart-message');
+      const cartContainer = document.getElementById('cart-container');
+      const cartActions = document.getElementById('cart-actions');
+      const orderSummary = document.getElementById('order-summary');
+      const itemCount = document.getElementById('item-count');
+
+      const deliveryCharge = 99;
+
+      function renderCart() {
+        cartItemsContainer.innerHTML = '';
+        let subtotal = 0;
+        let totalItems = 0;
+
+        if (cart.length === 0) {
+          emptyCartMessage.classList.remove('hidden');
+          cartContainer.classList.add('hidden');
+          cartActions.classList.add('hidden');
+          itemCount.textContent = '0';
+          return;
+        }
+
+        emptyCartMessage.classList.add('hidden');
+        cartContainer.classList.remove('hidden');
+        cartActions.classList.remove('hidden');
+        orderSummary.classList.remove('hidden');
+
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          totalItems += item.quantity;
+
+          const itemElement = document.createElement('div');
+          itemElement.className = 'cart-item flex flex-col sm:flex-row justify-between items-start sm:items-center py-6 px-4';
+          itemElement.innerHTML = `
+            <div class="flex items-start w-full sm:w-2/3 mb-4 sm:mb-0">
+              <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl mr-4 shadow-sm border border-gray-100">
+              <div>
+                <h3 class="font-medium text-lg text-[var(--primary)]">${item.name}</h3>
+                <p class="text-gray-500 text-sm mt-1">${item.description || 'Delicious bakery item'}</p>
+                <button onclick="removeItem(${index})" class="remove-btn mt-3 text-red-500 hover:text-red-700 text-sm flex items-center">
+                  <i class="fas fa-trash-alt mr-1.5"></i> Remove
+                </button>
+              </div>
+            </div>
+            <div class="flex flex-col sm:flex-row items-end sm:items-center justify-between w-full sm:w-1/3">
+              <div class="flex items-center mb-3 sm:mb-0">
+                <button onclick="updateQuantity(${index}, -1)" class="quantity-btn px-3 py-1 border border-gray-300 rounded-l hover:bg-gray-100 text-gray-600">
+                  <i class="fas fa-minus text-sm"></i>
+                </button>
+                <span class="px-4 py-1 border-t border-b border-gray-300 bg-gray-50 text-gray-700">${item.quantity}</span>
+                <button onclick="updateQuantity(${index}, 1)" class="quantity-btn px-3 py-1 border border-gray-300 rounded-r hover:bg-gray-100 text-gray-600">
+                  <i class="fas fa-plus text-sm"></i>
+                </button>
+              </div>
+              <div class="text-right">
+                <p class="text-lg font-semibold text-[var(--primary)]">₹${itemTotal.toLocaleString('en-IN')}</p>
+                <p class="text-xs text-gray-400 mt-1">₹${item.price.toLocaleString('en-IN')} each</p>
+              </div>
+            </div>
+          `;
+          cartItemsContainer.appendChild(itemElement);
+        });
+
+        document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+        document.getElementById('delivery').textContent = `₹${deliveryCharge.toLocaleString('en-IN')}`;
+        document.getElementById('cart-total').textContent = `₹${(subtotal + deliveryCharge).toLocaleString('en-IN')}`;
+        itemCount.textContent = totalItems;
+      }
+
+      window.updateQuantity = function(index, change) {
+        const newQuantity = cart[index].quantity + change;
+        if (newQuantity > 0) {
+          cart[index].quantity = newQuantity;
+        } else {
+          cart.splice(index, 1);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      };
+
+      window.removeItem = function(index) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      };
+
+      document.getElementById('checkout-btn').addEventListener('click', function() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length > 0) {
+          window.location.href = 'checkout.html';
+        } else {
+          alert('Your cart is empty!');
+        }
+      });
+
+      renderCart();
+    });
+  </script>
+</body>
+</html>
