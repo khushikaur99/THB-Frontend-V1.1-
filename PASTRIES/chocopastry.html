@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Bakery Delights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                          primary: '#954C2E',
+            secondary: '#4E1F00',
+            'maroon-800': '#4E1F00'
+                    },
+                    boxShadow: {
+                        'nav': '0 2px 5px rgba(0, 0, 0, 0.05)',
+                        'main-nav': '0 2px 15px rgba(0, 0, 0, 0.05)',
+                        'dropdown': '0 15px 30px rgba(0,0,0,0.12)',
+                        'card': '0 4px 10px rgba(0,0,0,0.1)',
+                        'btn': '0 4px 15px rgba(233, 30, 99, 0.3)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .clip-ellipse {
+                clip-path: ellipse(75% 60% at 50% 35%);
+            }
+            .transform-perspective {
+                transform: perspective(1000px) rotateX(5deg);
+            }
+            .text-shadow {
+                text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            }
+            .text-shadow-lg {
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            }
+        }
+        .image-carousel {
+            scroll-behavior: smooth;
+        }
+        .dot-indicator {
+            transition: all 0.3s ease;
+        }
+        .dot-indicator.active {
+            background-color: #3B82F6;
+        }
+        .wishlist-btn {
+            transition: all 0.3s ease;
+        }
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+        }
+        .wishlist-btn.active {
+            color: #EF4444;
+        }
+        .star-rating {
+            display: flex;
+            align-items: center;
+        }
+       .dot-indicator.active {
+            background-color: #3B82F6; /* blue-500 */
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+        .wishlist-btn.active svg {
+            fill: currentColor;
+            color: #EF4444; /* red-500 */
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+ 
+</head>
+<body class="bg-white">
+ <div id="header-container"></div>
+
+ 
+
+
+<!-- Image-Only Slideshow with Rounded Corners -->
+<section class="relative w-full overflow-hidden group py-4">
+  <!-- Slides Container -->
+  <div id="imageSlideshow" class="flex transition-transform duration-700 ease-in-out ">
+    <!-- Slide 1 -->
+    <div class="w-full flex-shrink-0 " >
+      <img 
+        src="../IMG/anniversary-cake-homepage-fa-desktop.avif" 
+        alt="Anniversary Cake"
+        class="w-full h-[400px] sm:h-[450px] md:h-[370px] object-cover rounded-[16px]"
+      >
+    </div>
+    
+    <!-- Slide 2 -->
+    <div class="w-full flex-shrink-0">
+      <img 
+        src="../IMG/birthday-landingpage-fa-desktop.avif" 
+        alt="Birthday Cake"
+               class="w-full h-[400px] sm:h-[450px] md:h-[370px] object-cover rounded-[16px]"
+
+      >
+    </div>
+    
+    <!-- Slide 3 -->
+    <div class="w-full flex-shrink-0">
+      <img 
+        src="../IMG/cake-birthday-homepage-fa-desktop_1.avif" 
+        alt="Chocolate Cake"
+               class="w-full h-[400px] sm:h-[450px] md:h-[370px] object-cover rounded-[16px]"
+
+      >
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="w-full flex-shrink-0">
+      <img 
+        src="../IMG/chocolate-cake-landingpage-fa-desktop.avif" 
+        alt="Mango Cake"
+               class="w-full h-[400px] sm:h-[450px] md:h-[370px] object-cover rounded-[16px]"
+
+      >
+    </div>
+  </div>
+  
+  <!-- Navigation Dots (hidden until hover) -->
+  <div class="absolute bottom-6 left-0 right-0 flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+    <button class="image-slide-dot w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="0"></button>
+    <button class="image-slide-dot w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="1"></button>
+    <button class="image-slide-dot w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="2"></button>
+    <button class="image-slide-dot w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="3"></button>
+  </div>
+</section>
+
+  <!-- Bestsellers Section -->
+  <div class="container mx-auto px-4 py-12">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900">Bestsellers</h2>
+      <div class="relative">
+        <select id="sortSelect" class="appearance-none bg-white border border-gray-300 rounded-lg px-6 py-2 pr-10 text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <option value="">Sort by</option>
+          <option value="low-high">Price: Low to High</option>
+          <option value="high-low">Price: High to Low</option>
+          <option value="popular">Most Popular</option>
+          <option value="newest">Newest</option>
+        </select>
+        <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Product 1 - ID 4 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group" data-id="4">
+        <div class="relative">
+          <span class="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">Best Seller</span>
+          <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md transition-colors z-10">
+            <i class="far fa-heart text-red-500"></i>
+          </button>
+          <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop" 
+               alt="Death by Chocolate Pastry" 
+               class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Death by Chocolate Pastry</h3>
+          <p class="text-2xl font-bold text-gray-900 mb-3">₹ 395</p>
+          <div class="flex items-center mb-3">
+            <span class="bg-green-600 text-white px-2 py-1 rounded text-sm font-semibold flex items-center">
+              <i class="fas fa-star text-xs mr-1"></i> 4.9
+            </span>
+            <span class="text-gray-500 text-sm ml-2">(245 Reviews)</span>
+          </div>
+          <p class="text-gray-600 text-sm flex items-center">
+            <i class="far fa-clock mr-1"></i> Earliest Delivery: In 3 hours
+          </p>
+        </div>
+      </div>
+
+      <!-- Product 2 - ID 5 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group" data-id="5">
+        <div class="relative">
+          <span class="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">Best Seller</span>
+          <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md transition-colors z-10">
+            <i class="far fa-heart text-red-500"></i>
+          </button>
+          <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&h=300&fit=crop" 
+               alt="Chocolate Truffle Pastry" 
+               class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Chocolate Truffle Pastry</h3>
+          <p class="text-2xl font-bold text-gray-900 mb-3">₹ 345</p>
+          <div class="flex items-center mb-3">
+            <span class="bg-green-600 text-white px-2 py-1 rounded text-sm font-semibold flex items-center">
+              <i class="fas fa-star text-xs mr-1"></i> 4.8
+            </span>
+            <span class="text-gray-500 text-sm ml-2">(198 Reviews)</span>
+          </div>
+          <p class="text-gray-600 text-sm flex items-center">
+            <i class="far fa-clock mr-1"></i> Earliest Delivery: In 3 hours
+          </p>
+        </div>
+      </div>
+
+      <!-- Product 3 - ID 6 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group" data-id="6">
+        <div class="relative">
+          <span class="absolute top-3 left-3 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">30-Min Delivery</span>
+          <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md transition-colors z-10">
+            <i class="far fa-heart text-red-500"></i>
+          </button>
+          <img src="https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=400&h=300&fit=crop" 
+               alt="Chocolate Fudge Pastry" 
+               class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Chocolate Fudge Pastry</h3>
+          <p class="text-2xl font-bold text-gray-900 mb-3">₹ 425</p>
+          <div class="flex items-center mb-3">
+            <span class="bg-green-600 text-white px-2 py-1 rounded text-sm font-semibold flex items-center">
+              <i class="fas fa-star text-xs mr-1"></i> 4.7
+            </span>
+            <span class="text-gray-500 text-sm ml-2">(176 Reviews)</span>
+          </div>
+          <p class="text-gray-600 text-sm flex items-center">
+            <i class="far fa-clock mr-1"></i> Earliest Delivery: In 3 hours
+          </p>
+        </div>
+      </div>
+
+      <!-- Product 4 - ID 7 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group" data-id="7">
+        <div class="relative">
+          <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md transition-colors z-10">
+            <i class="far fa-heart text-red-500"></i>
+          </button>
+          <img src="https://images.unsplash.com/photo-1586985289906-406988974504?w=400&h=300&fit=crop" 
+               alt="Dark Chocolate Mousse Pastry" 
+               class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Dark Chocolate Mousse</h3>
+          <p class="text-2xl font-bold text-gray-900 mb-3">₹ 475</p>
+          <div class="flex items-center mb-3">
+            <span class="bg-green-600 text-white px-2 py-1 rounded text-sm font-semibold flex items-center">
+              <i class="fas fa-star text-xs mr-1"></i> 4.9
+            </span>
+            <span class="text-gray-500 text-sm ml-2">(215 Reviews)</span>
+          </div>
+          <p class="text-gray-600 text-sm flex items-center">
+            <i class="far fa-clock mr-1"></i> Earliest Delivery: In 3 hours
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="./pastry.js"></script>
+</body>
+</html>

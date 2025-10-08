@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Sweet Delights Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(to right, #A53860, #c2185b);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        /* Background Animation */
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f9a8d4, #fed7e2, #f9a8d4, #fed7e2);
+            background-size: 400%;
+            opacity: 0.3;
+            z-index: -1;
+            animation: gradientShift 15s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-rose-100 font-serif">
+    <!-- Header Section -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto text-center px-4">
+            <h1 class="text-5xl font-extrabold animate-fade-in-down">About Sweet Delights Bakery</h1>
+            <p class="mt-3 text-xl animate-fade-in-up">Crafting Sweet Moments Since 2010</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-16 px-4">
+        <!-- Our Story Section -->
+        <section class="mb-20">
+            <h2 class="text-4xl font-bold text-[#A53860] text-center mb-8 animate-pulse">Our Story</h2>
+            <div class="flex flex-col md:flex-row items-center gap-10 bg-white rounded-lg p-8 card-shadow hover-lift">
+                <div class="md:w-1/2">
+                    <p class="text-gray-800 text-lg leading-relaxed animate-fade-in">
+                        Sweet Delights Bakery was born from a love for creating joy through handcrafted treats. Since 2010, our passionate bakers have been blending the finest ingredients with creativity and care. From fluffy cupcakes to crusty artisan breads, every bite is a celebration of flavor and happiness.
+                    </p>
+                </div>
+                <yer
+                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bakery Pastries" 
+                         class="rounded-lg w-full object-cover h-80 transform hover:scale-105 transition-transform duration-300">
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Team Section -->
+        <section class="mb-20">
+            <h2 class="text-4xl font-bold text-[#A53860] text-center mb-8 animate-pulse">Meet Our Team</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="text-center bg-white rounded-lg p-6 card-shadow hover-lift">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Anna" 
+                         class="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-[#c2185b]">
+                    <h3 class="text-2xl font-bold text-[#A53860]">Anna Smith</h3>
+                    <p class="text-gray-600 font-medium">Head Baker</p>
+                    <p class="text-gray-500 text-sm mt-2">With 15 years of expertise, Anna’s pastries are a blend of tradition and innovation.</p>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="text-center bg-white rounded-lg p-6 card-shadow hover-lift">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="John" 
+                         class="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-[#c2185b]">
+                    <h3 class="text-2xl font-bold text-[#A53860]">John Doe</h3>
+                    <p class="text-gray-600 font-medium">Pastry Chef</p>
+                    <p class="text-gray-500 text-sm mt-2">John’s desserts turn simple ingredients into unforgettable delights.</p>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="text-center bg-white rounded-lg p-6 card-shadow hover-lift">
+                    <img src="https://images.unsplash.com/photo-1595475207225-428b62c44b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Emma" 
+                         class="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-[#c2185b]">
+                    <h3 class="text-2xl font-bold text-[#A53860]">Emma Lee</h3>
+                    <p class="text-gray-600 font-medium">Store Manager</p>
+                    <p class="text-gray-500 text-sm mt-2">Emma’s warm smile ensures every visit is a sweet experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Mission Section -->
+        <section class="text-center bg-white rounded-lg p-8 card-shadow hover-lift">
+            <h2 class="text-4xl font-bold text-[#A53860] mb-6 animate-pulse">Our Mission</h2>
+            <p class="text-gray-800 text-lg max-w-3xl mx-auto leading-relaxed animate-fade-in">
+                At Sweet Delights, we bake more than just treats—we create memories. Our mission is to craft high-quality, 
+                delicious goods that bring people together and make every moment special.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto text-center px-4">
+            <p class="text-lg">© 2025 Sweet Delights Bakery. All rights reserved.</p>
+            <p class="mt-3">Follow us on social media for the latest updates!</p>
+        </div>
+    </footer>
+
+    <style>
+        /* Custom Animations */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-in-out;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-in-out;
+        }
+    </style>
+</body>
+</html>
