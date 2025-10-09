@@ -12,10 +12,10 @@ const productDatabase = {
         reviewCount: 165,
         orderCount: '500+',
         images: [
-            '/cakes/IMG/chocolate 2.jpg',
-            '/cakes/IMG/chocolate 2.jpg',
-            '/cakes/IMG/chocolate 2.jpg',
-            '/cakes/IMG/chocolate 2.jpg'
+            '/CAKES/IMG/chocolate 2.jpg',
+            '/CAKES/IMG/chocolate 2.jpg',
+            '/CAKES/IMG/chocolate 2.jpg',
+            '/CAKES/IMG/chocolate 2.jpg'
         ],
         thumbnails: [
             'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&h=150&fit=crop',
@@ -164,10 +164,10 @@ const productDatabase = {
         reviewCount: 165,
         orderCount: '500+',
         images: [
-            '/cakes/IMG/red velvet.jpg',
-            '/cakes/IMG/red velvet.jpg',
-            '/cakes/IMG/red velvet.jpg',
-            '/cakes/IMG/red velvet.jpg'
+            '/CAKES/IMG/red velvet.jpg',
+            '/CAKES/IMG/red velvet.jpg',
+            '/CAKES/IMG/red velvet.jpg',
+            '/CAKES/IMG/red velvet.jpg'
         ],
         thumbnails: [
             'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&h=150&fit=crop',
