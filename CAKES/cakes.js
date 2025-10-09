@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.9,
         reviewCount: 165,
-        image: '/cakes/IMG/chocolate 2.jpg',
+        image: '/CAKES/IMG/chocolate 2.jpg',
         badge: {
             text: 'Best Seller',
             color: 'bg-teal-700'
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.8,
         reviewCount: 145,
-        image: '/cakes/IMG/pineapple cake.jpg',
+        image: '/CAKES/IMG/pineapple cake.jpg',
         badge: {
             text: 'Best Seller',
             color: 'bg-teal-700'
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.9,
         reviewCount: 319,
-        image: '/cakes/IMG/red velvet.jpg',
+        image: '/CAKES/IMG/red velvet.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: '30-Min Delivery'
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.9,
         reviewCount: 271,
-        image: '/cakes/IMG/Rasmalai Pista Cream Cake.jpg',
+        image: '/CAKES/IMG/Rasmalai Pista Cream Cake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: 650,
         rating: 4.7,
         reviewCount: 98,
-        image: '/cakes/IMG/Classic Vanilla Cake.jpg',
+        image: '/CAKES/IMG/Classic Vanilla Cake.jpg',
         badge: {
             text: 'New',
             color: 'bg-purple-600'
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: 800,
         rating: 4.8,
         reviewCount: 210,
-        image: '/cakes/IMG/Mango Meringue Dream Cake.jpg',
+        image: '/CAKES/IMG/Mango Meringue Dream Cake.jpg',
         badge: {
             text: 'Seasonal',
             color: 'bg-yellow-500'
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.9,
         reviewCount: 185,
-        image: '/cakes/IMG/Salted Caramel Chocolate Cake.jpg',
+        image: '/CAKES/IMG/Salted Caramel Chocolate Cake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.7,
         reviewCount: 132,
-        image: '/cakes/IMG/Berry Cheesecake Delight.jpg',
+        image: '/CAKES/IMG/Berry Cheesecake Delight.jpg',
         deliveryTime: 'In 5 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: 700,
         rating: 4.6,
         reviewCount: 98,
-        image: '/cakes/IMG/Coffee Walnut Crunch Cake.jpg',
+        image: '/CAKES/IMG/Coffee Walnut Crunch Cake.jpg',
         badge: {
             text: 'Limited',
             color: 'bg-red-600'
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.8,
         reviewCount: 167,
-        image: '/cakes/IMG/Lemon Blueberry Burst Cake.jpg',
+        image: '/CAKES/IMG/Lemon Blueberry Burst Cake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.9,
         reviewCount: 245,
-        image: '/cakes/IMG/Black Forest Gateau.jpg',
+        image: '/CAKES/IMG/Black Forest Gateau.jpg',
         badge: {
             text: 'Premium',
             color: 'bg-gray-800'
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: 675,
         rating: 4.7,
         reviewCount: 112,
-        image: '/cakes/IMG/Carrot Walnut Cake.jpg',
+        image: '/CAKES/IMG/Carrot Walnut Cake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.8,
         reviewCount: 178,
-        image: '/cakes/IMG/Cookies & Cream Cake.jpg',
+        image: '/CAKES/IMG/Cookies & Cream Cake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: '30-Min Delivery'
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.7,
         reviewCount: 156,
-        image: '/cakes/IMG/Strawberry Shortcake.jpg',
+        image: '/CAKES/IMG/Strawberry Shortcake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: 900,
         rating: 4.9,
         reviewCount: 231,
-        image: '/cakes/IMG/Tiramisu Layer Cake.jpg',
+        image: '/CAKES/IMG/Tiramisu Layer Cake.jpg',
         badge: {
             text: 'Gourmet',
             color: 'bg-amber-600'
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.8,
         reviewCount: 187,
-        image: '/cakes/IMG/Hazelnut Praline Cake.jpg',
+        image: '/CAKES/IMG/Hazelnut Praline Cake.jpg',
         deliveryTime: 'In 4 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.7,
         reviewCount: 143,
-        image: '/cakes/IMG/Matcha Green Tea Cake.jpg',
+        image: '/CAKES/IMG/Matcha Green Tea Cake.jpg',
         badge: {
             text: 'Trending',
             color: 'bg-green-600'
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: 750,
         rating: 4.9,
         reviewCount: 201,
-        image: '/cakes/IMG/Peanut Butter Chocolate Cake.jpg',
+        image: '/CAKES/IMG/Peanut Butter Chocolate Cake.jpg',
         deliveryTime: 'In 3 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.6,
         reviewCount: 97,
-        image: '/cakes/IMG/Coconut Lime Cake.jpg',
+        image: '/CAKES/IMG/Coconut Lime Cake.jpg',
         deliveryTime: 'In 4 hours',
         hasDeliveryInfo: true,
         deliveryType: null
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalPrice: null,
         rating: 4.9,
         reviewCount: 176,
-        image: '/cakes/IMG/Pistachio Rose Cake.jpg',
+        image: '/CAKES/IMG/Pistachio Rose Cake.jpg',
         badge: {
             text: 'Exotic',
             color: 'bg-pink-500'
