@@ -1,6 +1,7 @@
 // product-detail.js
 
 const API_BASE_URL = 'http://localhost:8082/api/v1';
+const API_BASE_URL_IMG = 'http://localhost:8082';
 
 // Generic product loading system
 class ProductDetailManager {
@@ -62,8 +63,8 @@ class ProductDetailManager {
 
     // Map API response to frontend product structure
     mapApiToProduct(apiProduct) {
-        const baseImageUrl = `${API_BASE_URL}${apiProduct.productImageUrl}`;
-        const subImages = (apiProduct.productSubImageUrls || []).map(url => `${API_BASE_URL}${url}`);
+        const baseImageUrl = `${API_BASE_URL_IMG}${apiProduct.productImageUrl}`;
+        const subImages = (apiProduct.productSubImageUrls || []).map(url => `${API_BASE_URL_IMG}${url}`);
         const images = [baseImageUrl, ...subImages];
 
         // Sizes from weights and weightPrices
