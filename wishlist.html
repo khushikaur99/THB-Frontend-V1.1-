@@ -60,9 +60,46 @@
         document.addEventListener('DOMContentLoaded', function() {
             const wishlistContainer = document.getElementById('wishlist-items');
             const emptyMessage = document.getElementById('empty-wishlist');
-            let wishlist = JSON.parse(localStorage.getItem('wishlistDetails')) || [];
+            const userId = 3; // Assuming hardcoded userId; adjust as needed based on auth
 
-            function displayWishlist() {
+            async function fetchWishlist() {
+                try {
+                    const response = await fetch(`http://localhost:8082/api/wishlist/get-wishlist-items?userId=${userId}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch wishlist');
+                    }
+                    const data = await response.json();
+                    return data || [];
+                } catch (error) {
+                    console.error('Error fetching wishlist:', error);
+                    return [];
+                }
+            }
+
+            async function removeFromWishlist(productId) {
+                try {
+                    const response = await fetch('http://localhost:8082/api/wishlist/remove-wishlist-items', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            productId: productId
+                        })
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to remove item');
+                    }
+                    // Optionally handle response if needed
+                    console.log('Item removed successfully');
+                } catch (error) {
+                    console.error('Error removing item:', error);
+                }
+            }
+
+            async function displayWishlist() {
+                const wishlist = await fetchWishlist();
                 wishlistContainer.innerHTML = '';
 
                 if (wishlist.length === 0) {
@@ -72,7 +109,7 @@
 
                 emptyMessage.classList.add('hidden');
 
-                wishlist.forEach((item, index) => {
+                wishlist.forEach((item) => {
                     const itemElement = document.createElement('div');
                     itemElement.className = 'card bg-white rounded-xl overflow-hidden shadow-md';
                     itemElement.innerHTML = `
@@ -80,7 +117,7 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-800 mb-3">${item.name}</h3>
                             <div class="text-[var(--primary)] font-bold text-lg mb-4">₹${item.price}</div>
-                            <button class="w-full btn-primary text-white py-3 px-4 rounded-lg font-medium remove-btn" data-index="${index}">
+                            <button class="w-full btn-primary text-white py-3 px-4 rounded-lg font-medium remove-btn" data-product-id="${item.id}">
                                 Remove from Wishlist
                             </button>
                         </div>
@@ -89,11 +126,10 @@
                 });
 
                 document.querySelectorAll('.remove-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const index = this.getAttribute('data-index');
-                        wishlist.splice(index, 1);
-                        localStorage.setItem('wishlistDetails', JSON.stringify(wishlist));
-                        displayWishlist();
+                    button.addEventListener('click', async function() {
+                        const productId = this.getAttribute('data-product-id');
+                        await removeFromWishlist(productId);
+                        await displayWishlist();
                         updateWishlistCount?.();
                     });
                 });

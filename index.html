@@ -169,33 +169,41 @@
                 <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             </div>
 
-            <!-- Right Side Icons -->
-            <div class="flex items-center space-x-2 sm:space-x-3 md:space-x-5">
-                <!-- Wishlist -->
-                <a href="wishlist.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
-                    <i class="fas fa-heart text-base sm:text-lg"></i>
-                    <span class="hidden sm:block text-xs mt-1">Wishlist</span>
-                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-                </a>
+          <!-- Right Side Icons -->
+<div class="flex items-center space-x-2 sm:space-x-3 md:space-x-5">
+    <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
+        <!-- Search -->
+        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
+            <i class="fas fa-search text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Search</span>
+        </a>
 
-                <!-- Cart -->
-                <a href="cart.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
-                    <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
-                    <span class="hidden sm:block text-xs mt-1">Cart</span>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-                </a>
+        <!-- Wishlist -->
+        <a href="wishlist.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
+            <i class="fas fa-heart text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Wishlist</span>
+            <span id="wishlist-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+        </a>
+    </div>
 
-                <!-- Login - Hidden on very small screens -->
-                <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
-                    <i class="fas fa-user text-base sm:text-lg"></i>
-                    <span class="text-xs mt-1">Login</span>
-                </a>
+    <!-- Cart -->
+    <a href="cart.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
+        <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
+        <span class="hidden sm:block text-xs mt-1">Cart</span>
+        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+    </a>
 
-                <!-- Mobile Menu Button -->
-                <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
-                    <i class="fas fa-bars text-lg sm:text-xl"></i>
-                </button>
-            </div>
+    <!-- Login - Hidden on very small screens -->
+    <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
+        <i class="fas fa-user text-base sm:text-lg"></i>
+        <span class="text-xs mt-1">Login</span>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
+        <i class="fas fa-bars text-lg sm:text-xl"></i>
+    </button>
+</div>
         </div>
     </div>
 
@@ -276,11 +284,11 @@
                             </h4>
                             <ul class="space-y-1 text-xs">
                                 <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Strawberry</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Blueberry</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Lemon</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Matcha</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Strawberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Blueberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Lemon</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Matcha</a></li>
                             </ul>
                         </div>
                     </div>
@@ -293,6 +301,10 @@
             <a href="/about.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             
             <div class="flex items-center justify-around pt-4 border-t border-gray-100 mt-4">
+                <a href="#" id="mobileSearchToggle" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
+                    <i class="fas fa-search text-lg"></i>
+                    <span class="text-xs mt-1">Search</span>
+                </a>
                 <a href="wishlist.html" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
                     <i class="fas fa-heart text-lg"></i>
                     <span class="text-xs mt-1">Wishlist</span>
@@ -350,6 +362,27 @@
         <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg text-sm sm:text-base font-medium hover:from-secondary hover:to-primary transition-all duration-300 disabled:opacity-50" disabled>
             Confirm Location
         </button>
+    </div>
+</div>
+
+<!-- Search Overlay -->
+<div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Search Products</h3>
+            <button id="closeSearch" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search for cakes, pastries..." class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+        </div>
+        
+        <div id="searchSuggestions" class="max-h-64 overflow-y-auto"></div>
     </div>
 </div>
 
@@ -937,4 +970,4 @@
 <script src="index.js"></script>
 
 </body>
-</html> 
+</html>
