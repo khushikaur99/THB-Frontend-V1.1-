@@ -102,7 +102,7 @@ class ProductDetailManager {
                 'Layers': apiProduct.layers || '2'
             },
             'Storage & Care': {
-                'Storage': apiProduct.storageInstructions || 'Refrigerate',
+                'Storage': apiProduct.storageInstructions || apiProduct.careInstructions || 'Refrigerate',
                 'Shelf Life': apiProduct.shelfLife || '3 days',
                 'Best Served': apiProduct.bestServed || 'Chilled',
                 'Preparation': apiProduct.preparationTime || '2 hours'
@@ -113,6 +113,7 @@ class ProductDetailManager {
         const description = `
             <p class="mb-4">${apiProduct.description || 'No description available.'}</p>
             <p class="mb-4">SKU: ${apiProduct.skuNumber || 'N/A'}</p>
+            ${apiProduct.nameOnCake ? `<p class="mb-4"><strong>Name on Cake:</strong> ${apiProduct.nameOnCake}</p>` : ''}
             ${apiProduct.note ? `<p class="mb-4"><strong>Note:</strong> ${apiProduct.note}</p>` : ''}
             <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Occasions</h4>
             <p class="mb-4">Perfect for birthdays, anniversaries, or any celebration.</p>
@@ -128,6 +129,7 @@ class ProductDetailManager {
             id: apiProduct.productId.toString(),
             name: apiProduct.productName,
             category: apiProduct.productCategory,
+            foodType: apiProduct.productFoodType,
             price: apiProduct.productNewPrice, // Default price
             originalPrice: apiProduct.productOldPrice,
             rating: apiProduct.ratings || 4.5,
@@ -168,7 +170,7 @@ class ProductDetailManager {
                     category: p.productCategory,
                     price: p.productNewPrice,
                     rating: p.ratings || 4.5,
-                    images: [`${API_BASE_URL}${p.productImageUrl}`]
+                    images: [`${API_BASE_URL_IMG}${p.productImageUrl}`]
                 }))
                 .slice(0, 4); // Limit to 4
         } catch (error) {
