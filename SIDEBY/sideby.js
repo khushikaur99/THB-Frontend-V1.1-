@@ -1,4 +1,4 @@
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
             let currentCategory = 'all';
             const categories = {
                 'cheesecake-jars': {
@@ -272,7 +272,17 @@
             // Mobile menu toggle
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
-            menuToggle.addEventListener('click', () => navLinks.classList.toggle('hidden'));
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('hidden');
+                    const icon = this.querySelector('i');
+                    if (navLinks.classList.contains('hidden')) {
+                        icon.className = 'fas fa-bars text-lg sm:text-xl';
+                    } else {
+                        icon.className = 'fas fa-times text-lg sm:text-xl';
+                    }
+                });
+            }
 
             // Mobile dropdowns
             const mobileCakesToggle = document.getElementById('mobileCakesToggle');

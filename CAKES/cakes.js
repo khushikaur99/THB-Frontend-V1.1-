@@ -337,6 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     
 ];
+
     // Wishlist management
     let wishlistDetails = JSON.parse(localStorage.getItem('wishlistDetails')) || [];
 
@@ -360,11 +361,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         localStorage.setItem('wishlistDetails', JSON.stringify(wishlistDetails));
-        
-        // Redirect after a short delay to allow the UI to update
-        setTimeout(() => {
-            window.location.href = "../wishlist.html";
-        }, 800);
+        updateWishlistCount();
+    }
+
+    function updateWishlistCount() {
+        const wishlistCount = document.getElementById('wishlist-count');
+        if (wishlistCount) {
+            wishlistCount.textContent = wishlistDetails.length;
+        }
     }
 
     function showNotification(message) {
@@ -395,14 +399,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 ` : ''}
                 
-                <a href="../wishlist.html" class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md wishlist-btn z-10 ${isInWishlist ? 'active' : ''}" 
-                   onclick="toggleWishlist(this, ${product.id}, event)">
+                <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md wishlist-btn z-10 ${isInWishlist ? 'active' : ''}" 
+                       onclick="toggleWishlist(this, ${product.id}, event)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
                         </path>
                     </svg>
-                </a>
+                </button>
 
                 <div onclick="handleProductClick(${product.id})">
                     <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
@@ -434,18 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span class="text-sm text-gray-600 ml-2">(${product.reviewCount} Reviews)</span>
                     </div>
 
-                    <div class="flex items-center text-sm text-gray-600">
-                        <span>Earliest Delivery: ${product.deliveryTime}</span>
-                        ${product.hasDeliveryInfo ? `
-                            <button class="ml-2 text-gray-400 hover:text-gray-600" onclick="event.stopPropagation()">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                    </path>
-                                </svg>
-                            </button>
-                        ` : ''}
-                    </div>
+                    <button onclick="handleProductClick(${product.id})" class="w-full bg-primary text-white py-2 rounded-lg mt-3 hover:bg-secondary transition-colors">View Details</button>
                 </div>
             </div>
         `;
@@ -478,6 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const grid = document.getElementById('product-grid');
         const cardsHTML = sortedProducts.map((product, index) => createProductCard(product, index)).join('');
         grid.innerHTML = cardsHTML;
+        updateWishlistCount();
     }
 
     function initializePage() {
@@ -494,6 +488,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('DOMContentLoaded', function() {
         initializePage();
+
+        // Initialize wishlist count on page load
+        updateWishlistCount();
 
         // Initialize slideshow
         const slideshow = document.getElementById('imageSlideshow');
@@ -707,6 +704,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', function() {
           navLinks.classList.toggle('hidden');
+          const icon = this.querySelector('i');
+          if (navLinks.classList.contains('hidden')) {
+            icon.className = 'fas fa-bars text-lg sm:text-xl';
+          } else {
+            icon.className = 'fas fa-times text-lg sm:text-xl';
+          }
         });
       }
 
@@ -751,9 +754,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Update cart count function (placeholder)
       function updateCartCount() {
         const cartCount = document.getElementById('cart-count');
-        const wishlistCount = document.getElementById('wishlist-count');
         if (cartCount) cartCount.textContent = '0';
-        if (wishlistCount) wishlistCount.textContent = '0';
       }
 
       updateCartCount();

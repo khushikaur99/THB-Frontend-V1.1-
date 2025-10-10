@@ -2216,16 +2216,6 @@
                     });
                 }
 
-                // ==================== MOBILE MENU ====================
-                const menuToggle = document.getElementById('menuToggle');
-                const navLinks = document.getElementById('navLinks');
-                
-                if (menuToggle && navLinks) {
-                    menuToggle.addEventListener('click', () => {
-                        navLinks.classList.toggle('hidden');
-                    });
-                }
-
                 // ==================== SEARCH FUNCTIONALITY ====================
                 const searchInput = document.getElementById('searchInput');
                 const searchButton = document.getElementById('searchButton');
@@ -2407,14 +2397,18 @@
 
         // Delivery Location Modal (merged with existing - using the extended version)
         document.addEventListener('DOMContentLoaded', function() {
-            // ... (existing delivery code already merged above)
-
             // Mobile menu toggle (merged)
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
             if (menuToggle && navLinks) {
                 menuToggle.addEventListener('click', function() {
                     navLinks.classList.toggle('hidden');
+                    const icon = this.querySelector('i');
+                    if (navLinks.classList.contains('hidden')) {
+                        icon.className = 'fas fa-bars text-lg sm:text-xl';
+                    } else {
+                        icon.className = 'fas fa-times text-lg sm:text-xl';
+                    }
                 });
             }
 

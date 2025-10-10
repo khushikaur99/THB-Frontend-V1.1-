@@ -1,4 +1,4 @@
- // Wishlist functionality
+// Wishlist functionality
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     let wishlistDetails = JSON.parse(localStorage.getItem('wishlistDetails')) || [];
 
@@ -157,6 +157,12 @@
         if (menuToggle && navLinks) {
             menuToggle.addEventListener('click', function() {
                 navLinks.classList.toggle('hidden');
+                const icon = this.querySelector('i');
+                if (navLinks.classList.contains('hidden')) {
+                    icon.className = 'fas fa-bars text-lg sm:text-xl';
+                } else {
+                    icon.className = 'fas fa-times text-lg sm:text-xl';
+                }
             });
         }
 

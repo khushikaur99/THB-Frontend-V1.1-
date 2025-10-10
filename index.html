@@ -355,26 +355,30 @@
 
 <!-- Horizontal Scroll Section -->
 <section class="px-2 py-4 sm:py-6 max-w-9xl mx-auto relative mt-2">
+    <!-- Prev Button -->
     <button id="prevBtn" class="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 rounded-full shadow-lg">
         <svg class="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
     </button>
-    
+
+    <!-- Next Button -->
     <button id="nextBtn" class="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 rounded-full shadow-lg">
         <svg class="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
     </button>
 
+    <!-- Scroll Container -->
     <div id="scrollContainer" class="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth">
+
         <!-- Card 1 -->
         <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">
             <img src="https://i.pinimg.com/originals/e3/8b/65/e38b65897bc08b931b873c26a8b49738.gif" alt="Cakes and Pastries" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/40 flex flex-col justify-center text-left text-white px-4 sm:px-6 md:px-8">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold mb-1 sm:mb-2">Cakes and Pastries</h2>
                 <p class="text-xs sm:text-base md:text-lg mb-2 sm:mb-3 md:mb-4 max-w-[85%]">Our signature cakes & delicate pastries</p>
-                <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm md:text-base shadow-md w-fit">ORDER NOW</button>
+                <button onclick="window.location.href='CAKES/allcakes.html'" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm md:text-base shadow-md w-fit">ORDER NOW</button>
             </div>
         </div>
 
@@ -386,7 +390,7 @@
             <div class="absolute inset-0 bg-black/35 flex flex-col justify-center text-left text-white px-4 sm:px-6 md:px-8">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold mb-1 sm:mb-2">Customise Your Own</h2>
                 <p class="text-xs sm:text-base md:text-lg mb-2 sm:mb-3 md:mb-4 max-w-[85%]">Flavours, colours, and themes the way you love them</p>
-                <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm md:text-base shadow-md w-fit">START NOW</button>
+                <button onclick="window.location.href='CUSTOM/custom.html'" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm md:text-base shadow-md w-fit">START NOW</button>
             </div>
         </div>
 
@@ -398,67 +402,47 @@
             <div class="absolute inset-0 bg-black/35 flex flex-col justify-center text-left text-white px-4 sm:px-6 md:px-8">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold mb-1 sm:mb-2">Cheesecakes</h2>
                 <p class="text-xs sm:text-base md:text-lg mb-2 sm:mb-3 md:mb-4 max-w-[85%]">Creamy, rich cheesecakes in various flavors</p>
-                <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm md:text-base shadow-md w-fit">EXPLORE</button>
+                <button onclick="window.location.href='SIDEBY/sideby.html'" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm md:text-base shadow-md w-fit">EXPLORE</button>
             </div>
         </div>
 
-   <!--Croissant-->
-    <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">        <video autoplay muted loop class="w-full h-full object-cover">
-          <source src="https://v1.pinimg.com/videos/mc/720p/4a/e2/0a/4ae20a4041f75ccaf21643adc75c8278.mp4" type="video/mp4">
-        </video>
-        <div class="absolute inset-0 bg-black/40 flex flex-col justify-center text-left text-white px-8">
-          <h2 class="text-2xl md:text-3xl font-extrabold mb-2">
-Croissant Coming Soon
-          </h2>
-          <p class="text-base md:text-lg mb-4 max-w-[80%]">
-            Buttery, flaky croissants are on their way!
-          </p>
-          <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-5 py-2 rounded-full text-sm md:text-base shadow-md w-fit">
-            NOTIFY ME
-          </button>
+        <!-- Croissant -->
+        <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">
+            <video autoplay muted loop class="w-full h-full object-cover">
+                <source src="https://v1.pinimg.com/videos/mc/720p/4a/e2/0a/4ae20a4041f75ccaf21643adc75c8278.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black/40 flex flex-col justify-center text-left text-white px-8">
+                <h2 class="text-2xl md:text-3xl font-extrabold mb-2">Croissant Coming Soon</h2>
+                <p class="text-base md:text-lg mb-4 max-w-[80%]">Buttery, flaky croissants are on their way!</p>
+                <button onclick="window.location.href='SIDEBY/sideby.html'" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-5 py-2 rounded-full text-sm md:text-base shadow-md w-fit">NOTIFY ME</button>
+            </div>
         </div>
-      </div>
 
-      <!-- Card 4 - Muffins -->
-    <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">        <img src="https://i.pinimg.com/originals/8b/b7/38/8bb73899cd626a2ab1ac9c0a2ead2599.gif" 
-             alt="Fresh Muffins" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black/40 flex flex-col justify-center text-left text-white px-8">
-          <h2 class="text-2xl md:text-3xl font-extrabold mb-2">
-            Muffins
-          </h2>
-          <p class="text-base md:text-lg mb-4 max-w-[80%]">
-            Freshly baked muffins with premium ingredients
-          </p>
-          <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-5 py-2 rounded-full text-sm md:text-base shadow-md w-fit">
-            SHOP NOW
-          </button>
+        <!-- Card 4 - Muffins -->
+        <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">
+            <img src="https://i.pinimg.com/originals/8b/b7/38/8bb73899cd626a2ab1ac9c0a2ead2599.gif" alt="Fresh Muffins" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/40 flex flex-col justify-center text-left text-white px-8">
+                <h2 class="text-2xl md:text-3xl font-extrabold mb-2">Muffins</h2>
+                <p class="text-base md:text-lg mb-4 max-w-[80%]">Freshly baked muffins with premium ingredients</p>
+                <button onclick="window.location.href='SIDEBY/sideby.html'" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-5 py-2 rounded-full text-sm md:text-base shadow-md w-fit">SHOP NOW</button>
+            </div>
         </div>
-      </div>
 
-
-
-      
-      <!-- Card 5 - Customise Your Own -->
-    <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">        <video autoplay muted loop class="w-full h-full object-cover">
-          <source src="https://v1.pinimg.com/videos/mc/720p/e6/2e/f7/e62ef72f55017d273496ff05f48aaca9.mp4" type="video/mp4">
-        </video>
-        <div class="absolute inset-0 bg-black/35 flex flex-col justify-center text-left text-white px-8">
-          <h2 class="text-2xl md:text-3xl font-extrabold mb-2">
-             Bombolonis
-          </h2>
-          <p class="text-base md:text-lg mb-4 max-w-[80%]">
-            Italian filled donuts with delicious cream centers
-          </p>
-          <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-5 py-2 rounded-full text-sm md:text-base shadow-md w-fit">
-             TRY NOW
-          </button>
+        <!-- Card 5 - Bombolonis -->
+        <div class="relative overflow-hidden shadow-lg group min-w-[90%] sm:min-w-[85%] md:min-w-[440px] h-[180px] sm:h-[220px] md:h-[270px] snap-start flex-shrink-0 rounded-xl">
+            <video autoplay muted loop class="w-full h-full object-cover">
+                <source src="https://v1.pinimg.com/videos/mc/720p/e6/2e/f7/e62ef72f55017d273496ff05f48aaca9.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black/35 flex flex-col justify-center text-left text-white px-8">
+                <h2 class="text-2xl md:text-3xl font-extrabold mb-2">Bombolonis</h2>
+                <p class="text-base md:text-lg mb-4 max-w-[80%]">Italian filled donuts with delicious cream centers</p>
+                <button onclick="window.location.href='SIDEBY/sideby.html'" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-5 py-2 rounded-full text-sm md:text-base shadow-md w-fit">TRY NOW</button>
+            </div>
         </div>
-      </div>
-
 
     </div>
-  </section>
+</section>
+
 
 <!-- Product Categories Section -->
 <section class="py-6 sm:py-8 md:py-12 bg-white">
@@ -548,7 +532,7 @@ Croissant Coming Soon
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
                         <h3 class="text-base sm:text-lg font-semibold">Chocolate Fudge Cake</h3>
-                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Rich chocolate layers with creamy fudge</p>
+                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Rich chocolate layers with creamy fudge</p><br>
                         <div class="mt-3 sm:mt-4 flex items-center justify-between">
                             <span class="text-lg sm:text-xl font-bold text-primary">₹2,499</span>
                             <a href="product-details.html?id=chocolate-fudge-cake" class="bg-primary text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2">
@@ -611,7 +595,7 @@ Croissant Coming Soon
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
                         <h3 class="text-base sm:text-lg font-semibold">Lemon Meringue</h3>
-                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Tangy lemon cake with fluffy meringue</p>
+                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Tangy lemon cake with fluffy meringue</p><br>
                         <div class="mt-3 sm:mt-4 flex items-center justify-between">
                             <span class="text-lg sm:text-xl font-bold text-primary">₹2,599</span>
                             <a href="product-details.html?id=lemon-meringue" class="bg-primary text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2">
@@ -642,7 +626,7 @@ Croissant Coming Soon
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
                         <h3 class="text-base sm:text-lg font-semibold">Mango Saffron Pastry</h3>
-                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Light sponge with mango cream and saffron glaze</p>
+                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Mango cream and saffron glaze</p>
                         <div class="mt-3 sm:mt-4 flex items-center justify-between">
                             <span class="text-lg sm:text-xl font-bold text-primary">₹499</span>
                             <a href="product-details.html?id=mango-saffron-pastry" class="bg-primary text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2">
@@ -953,4 +937,4 @@ Croissant Coming Soon
 <script src="index.js"></script>
 
 </body>
-</html>
+</html> 

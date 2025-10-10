@@ -1,234 +1,6 @@
 // product-detail.js
 
-// Product data structure - updated to remove non-veg ingredients
-const productDatabase = {
-    '1': {
-        id: '1',
-        name: 'Truffle Bliss Birthday Cake',
-        category: 'Cakes',
-        price: 695,
-        originalPrice: 795,
-        rating: 4.9,
-        reviewCount: 165,
-        orderCount: '500+',
-        images: [
-            '/CAKES/IMG/chocolate 2.jpg',
-            '/CAKES/IMG/chocolate 2.jpg',
-            '/CAKES/IMG/chocolate 2.jpg',
-            '/CAKES/IMG/chocolate 2.jpg'
-        ],
-        thumbnails: [
-            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=200&h=150&fit=crop'
-        ],
-        highlights: [
-            'Rich chocolate truffle cake with dark chocolate ganache',
-            'Velvety chocolate mousse layers',
-            'Topped with premium chocolate shavings',
-            'Serves 8-10 people'
-        ],
-        sizes: [
-            { label: '500g ', value: '500g', price: 495 },
-            { label: '1kg', value: '1kg', price: 695, default: true },
-            { label: '1.5kg', value: '1.5kg', price: 995 }
-        ],
-        description: `
-            <p class="mb-4">Indulge in the ultimate chocolate experience with our Truffle Bliss Birthday Cake. This decadent masterpiece features multiple layers of rich chocolate sponge, each separated by a generous helping of dark chocolate ganache and velvety chocolate mousse.</p>
-            <p class="mb-4">Every bite delivers an explosion of chocolate flavors with the perfect balance of sweetness, making it ideal for true chocolate connoisseurs.</p>
-            <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Occasions</h4>
-            <p class="mb-4">Perfect for birthdays, anniversaries, celebrations, or just when you need a chocolate fix.</p>
-        `,
-        specifications: {
-            'Cake Details': {
-                'Flavor': 'Chocolate Truffle',
-                'Shape': 'Round',
-                'Weight': '1 kg ',
-                'Layers': '3 layers'
-            },
-            'Storage & Care': {
-                'Storage': 'Refrigerate (0-5°C)',
-                'Shelf Life': '2 days',
-                'Best Served': 'Room temperature',
-                'Preparation': '3-4 hours'
-            }
-        },
-        ingredients: {
-            'Cake Base': [
-                'Premium dark chocolate',
-                'All-purpose flour',
-                'Plant-based butter',
-                'Pure vanilla extract',
-                'Baking powder'
-            ],
-            'Truffle & Frosting': [
-                'Dark chocolate ganache',
-                'Coconut cream',
-                'Chocolate mousse (plant-based)',
-                'Cocoa powder',
-                'Chocolate shavings',
-                'Powdered sugar'
-            ]
-        },
-        allergens: 'Contains: Dairy (Milk), Gluten (Wheat). May contain traces of nuts.',
-        deliveryTime: 'Today, In 3 hours',
-        deliveryOffer: 'Free Delivery on orders above ₹500',
-        discountInfo: {
-            freeDelivery: true,
-            offer: 'Get 10% off on orders above ₹1000'
-        }
-    },
-    '2': {
-        id: '2',
-        name: 'Tropical Pineapple Cake',
-        category: 'Cakes',
-        price: 695,
-        originalPrice: 795,
-        rating: 4.9,
-        reviewCount: 165,
-        orderCount: '500+',
-        images: [
-            '/IMG/pineapple cake.jpg',
-            '/IMG/pineapple cake.jpg',
-            '/IMG/pineapple cake.jpg',
-            '/IMG/pineapple cake.jpg'
-        ],
-        thumbnails: [
-            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=200&h=150&fit=crop'
-        ],
-        highlights: [
-            'Tropical pineapple flavor with creamy frosting',
-            'Layered with fresh pineapple chunks',
-            'Topped with toasted coconut flakes',
-            'Serves 8-10 people'
-        ],
-        sizes: [
-            { label: '500g (4-6 People)', value: '500g', price: 495 },
-            { label: '1kg (8-10 People)', value: '1kg', price: 695, default: true },
-            { label: '1.5kg (12-15 People)', value: '1.5kg', price: 995 }
-        ],
-        description: `
-            <p class="mb-4">Enjoy the tropical delight of our Pineapple Cake, featuring layers of moist vanilla sponge infused with fresh pineapple chunks and topped with a creamy frosting.</p>
-            <p class="mb-4">The perfect balance of sweet and tangy, ideal for summer celebrations or any special occasion.</p>
-            <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Occasions</h4>
-            <p class="mb-4">Perfect for birthdays, anniversaries, or tropical-themed parties.</p>
-        `,
-        specifications: {
-            'Cake Details': {
-                'Flavor': 'Pineapple',
-                'Shape': 'Round',
-                'Weight': '1 kg (serves 8-10 people)',
-                'Layers': '3 layers'
-            },
-            'Storage & Care': {
-                'Storage': 'Refrigerate (0-5°C)',
-                'Shelf Life': '2 days',
-                'Best Served': 'Room temperature',
-                'Preparation': '3-4 hours'
-            }
-        },
-        ingredients: {
-            'Cake Base': [
-                'All-purpose flour',
-                'Plant-based butter',
-                'Pineapple puree',
-                'Pure vanilla extract',
-                'Baking powder'
-            ],
-            'Frosting & Topping': [
-                'Vegan whipped cream',
-                'Fresh pineapple chunks',
-                'Toasted coconut flakes',
-                'Powdered sugar'
-            ]
-        },
-        allergens: 'Contains: Dairy (Milk), Gluten (Wheat). May contain traces of nuts.',
-        deliveryTime: 'Today, In 3 hours',
-        deliveryOffer: 'Free Delivery on orders above ₹500',
-        discountInfo: {
-            freeDelivery: true,
-            offer: 'Get 10% off on orders above ₹1000'
-        }
-    },
-    '3': {
-        id: '3',
-        name: 'Decadent Red Velvet Cake',
-        category: 'Cakes',
-        price: 695,
-        originalPrice: 795,
-        rating: 4.9,
-        reviewCount: 165,
-        orderCount: '500+',
-        images: [
-            '/CAKES/IMG/red velvet.jpg',
-            '/CAKES/IMG/red velvet.jpg',
-            '/CAKES/IMG/red velvet.jpg',
-            '/CAKES/IMG/red velvet.jpg'
-        ],
-        thumbnails: [
-            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=200&h=150&fit=crop'
-        ],
-        highlights: [
-            'Velvety red velvet layers with cream cheese frosting',
-            'Infused with natural beetroot extract',
-            'Topped with edible rose petals',
-            'Serves 8-10 people'
-        ],
-        sizes: [
-            { label: '500g (4-6 People)', value: '500g', price: 495 },
-            { label: '1kg (8-10 People)', value: '1kg', price: 695, default: true },
-            { label: '1.5kg (12-15 People)', value: '1.5kg', price: 995 }
-        ],
-        description: `
-            <p class="mb-4">Savor the elegance of our Decadent Red Velvet Cake, featuring soft red velvet layers made with natural beetroot extract and topped with creamy vegan frosting.</p>
-            <p class="mb-4">A visually stunning and delicious treat perfect for any celebration.</p>
-            <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Occasions</h4>
-            <p class="mb-4">Ideal for birthdays, weddings, or special gatherings.</p>
-        `,
-        specifications: {
-            'Cake Details': {
-                'Flavor': 'Red Velvet',
-                'Shape': 'Round',
-                'Weight': '1 kg (serves 8-10 people)',
-                'Layers': '3 layers'
-            },
-            'Storage & Care': {
-                'Storage': 'Refrigerate (0-5°C)',
-                'Shelf Life': '2 days',
-                'Best Served': 'Room temperature',
-                'Preparation': '3-4 hours'
-            }
-        },
-        ingredients: {
-            'Cake Base': [
-                'All-purpose flour',
-                'Plant-based butter',
-                'Beetroot extract',
-                'Pure vanilla extract',
-                'Baking powder'
-            ],
-            'Frosting & Topping': [
-                'Vegan cream cheese frosting',
-                'Edible rose petals',
-                'Powdered sugar'
-            ]
-        },
-        allergens: 'Contains: Dairy (Milk), Gluten (Wheat). May contain traces of nuts.',
-        deliveryTime: 'Today, In 3 hours',
-        deliveryOffer: 'Free Delivery on orders above ₹500',
-        discountInfo: {
-            freeDelivery: true,
-            offer: 'Get 10% off on orders above ₹1000'
-        }
-    },
-};
+const API_BASE_URL = 'http://localhost:8082/api/v1';
 
 // Generic product loading system
 class ProductDetailManager {
@@ -238,6 +10,7 @@ class ProductDetailManager {
         this.selectedSize = null;
         this.currentImageIndex = 0;
         this.selectedAddons = new Map(); // Track selected add-ons with quantities
+        this.relatedProducts = []; // Cache for related products
         this.init();
     }
 
@@ -252,31 +25,154 @@ class ProductDetailManager {
         return urlParams.get('id') || urlParams.get('product') || '1'; // fallback to first product
     }
 
-    // Load product from API or database
+    // Load product from API
     async loadProduct() {
         try {
             const productId = this.getProductId();
             
-            // In a real application, this would be an API call
-            // const response = await fetch(`/api/products/${productId}`);
-            // const product = await response.json();
-            
-            // For now, using local database
-            const product = productDatabase[productId];
-            
-            if (!product) {
+            // Fetch product by ID
+            const response = await fetch(`${API_BASE_URL}/products/${productId}`);
+            if (!response.ok) {
+                throw new Error('Product not found');
+            }
+            const apiData = await response.json();
+            const productData = apiData.data;
+
+            if (!productData || productData.deleted) {
                 this.showError();
                 return;
             }
 
-            this.currentProduct = product;
-            this.selectedSize = product.sizes?.find(s => s.default) || product.sizes?.[0];
+            // Map API data to frontend structure
+            const mappedProduct = this.mapApiToProduct(productData);
+            this.currentProduct = mappedProduct;
+            this.selectedSize = mappedProduct.sizes?.find(s => s.default) || mappedProduct.sizes?.[0];
+            
+            // Load related products
+            await this.loadRelatedProducts(mappedProduct.category, productId);
+            
             this.renderProduct();
             this.hideLoading();
             
         } catch (error) {
             console.error('Error loading product:', error);
             this.showError();
+        }
+    }
+
+    // Map API response to frontend product structure
+    mapApiToProduct(apiProduct) {
+        const baseImageUrl = `${API_BASE_URL}${apiProduct.productImageUrl}`;
+        const subImages = (apiProduct.productSubImageUrls || []).map(url => `${API_BASE_URL}${url}`);
+        const images = [baseImageUrl, ...subImages];
+
+        // Sizes from weights and weightPrices
+        const sizes = [];
+        if (apiProduct.weights && apiProduct.weightPrices) {
+            apiProduct.weights.forEach((weight, index) => {
+                const price = apiProduct.weightPrices[index];
+                const isDefault = weight === apiProduct.defaultWeight;
+                sizes.push({
+                    label: `${weight} (Serves ${apiProduct.serves})`,
+                    value: weight,
+                    price: price,
+                    default: isDefault
+                });
+            });
+        }
+
+        // Highlights from features
+        const highlights = apiProduct.features || [];
+
+        // Order count formatting
+        const orderCount = apiProduct.orderCount > 500 ? '500+' : apiProduct.orderCount.toString();
+
+        // Ingredients split
+        const ingredients = {
+            'Cake Base': (apiProduct.productIngredients || '').split(',').map(i => i.trim())
+        };
+
+        // Specifications
+        const specifications = {
+            'Cake Details': {
+                'Flavor': apiProduct.flavor || 'N/A',
+                'Shape': apiProduct.shape || 'Round',
+                'Weight': apiProduct.defaultWeight || '1 kg',
+                'Layers': apiProduct.layers || '2'
+            },
+            'Storage & Care': {
+                'Storage': apiProduct.storageInstructions || 'Refrigerate',
+                'Shelf Life': apiProduct.shelfLife || '3 days',
+                'Best Served': apiProduct.bestServed || 'Chilled',
+                'Preparation': apiProduct.preparationTime || '2 hours'
+            }
+        };
+
+        // Description with additional fields
+        const description = `
+            <p class="mb-4">${apiProduct.description || 'No description available.'}</p>
+            <p class="mb-4">SKU: ${apiProduct.skuNumber || 'N/A'}</p>
+            ${apiProduct.note ? `<p class="mb-4"><strong>Note:</strong> ${apiProduct.note}</p>` : ''}
+            <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Occasions</h4>
+            <p class="mb-4">Perfect for birthdays, anniversaries, or any celebration.</p>
+        `;
+
+        // Discount info
+        let discountPercent = 0;
+        if (apiProduct.productOldPrice && apiProduct.productNewPrice) {
+            discountPercent = Math.round(((apiProduct.productOldPrice - apiProduct.productNewPrice) / apiProduct.productOldPrice) * 100);
+        }
+
+        return {
+            id: apiProduct.productId.toString(),
+            name: apiProduct.productName,
+            category: apiProduct.productCategory,
+            price: apiProduct.productNewPrice, // Default price
+            originalPrice: apiProduct.productOldPrice,
+            rating: apiProduct.ratings || 4.5,
+            reviewCount: apiProduct.reviews || 0,
+            orderCount: orderCount,
+            images: images,
+            thumbnails: images, // Use same for thumbnails
+            highlights: highlights,
+            sizes: sizes,
+            description: description,
+            specifications: specifications,
+            ingredients: ingredients,
+            allergens: apiProduct.allergenInfo || 'No allergen info available.',
+            deliveryTime: apiProduct.deliveryTime || 'Same day delivery',
+            deliveryOffer: `Free Delivery on orders above ₹${apiProduct.freeDeliveryThreshold || 500}`,
+            discountInfo: {
+                freeDelivery: true,
+                offer: apiProduct.productDiscount || `${discountPercent}% OFF`
+            }
+        };
+    }
+
+    // Load related products by category
+    async loadRelatedProducts(category, currentId) {
+        try {
+            // Fetch paginated products for the category, page 0 size 20
+            const response = await fetch(`${API_BASE_URL}/products/category/${encodeURIComponent(category)}?page=0&size=20`);
+            if (!response.ok) throw new Error('Failed to fetch related products');
+            const apiData = await response.json();
+            const allProducts = apiData.data.content || [];
+
+            // Map and filter
+            this.relatedProducts = allProducts
+                .filter(p => p.productId.toString() !== currentId && !p.deleted)
+                .map(p => ({
+                    id: p.productId.toString(),
+                    name: p.productName,
+                    category: p.productCategory,
+                    price: p.productNewPrice,
+                    rating: p.ratings || 4.5,
+                    images: [`${API_BASE_URL}${p.productImageUrl}`]
+                }))
+                .slice(0, 4); // Limit to 4
+        } catch (error) {
+            console.error('Error loading related products:', error);
+            this.relatedProducts = []; // Fallback to empty
         }
     }
 
@@ -306,9 +202,11 @@ class ProductDetailManager {
         });
         const totalPrice = currentPrice + totalAddonsPrice;
         
-        // Set badge to Veg only
-        document.getElementById('productBadge').textContent = 'Veg';
-        document.getElementById('productBadge').className = 'px-3 py-1 rounded-full text-xs font-medium mr-2 bg-green-500 text-white';
+        // Set badge based on food type
+        const badgeText = product.foodType === 'Vegetarian' ? 'Veg' : 'Non-Veg';
+        const badgeClass = product.foodType === 'Vegetarian' ? 'bg-green-500' : 'bg-red-500';
+        document.getElementById('productBadge').textContent = badgeText;
+        document.getElementById('productBadge').className = `px-3 py-1 rounded-full text-xs font-medium mr-2 ${badgeClass} text-white`;
         
         document.getElementById('orderCount').textContent = product.orderCount ? `${product.orderCount} orders` : '';
         document.getElementById('productTitle').textContent = product.name;
@@ -466,12 +364,7 @@ class ProductDetailManager {
     }
 
     renderRelatedProducts() {
-        // Get other products as related (excluding current)
-        const relatedProducts = Object.values(productDatabase)
-            .filter(p => p.id !== this.currentProduct.id)
-            .slice(0, 4);
-        
-        const relatedHtml = relatedProducts.map(product => `
+        const relatedHtml = this.relatedProducts.map(product => `
             <div class="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-lg transition-all cursor-pointer"
                  onclick="window.location.href='?id=${product.id}'">
                 <div class="relative aspect-square overflow-hidden">
@@ -693,9 +586,9 @@ function openTab(tabName) {
 // Initialize the product manager
 let productManager;
 
-// API Integration Helper (for when you connect to real backend)
+// API Integration Helper
 class ProductAPI {
-    static baseURL = '/api'; // Change this to your API base URL
+    static baseURL = API_BASE_URL;
     
     static async getProduct(productId) {
         try {
@@ -710,22 +603,17 @@ class ProductAPI {
     
     static async getRelatedProducts(productId, category) {
         try {
-            const response = await fetch(`${this.baseURL}/products/${productId}/related?category=${category}`);
+            const response = await fetch(`${this.baseURL}/products/category/${encodeURIComponent(category)}?page=0&size=20`);
             return await response.json();
         } catch (error) {
             console.error('API Error:', error);
-            return [];
+            return { data: { content: [] } };
         }
     }
     
     static async getReviews(productId) {
-        try {
-            const response = await fetch(`${this.baseURL}/products/${productId}/reviews`);
-            return await response.json();
-        } catch (error) {
-            console.error('API Error:', error);
-            return [];
-        }
+        // No API for reviews, return dummy
+        return [];
     }
 }
 
@@ -1082,6 +970,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', function() {
             navLinks.classList.toggle('hidden');
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('hidden')) {
+                icon.className = 'fas fa-bars text-lg sm:text-xl';
+            } else {
+                icon.className = 'fas fa-times text-lg sm:text-xl';
+            }
         });
     }
 

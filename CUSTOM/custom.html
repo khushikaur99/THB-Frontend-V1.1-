@@ -77,6 +77,27 @@
                 height: 300px !important;
             }
         }
+
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .delay-1 { animation-delay: 0.5s; }
+        .delay-2 { animation-delay: 1s; }
+        .delay-3 { animation-delay: 1.5s; }
+        .delay-4 { animation-delay: 2s; }
+    
     </style>
 </head>
 <body class="bg-white">
@@ -495,6 +516,69 @@
             </form>
         </div>
     </div>
+
+
+    
+<!-- Testimonials -->
+<section class="relative py-8 sm:py-12 md:py-6 overflow-hidden bg-light">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
+        <div class="absolute top-1/4 left-10 floating delay-1">
+            <div class="w-12 sm:w-16 h-12 sm:h-16 rounded-full" style="background-color:#f4c2ab;"></div>
+            <div class="w-12 sm:w-16 h-6 sm:h-8 rounded-b-full -mt-3 sm:-mt-4" style="background-color:#f6d1c0;"></div>
+        </div>
+        <div class="absolute top-1/3 right-20 floating delay-2">
+            <div class="w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-full"></div>
+            <div class="w-10 sm:w-12 h-5 sm:h-6 rounded-b-full -mt-2 sm:-mt-3" style="background-color:#f9e1da;"></div>
+        </div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2" style="color:#954C2E;">Sweet Words From Our Customers</h2>
+        <p class="text-center mb-8 sm:mb-10 md:mb-12 text-sm sm:text-base" style="color:#4E1F00;">What people say about our delicious treats</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            <!-- Testimonial 1 -->
+            <div class="p-4 sm:p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" style="background-color:#f9e1da; color:#954C2E;">JD</div>
+                    <div class="ml-3 sm:ml-4">
+                        <h4 class="font-semibold text-sm sm:text-base" style="color:#333333;">Jane Doe</h4>
+                        <p class="text-xs sm:text-sm" style="color:#4E1F00;">Pastry Lover</p>
+                    </div>
+                </div>
+                <p class="mb-3 sm:mb-4 text-xs sm:text-sm" style="color:#333333;">"The chocolate croissants are to die for! Flaky, buttery, and just the right amount of chocolate."</p>
+                <div class="flex text-sm sm:text-base" style="color:#954C2E;">★ ★ ★ ★ ★</div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="p-4 sm:p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" style="background-color:#f9e1da; color:#954C2E;">JS</div>
+                    <div class="ml-3 sm:ml-4">
+                        <h4 class="font-semibold text-sm sm:text-base" style="color:#333333;">John Smith</h4>
+                        <p class="text-xs sm:text-sm" style="color:#4E1F00;">Cake Enthusiast</p>
+                    </div>
+                </div>
+                <p class="mb-3 sm:mb-4 text-xs sm:text-sm" style="color:#333333;">"Ordered a birthday cake for my wife and it was perfect! Beautiful decoration and amazing taste."</p>
+                <div class="flex text-sm sm:text-base" style="color:#954C2E;">★ ★ ★ ★ ★</div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="p-4 sm:p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" style="background-color:#f9e1da; color:#954C2E;">AM</div>
+                    <div class="ml-3 sm:ml-4">
+                        <h4 class="font-semibold text-sm sm:text-base" style="color:#333333;">Alice Miller</h4>
+                        <p class="text-xs sm:text-sm" style="color:#4E1F00;">Regular Customer</p>
+                    </div>
+                </div>
+                <p class="mb-3 sm:mb-4 text-xs sm:text-sm" style="color:#333333;">"I've tried almost everything and never been disappointed. The macarons are my absolute favorite!"</p>
+                <div class="flex text-sm sm:text-base" style="color:#954C2E;">★ ★ ★ ★ ★</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Footer -->
 <footer class="bg-white text-light py-14 sm:py-12 md:py-12 px-4">
   <div class="max-w-7xl mx-auto">
