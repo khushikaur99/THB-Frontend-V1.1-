@@ -57,28 +57,31 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             const wishlistContainer = document.getElementById('wishlist-items');
             const emptyMessage = document.getElementById('empty-wishlist');
-            const userId = 3; // Assuming hardcoded userId; adjust as needed based on auth
+            let wishlist = [];
+            const BASE_URL = 'http://localhost:8082/api/wishlist';
+            const userId = 1; // Assuming a hardcoded userId; adjust as needed based on authentication
 
             async function fetchWishlist() {
                 try {
-                    const response = await fetch(`http://localhost:8082/api/wishlist/get-wishlist-items?userId=${userId}`);
+                    const response = await fetch(`${BASE_URL}/get-wishlist-items?userId=${userId}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch wishlist');
                     }
-                    const data = await response.json();
-                    return data || [];
+                    wishlist = await response.json();
+                    displayWishlist();
                 } catch (error) {
                     console.error('Error fetching wishlist:', error);
-                    return [];
+                    wishlist = [];
+                    displayWishlist();
                 }
             }
 
             async function removeFromWishlist(productId) {
                 try {
-                    const response = await fetch('http://localhost:8082/api/wishlist/remove-wishlist-items', {
+                    const response = await fetch(`${BASE_URL}/remove-wishlist-items`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
@@ -91,15 +94,15 @@
                     if (!response.ok) {
                         throw new Error('Failed to remove item');
                     }
-                    // Optionally handle response if needed
-                    console.log('Item removed successfully');
+                    // Refetch after successful removal
+                    await fetchWishlist();
+                    updateWishlistCount?.();
                 } catch (error) {
                     console.error('Error removing item:', error);
                 }
             }
 
-            async function displayWishlist() {
-                const wishlist = await fetchWishlist();
+            function displayWishlist() {
                 wishlistContainer.innerHTML = '';
 
                 if (wishlist.length === 0) {
@@ -127,15 +130,14 @@
 
                 document.querySelectorAll('.remove-btn').forEach(button => {
                     button.addEventListener('click', async function() {
-                        const productId = this.getAttribute('data-product-id');
+                        const productId = parseInt(this.getAttribute('data-product-id'));
                         await removeFromWishlist(productId);
-                        await displayWishlist();
-                        updateWishlistCount?.();
                     });
                 });
             }
 
-            displayWishlist();
+            // Initial fetch
+            await fetchWishlist();
         });
     </script>
 </body>
