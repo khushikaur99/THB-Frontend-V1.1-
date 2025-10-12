@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artisan Bakery Delights</title>
+    <title>Cakes-The Home Bakery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -148,8 +148,8 @@
                                     <i class="fas fa-utensils mr-2"></i>By Type
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/cakes/Allcakes.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
-                                    <li><a href="/cakes/choco.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate Cakes</a></li>
+                                    <li><a href="./CAKES/allcakes.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
+                                    <li><a href="./cakes/choco.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate Cakes</a></li>
                                     <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla Cakes</a></li>
                                     <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Red Velvet</a></li>
                                     <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Fruit Cakes</a></li>
@@ -206,7 +206,7 @@
                                     <i class="fas fa-ice-cream mr-2"></i>By Flavours
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate</a></li>
+                                    <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate</a></li>
                                     <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla</a></li>
                                     <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Strawberry</a></li>
                                     <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Blueberry</a></li>
@@ -217,39 +217,48 @@
                         </div>
                     </div>
                 </div>
-                <a href="/CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+                <a href="./CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
                 <a href="#" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
-                <a href="/contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+                <a href="../contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
                 <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             </div>
 
-            <!-- Right Side Icons -->
-            <div class="flex items-center space-x-2 sm:space-x-3 md:space-x-5">
-                <!-- Wishlist -->
-                <a href="/wishlist.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
-                    <i class="fas fa-heart text-base sm:text-lg"></i>
-                    <span class="hidden sm:block text-xs mt-1">Wishlist</span>
-                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-                </a>
+    <!-- Right Side Icons -->
+<div class="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+    <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
+        <!-- Search -->
+        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-2 text-black hover:text-primary">
+            <i class="fas fa-search text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Search</span>
+        </a>
 
-                <!-- Cart -->
-                <a href="/cart.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
-                    <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
-                    <span class="hidden sm:block text-xs mt-1">Cart</span>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-                </a>
+        <!-- Login - Hidden on very small screens -->
+        <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
+            <i class="fas fa-user text-base sm:text-lg"></i>
+            <span class="text-xs mt-1">Login</span>
+        </a>
 
-                <!-- Login - Hidden on very small screens -->
-                <a href="/login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
-                    <i class="fas fa-user text-base sm:text-lg"></i>
-                    <span class="text-xs mt-1">Login</span>
-                </a>
+        <!-- Wishlist -->
+        <a href="wishlist.html" class="relative flex flex-col items-center p-0 text-black hover:text-primary">
+            <i class="fas fa-heart text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Wishlist</span>
+            <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+        </a>
+    </div>
 
-                <!-- Mobile Menu Button -->
-                <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
-                    <i class="fas fa-bars text-lg sm:text-xl"></i>
-                </button>
-            </div>
+    <!-- Cart -->
+    <a href="cart.html" class="relative flex flex-col items-center p-1 py-1 px-1 text-black hover:text-primary">
+        <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
+        <span class="hidden sm:block text-xs mt-1">Cart</span>
+        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
+        <i class="fas fa-bars text-lg sm:text-xl"></i>
+    </button>
+</div>
+
         </div>
     </div>
 
@@ -271,7 +280,7 @@
                                 <i class="fas fa-utensils mr-1"></i>By Type
                             </h4>
                             <ul class="space-y-1 text-xs">
-                                <li><a href="/cakes/Allcakes.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">All Cakes</a></li>
+                                <li><a href="/CAKES/allcakes.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">All Cakes</a></li>
                                 <li><a href="/cakes/choco.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate Cakes</a></li>
                                 <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla Cakes</a></li>
                                 <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Red Velvet</a></li>
@@ -329,24 +338,28 @@
                                 <i class="fas fa-ice-cream mr-1"></i>By Flavours
                             </h4>
                             <ul class="space-y-1 text-xs">
-                                <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Strawberry</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Blueberry</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Lemon</a></li>
-                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Matcha</a></li>
+                                <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Strawberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Blueberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Lemon</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Matcha</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <a href="../custom.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+            <a href="./CUSTOM/custom.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
             <a href="#" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
-            <a href="../contact.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
-            <a href="../about.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
+            <a href="/contact.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+            <a href="/about.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             
             <div class="flex items-center justify-around pt-4 border-t border-gray-100 mt-4">
+                <a href="#" id="mobileSearchToggle" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
+                    <i class="fas fa-search text-lg"></i>
+                    <span class="text-xs mt-1">Search</span>
+                </a>
                 <a href="wishlist.html" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
                     <i class="fas fa-heart text-lg"></i>
                     <span class="text-xs mt-1">Wishlist</span>
@@ -363,6 +376,27 @@
         </div>
     </div>
 </nav>
+
+<!-- Search Overlay -->
+<div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Search Products</h3>
+            <button id="closeSearch" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search for cakes, pastries..." class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+        </div>
+        
+        <div id="searchSuggestions" class="max-h-64 overflow-y-auto scrollbar-hide"></div>
+    </div>
+</div>
 
   <!-- Delivery Location Modal -->
   <div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
@@ -429,54 +463,20 @@
   <!-- Slides Container -->
   <div id="imageSlideshow" class="flex transition-transform duration-700 ease-in-out">
     
-    <!-- Slide 1 -->
-    <div class="w-full flex-shrink-0">
-      <img 
-        src="IMG/anniversary-cake-homepage-fa-desktop.avif" 
-        alt="Anniversary Cake"
-        class="w-full h-auto max-h-[600px] object-contain rounded-none"
-      >
-    </div>
-
-    <!-- Slide 2 -->
-    <div class="w-full flex-shrink-0">
-      <img 
-        src="IMG/birthday-landingpage-fa-desktop.avif" 
-        alt="Birthday Cake"
-        class="w-full h-auto max-h-[600px] object-contain rounded-none"
-      >
-    </div>
+ 
 
     <!-- Slide 3 -->
     <div class="w-full flex-shrink-0">
       <img 
-        src="IMG/cake-birthday-homepage-fa-desktop_1.avif" 
+        src="/CAKES/IMG/B4.jpg" 
         alt="Chocolate Cake"
-        class="w-full h-auto max-h-[600px] object-contain rounded-none"
+        class="w-full h-auto max-h-[200px]object-contain rounded-none"
       >
     </div>
-
-    <!-- Slide 4 -->
-    <div class="w-full flex-shrink-0">
-      <img 
-        src="IMG/chocolate-cake-landingpage-fa-desktop.avif" 
-        alt="Mango Cake"
-        class="w-full h-auto max-h-[600px] object-contain rounded-none"
-      >
-    </div>
-  </div>
-
-  <!-- Navigation Dots -->
-  <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-    <button class="image-slide-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="0"></button>
-    <button class="image-slide-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="1"></button>
-    <button class="image-slide-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="2"></button>
-    <button class="image-slide-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-index="3"></button>
   </div>
 </section>
 
-
-<body class="bg-gray-50">
+<div class="bg-gray-50 px-4 py-8">
     <div class="max-w-8xl mx-auto mt-7">
         <!-- Heading and Filter Section -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 px-4">
@@ -499,6 +499,7 @@
 
     <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
     <!-- Cards will be generated here -->
+</div>
 </div>
 
    
@@ -562,85 +563,98 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-white text-light py-14 sm:py-12 md:py-12 px-4">
+ <!-- Footer -->
+<footer class="bg-white text-gray-800 py-6 px-4">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center sm:text-left">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
       
       <!-- About Us -->
-      <div class="col-span-1">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4">
-          The Home Bakery
-        </h3>
-        <p class="text-black text-xs sm:text-sm md:text-base">
-          We bake happiness into every product.
-        </p>
-      </div>
-
-      <!-- Quick Links (hidden on small screens) -->
-      <div class="hidden sm:block">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4">
-          Quick Links
-        </h3>
-        <ul class="space-y-1 sm:space-y-2">
-          <li><a href="/index.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Home</a></li>
-          <li><a href="/CAKES/allcakes.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Cakes</a></li>
-          <li><a href="/PASTRIES/chocopastry.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Pastries</a></li>
-          <li><a href="/CUSTOM/custom.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Customise</a></li>
-          <li><a href="/SIDEBY/sideby.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Special Offers</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="col-span-1 sm:col-span-2 md:col-span-1">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4">
-          Contact Us
-        </h3>
-        <ul class="space-y-1 sm:space-y-2 text-black flex flex-col items-center sm:items-start">
-          <li class="flex items-start justify-center sm:justify-start">
-            <i class="fas fa-map-marker-alt mt-0.5 sm:mt-1 mr-2 sm:mr-3 text-primary text-xs sm:text-sm md:text-base"></i>
-            <span class="text-xs sm:text-sm md:text-base">G - 004, ALDEA ESPANOLA PHASE,<br> 6 & 7, opp. Orchid Hotel, Mahalunge, Pune Maharashtra 411045</span>
-          </li>
-          <li class="flex items-center justify-center sm:justify-start">
-            <i class="fas fa-phone-alt mr-2 sm:mr-3 text-primary text-xs sm:text-sm md:text-base"></i>
-            <span class="text-xs sm:text-sm md:text-base">+91 95034 64162</span>
-          </li>
-          <li class="flex items-center justify-center sm:justify-start">
-            <i class="fas fa-envelope mr-2 sm:mr-3 text-primary text-xs sm:text-sm md:text-base"></i>
-            <span class="text-xs sm:text-sm md:text-base">hello@homebakery.com</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Social Media -->
-      <div class="col-span-1">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4 text-center md:text-left">
-          Follow Us
-        </h3>
-        <div class="flex justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4">
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-facebook-f text-xs sm:text-sm md:text-base"></i>
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">The Home Bakery</h3>
+        <img src="path-to-your-logo.png" alt="The Home Bakery Logo" class="mb-2 max-w-32" onerror="this.style.display='none'">
+        <p class="text-sm mb-4">We bake happiness into every product.</p>
+        
+        <h3 class="text-primary font-bold text-lg mb-2">Follow Us</h3>
+        <div class="flex justify-center md:justify-start space-x-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-instagram text-xs sm:text-sm md:text-base"></i>
+          <a href="https://www.instagram.com/the_home_bakery_pune?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-instagram"></i>
           </a>
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-twitter text-xs sm:text-sm md:text-base"></i>
+          <a href="https://wa.me/919503464162?text=Hi%20The%20Home%20Bakery%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-whatsapp"></i>
           </a>
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-pinterest-p text-xs sm:text-sm md:text-base"></i>
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-pinterest-p"></i>
           </a>
         </div>
       </div>
+  <!-- Policies Section -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Policies</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Disclaimer</a></li>
+          <li><a href="/CAKES/allcakes.html" class="text-sm hover:text-primary transition-colors">Privacy Policy</a></li>
+          <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Cancellation Policy</a></li>
+          <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Shipping & Delivery Policy</a></li>
+          <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Refund & Cancellation Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="hidden md:block">
+        <h3 class="text-primary font-bold text-xl mb-2">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Home</a></li>
+          <li><a href="/CAKES/allcakes.html" class="text-sm hover:text-primary transition-colors">Cakes</a></li>
+          <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Pastries</a></li>
+          <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Customise</a></li>
+          <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Special Offers</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact & Social -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Contact Us</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li class="flex items-start justify-center md:justify-start">
+            <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary text-sm"></i>
+            <span class="text-sm">G - 004, ALDEA ESPANOLA PHASE, 6 & 7, opp. Orchid Hotel, Mahalunge, Pune Maharashtra 411045</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-phone-alt mr-3 text-primary text-sm"></i>
+            <span class="text-sm">+91 95034 64162</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-envelope mr-3 text-primary text-sm"></i>
+            <span class="text-sm">hello@homebakery.com</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
- <!-- Bottom -->
-<div class="border-t border-gray-300 py-0.5 text-center flex justify-center items-center text-black text-xs sm:text-sm mt-1">
-  <p class="m-0 leading-tight text-center">© 2025 The Home Bakery. All rights reserved.</p>
-</div>
+    <!-- Copyright -->
+    <div class="border-t border-gray-300 mt-6 pt-4 text-center">
+      <p class="text-sm">© 2025 The Home Bakery. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 
+<!-- Floating Action Buttons -->
+<div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3">
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="w-12 h-12 bg-primary hover:bg-secondary rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919503464162" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110">
+        <i class="fab fa-whatsapp text-lg"></i>
+    </a>
+</div>
 
-<script src="/CAKES/cakes.js"></script>
+<script src="./cakes.js">
+
+</script>
 </body>
 </html>

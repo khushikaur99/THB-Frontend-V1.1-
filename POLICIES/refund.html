@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Cakes - The Home Bakery</title>
+    <title>The Home Bakery - Refund & Cancellation Policy</title>
+    
+    <!-- Favicon Logo for Browser Tab -->
+    <link rel="icon" type="image/png" href="/IMG/LOGO_1-removebg-preview.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,63 +25,18 @@
                         'dropdown': '0 15px 30px rgba(0,0,0,0.12)',
                         'card': '0 4px 10px rgba(0,0,0,0.1)',
                         'btn': '0 4px 15px rgba(233, 30, 99, 0.3)'
+                    },
+                    transitionTimingFunction: {
+                        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)', // Smoother easing for animations
+                    },
+                    transitionDuration: {
+                        '400': '400ms', // Slightly longer for smoother transitions
                     }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .clip-ellipse {
-                clip-path: ellipse(75% 60% at 50% 35%);
-            }
-            .text-shadow {
-                text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-            }
-        }
-        .wishlist-btn {
-            transition: all 0.3s ease;
-        }
-        .wishlist-btn:hover {
-            transform: scale(1.1);
-        }
-        .wishlist-btn.active {
-            color: #EF4444;
-        }
-        .wishlist-btn.active svg {
-            fill: currentColor;
-            color: #EF4444;
-        }
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .whatsapp-btn {
-            transition: all 0.3s ease;
-        }
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-        }
-        .customize-btn {
-            transition: all 0.3s ease;
-        }
-        .customize-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(149, 76, 46, 0.4);
-        }
-        .mobile-nav-transition {
-            transition: all 0.3s ease-in-out;
-        }
-        @media (max-width: 640px) {
-            .hero-height {
-                height: 300px !important;
-            }
-        }
-
-        
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
@@ -97,11 +55,18 @@
         .delay-2 { animation-delay: 1s; }
         .delay-3 { animation-delay: 1.5s; }
         .delay-4 { animation-delay: 2s; }
-    
+        /* Smoother dropdown transitions */
+        .dropdown-transition {
+            transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1), transform 400ms cubic-bezier(0.4, 0, 0.2, 1), visibility 400ms;
+        }
+        .modal-transition {
+            transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1), transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
 </head>
 <body class="bg-white">
-   <!-- First Navbar (Top) -->
+
+<!-- First Navbar (Top) -->
 <nav class="sticky top-0 z-50 flex items-center justify-between px-3 py-2 md:px-8 md:py-4 text-white bg-primary">
     <div class="flex items-center">
         <span class="text-xs sm:text-sm md:text-base">Welcome To The Home Bakery</span>
@@ -110,7 +75,7 @@
         <i class="fas fa-map-marker-alt text-white text-xs sm:text-sm"></i>
         <div class="flex flex-col">
             <span class="text-[10px] sm:text-xs text-white">Deliver to</span>
-            <button id="deliveryLocationBtn" class="text-xs sm:text-sm font-medium text-white hover:text-gray-300 transition-colors duration-300 flex items-center">
+            <button id="deliveryLocationBtn" class="text-xs sm:text-sm font-medium text-white hover:text-gray-300 transition-colors duration-400 flex items-center">
                 <span id="selectedLocation" class="max-w-[80px] sm:max-w-none truncate">Select Location</span>
                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
             </button>
@@ -119,26 +84,26 @@
 </nav>
 
 <!-- Second Navbar (Main) -->
-<nav class="sticky top-12 sm:top-14 md:top-16 z-40 bg-white shadow-lg border-b border-gray-100">
+<nav class="sticky top-12 sm:top-14 md:top-16 z-40 lg:px-8 bg-white shadow-lg border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div class="flex justify-between items-center h-16 sm:h-20 md:h-24">
             
             <!-- Logo -->
             <div class="flex-shrink-0">
-                <img src="../IMG/nohat_bg_removed_8c9aa728.png" alt="The Home Bakery Logo" class="h-10 w-12 sm:h-12 sm:w-14 md:h-16 md:w-18 transition-transform duration-300 hover:scale-105">
+                <img src="/IMG/nohat_bg_removed_8c9aa728.png" alt="The Home Bakery Logo" class="h-10 w-12 sm:h-12 sm:w-14 md:h-16 md:w-18 transition-transform duration-400 hover:scale-105">
             </div>
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-1">
-                <a href="../index.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">Home</a>
+                <a href="../index.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-400">Home</a>
                 
                 <!-- Cakes Dropdown -->
                 <div class="relative group">
-                    <a href="/cakes/Allcakes.html" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <a href="/cakes/Allcakes.html" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-400">
                         Cakes
-                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-400 group-hover:rotate-180"></i>
                     </a>
-                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[500px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[500px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible dropdown-transition z-[100] border border-gray-100">
                         <div class="p-6 grid grid-cols-4 gap-6">
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
@@ -192,11 +157,11 @@
 
                 <!-- Pastries Dropdown -->
                 <div class="relative group">
-                    <a href="#" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <a href="#" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-400">
                         Pastries
-                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-400 group-hover:rotate-180"></i>
                     </a>
-                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[220px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[220px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible dropdown-transition z-[100] border border-gray-100">
                         <div class="p-6">
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
@@ -215,48 +180,47 @@
                     </div>
                 </div>
                 <a href="./CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
-                <a href="../SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
+                <a href="./SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
                 <a href="#" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
                 <a href="../contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
                 <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             </div>
 
-    <!-- Right Side Icons -->
-<div class="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
-    <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
-        <!-- Search -->
-        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-2 text-black hover:text-primary">
-            <i class="fas fa-search text-base sm:text-lg"></i>
-            <span class="hidden sm:block text-xs mt-1">Search</span>
-        </a>
+            <!-- Right Side Icons -->
+            <div class="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+                <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
+                    <!-- Search -->
+                    <a href="#" id="searchToggle" class="relative flex flex-col items-center p-2 text-black hover:text-primary">
+                        <i class="fas fa-search text-base sm:text-lg"></i>
+                        <span class="hidden sm:block text-xs mt-1">Search</span>
+                    </a>
 
-        <!-- Login - Hidden on very small screens -->
-        <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
-            <i class="fas fa-user text-base sm:text-lg"></i>
-            <span class="text-xs mt-1">Login</span>
-        </a>
+                    <!-- Login - Hidden on very small screens -->
+                    <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
+                        <i class="fas fa-user text-base sm:text-lg"></i>
+                        <span class="text-xs mt-1">Login</span>
+                    </a>
 
-        <!-- Wishlist -->
-        <a href="wishlist.html" class="relative flex flex-col items-center p-0 text-black hover:text-primary">
-            <i class="fas fa-heart text-base sm:text-lg"></i>
-            <span class="hidden sm:block text-xs mt-1">Wishlist</span>
-            <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-        </a>
-    </div>
+                    <!-- Wishlist -->
+                    <a href="wishlist.html" class="relative flex flex-col items-center p-0 text-black hover:text-primary">
+                        <i class="fas fa-heart text-base sm:text-lg"></i>
+                        <span class="hidden sm:block text-xs mt-1">Wishlist</span>
+                        <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
 
-    <!-- Cart -->
-    <a href="cart.html" class="relative flex flex-col items-center p-1 py-1 px-1 text-black hover:text-primary">
-        <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
-        <span class="hidden sm:block text-xs mt-1">Cart</span>
-        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-    </a>
+                <!-- Cart -->
+                <a href="cart.html" class="relative flex flex-col items-center p-1 py-1 px-1 text-black hover:text-primary">
+                    <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
+                    <span class="hidden sm:block text-xs mt-1">Cart</span>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+                </a>
 
-    <!-- Mobile Menu Button -->
-    <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
-        <i class="fas fa-bars text-lg sm:text-xl"></i>
-    </button>
-</div>
-
+                <!-- Mobile Menu Button -->
+                <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
+                    <i class="fas fa-bars text-lg sm:text-xl"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -269,7 +233,7 @@
             <div class="space-y-0">
                 <button id="mobileCakesToggle" class="w-full flex items-center justify-between px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">
                     Cakes
-                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-400"></i>
                 </button>
                 <div id="mobileCakesMenu" class="hidden bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mt-1">
                     <div class="p-4 space-y-2">
@@ -327,7 +291,7 @@
             <div class="space-y-0">
                 <button id="mobilePastriesToggle" class="w-full flex items-center justify-between px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">
                     Pastries
-                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-400"></i>
                 </button>
                 <div id="mobilePastriesMenu" class="hidden bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mt-1">
                     <div class="p-4 space-y-2">
@@ -349,8 +313,6 @@
             </div>
 
             <a href="./CUSTOM/custom.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
-                            <a href="../SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
-
             <a href="#" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
             <a href="/contact.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
             <a href="/about.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
@@ -377,69 +339,52 @@
     </div>
 </nav>
 
-    <!-- Delivery Location Modal -->
-    <div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-semibold text-gray-800">Choose Delivery Location</h3>
-                <button id="closeModal" class="text-gray-500 hover:text-gray-700 transition-colors">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <!-- Location Input -->
-            <div class="mb-4">
-                <div class="relative">
-                    <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
-                    <input 
-                        type="text" 
-                        id="locationInput" 
-                        placeholder="Enter your area, city or pincode"
-                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    >
-                    <button id="useCurrentLocation" class="absolute right-3 top-3 text-primary hover:text-secondary transition-colors">
-                        <i class="fas fa-crosshairs"></i>
-                    </button>
-                </div>
-                <div id="locationError" class="text-red-500 text-sm mt-1 hidden"></div>
-                <div id="locationSuccess" class="text-green-500 text-sm mt-1 hidden"></div>
-            </div>
-
-            <!-- Popular Areas -->
-            <div class="mb-4">
-                <h4 class="text-sm font-medium text-gray-700 mb-2">Popular Areas in Pune</h4>
-                <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
-                    <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                        <i class="fas fa-map-pin text-primary mr-2"></i>Koregaon Park
-                    </button>
-                    <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                        <i class="fas fa-map-pin text-primary mr-2"></i>Baner
-                    </button>
-                    <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                        <i class="fas fa-map-pin text-primary mr-2"></i>Wakad
-                    </button>
-                    <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                        <i class="fas fa-map-pin text-primary mr-2"></i>Hinjewadi
-                    </button>
-                    <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                        <i class="fas fa-map-pin text-primary mr-2"></i>FC Road
-                    </button>
-                    <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                        <i class="fas fa-map-pin text-primary mr-2"></i>Viman Nagar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Confirm Button -->
-            <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg font-medium hover:from-secondary hover:to-primary transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                Confirm Location
+<!-- Delivery Location Modal -->
+<div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md transform modal-transition scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Choose Delivery Location</h3>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
             </button>
         </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="locationInput" placeholder="Enter your area, city or pincode" class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+            <div id="locationError" class="text-red-500 text-xs sm:text-sm mt-1 hidden"></div>
+            <div id="locationSuccess" class="text-green-500 text-xs sm:text-sm mt-1 hidden"></div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="text-xs sm:text-sm font-medium text-gray-700 mb-2">Popular Areas in Pune</h4>
+            <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Koregaon Park
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Baner
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Wakad
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Hinjewadi
+                </button>
+            </div>
+        </div>
+
+        <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg text-sm sm:text-base font-medium hover:from-secondary hover:to-primary transition-all duration-400 disabled:opacity-50" disabled>
+            Confirm Location
+        </button>
     </div>
+</div>
 
 <!-- Search Overlay -->
 <div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
-    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform modal-transition scale-95 max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800">Search Products</h3>
             <button id="closeSearch" class="text-gray-500 hover:text-gray-700 transition-colors">
@@ -457,164 +402,82 @@
         <div id="searchSuggestions" class="max-h-64 overflow-y-auto scrollbar-hide"></div>
     </div>
 </div>
+<!-- Refund & Cancellation Policy Section with Image Background and Blurred Card -->
+<section class="relative py-12 min-h-screen flex items-center justify-center 
+                bg-cover bg-center" 
+         style="background-image: url('https://i.pinimg.com/736x/99/ed/d5/99edd5559a371c90b19057a9b85fc750.jpg');">
 
-<!-- Full Image Responsive Slideshow -->
-<section class="relative w-full overflow-hidden group">
-  <!-- Slides Container -->
-  <div id="imageSlideshow" class="flex transition-transform duration-700 ease-in-out">
-    
-    <!-- Slide 1 -->
-    <div class="w-full flex-shrink-0">
-      <img 
-        src="../CAKES/IMG/B5.jpg" 
-        alt="Anniversary Cake"
-        class="w-full h-auto max-h-[600px] object-contain rounded-none"
-      >
-    </div>
+  <!-- Overlay for blur effect -->
+  <div class="absolute inset-0 bg-black/0 backdrop-blur-sm"></div>
 
+<!-- Card -->
+<div class="relative max-w-6xl w-full bg-white/30 backdrop-blur-md rounded-2xl shadow-2xl border-4 border-[#800000] overflow-hidden 
+            p-6 sm:p-8 md:p-10 transform opacity-0 translate-y-8 transition-all duration-1000 ease-out animate-fade-in-up">
 
+  <div class="prose prose-sm sm:prose-base max-w-none text-gray-700 mx-auto text-center">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-6" style="color:#800000;">Refund & Cancellation Policy</h1>
+
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-4">
+      Last updated: 10/Oct/2025
+    </p>
+
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-4">
+      At The Home Bakery, each cake and dessert is handcrafted to order with the utmost care.<br>Due to the perishable and customized nature of our products, refunds and cancellations are limited.
+    </p>
+
+    <h2 class="text-xl sm:text-2xl font-semibold mt-6 mb-4" style="color:#800000;">Order Cancellations</h2>
+    <ul class="list-none text-base sm:text-lg text-black text-center mb-8 mx-auto" style="max-width: 600px;">
+      <li>Orders can be cancelled within 15 minutes of placing the order.</li>
+      <li>After this period, ingredients and preparations begin, and cancellation cannot be accepted.</li>
+    </ul>
+
+    <h2 class="text-xl sm:text-2xl font-semibold mt-6 mb-4" style="color:#800000;">Refunds</h2>
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-4">
+      Refunds are only processed in cases of:
+    </p>
+    <ul class="list-none text-base sm:text-lg text-black text-center mb-4 mx-auto" style="max-width: 600px;">
+      <li>Incorrect delivery</li>
+      <li>Damage during transit (with proof provided immediately upon delivery)</li>
+    </ul>
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-8">
+      Approved refunds will be initiated within 3–5 working days to the original payment method.
+    </p>
+
+    <h2 class="text-xl sm:text-2xl font-semibold mt-6 mb-4" style="color:#800000;">Quality Concerns</h2>
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-4">
+      If you face any issue with the product quality, please contact us within 1 hour of delivery with photos and details.
+    </p>
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-4">
+      We will review and resolve the matter promptly.
+    </p>
+    <p class="text-base sm:text-lg text-black font-bold text-center leading-relaxed mb-8">
+      📧 <a href="mailto:thehomebakery2020@gmail.com" class="text-primary hover:underline">thehomebakery2020@gmail.com</a> | 📞 +91 9537999898
+    </p>
+
+  
   </div>
+</div>
+
 
 </section>
 
-    <div class="max-w-8xl mx-auto mt-7">
-        <!-- Heading and Filter Section -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 px-4 gap-4">
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Custom Cake Collection</h2>
-            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
-                <!-- Category Buttons - Improved mobile layout -->
-                <div class="flex flex-wrap gap-2">
-                    <button id="filter-all" class="px-3 py-2 bg-primary text-white rounded-md text-xs sm:text-sm font-medium hover:bg-secondary transition-colors flex-1 sm:flex-none">All</button>
-                    <button id="filter-birthday" class="px-3 py-2 bg-gray-200 rounded-md text-xs sm:text-sm font-medium hover:bg-primary hover:text-white transition-colors flex-1 sm:flex-none">Birthday</button>
-                    <button id="filter-anniversary" class="px-3 py-2 bg-gray-200 rounded-md text-xs sm:text-sm font-medium hover:bg-primary hover:text-white transition-colors flex-1 sm:flex-none">Anniversary</button>
-                    <button id="filter-kids" class="px-3 py-2 bg-gray-200 rounded-md text-xs sm:text-sm font-medium hover:bg-primary hover:text-white transition-colors flex-1 sm:flex-none">Kids</button>
-                </div>
-                <!-- Customise Button -->
-                <button onclick="openModal()" 
-                        class="bg-primary hover:bg-secondary text-white font-semibold py-2 px-3 sm:px-4 rounded-lg flex items-center gap-1 text-xs sm:text-sm customize-btn w-full sm:w-auto justify-center">
-                    <i class="fas fa-magic"></i> Customise
-                </button>
-            </div>
-        </div>
+<!-- Animation Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const card = document.querySelector('.animate-fade-in-up');
+    if (card) {
+      card.classList.remove('opacity-0', 'translate-y-8');
+      card.classList.add('opacity-100', 'translate-y-0');
+    }
+  });
+</script>
 
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-4 mb-12">
-            <!-- Cards will be generated here -->
-        </div>
-    </div>
+<style>
+  .animate-fade-in-up {
+    transition: all 1s ease-out;
+  }
+</style>
 
-    <!-- Customise Modal -->
-    <div id="customize-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-        <div class="bg-white w-full max-w-md rounded-lg shadow-lg p-6 relative mx-4">
-
-            <!-- Close button -->
-            <button id="close-modal" class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
-
-            <h2 class="text-xl font-bold mb-4 text-gray-800">Customize Your Cake</h2>
-
-            <!-- Form -->
-            <form id="customize-form" class="space-y-4">
-                
-                <!-- Flavour -->
-                <div>
-                    <label for="flavour" class="block text-gray-700 font-medium mb-1">Choose Flavour <span class="text-red-500">*</span></label>
-                    <select id="flavour" class="w-full border rounded-lg p-2" required>
-                        <option value="">-- Select Flavour --</option>
-                        <option>Chocolate</option>
-                        <option>Vanilla</option>
-                        <option>Strawberry</option>
-                        <option>Red Velvet</option>
-                        <option>Butterscotch</option>
-                    </select>
-                </div>
-
-                <!-- Size -->
-                <div>
-                    <label for="size" class="block text-gray-700 font-medium mb-1">Choose Size <span class="text-red-500">*</span></label>
-                    <select id="size" class="w-full border rounded-lg p-2" required>
-                        <option value="">-- Select Size --</option>
-                        <option>0.5 Kg</option>
-                        <option>1 Kg</option>
-                        <option>2 Kg</option>
-                        <option>3 Kg</option>
-                    </select>
-                </div>
-
-                <!-- Add-ons -->
-                <div>
-                    <label for="addons" class="block text-gray-700 font-medium mb-1">Add-ons <span class="text-red-500">*</span></label>
-                    <input type="text" id="addons" placeholder="e.g. Extra cream, photo print" class="w-full border rounded-lg p-2" required>
-                </div>
-
-                <!-- Submit -->
-                <button type="submit" class="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700">
-                    Send Order via WhatsApp
-                </button>
-
-            </form>
-        </div>
-    </div>
-
-
-    
-<!-- Testimonials -->
-<section class="relative py-8 sm:py-12 md:py-6 overflow-hidden bg-light">
-    <div class="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
-        <div class="absolute top-1/4 left-10 floating delay-1">
-            <div class="w-12 sm:w-16 h-12 sm:h-16 rounded-full" style="background-color:#f4c2ab;"></div>
-            <div class="w-12 sm:w-16 h-6 sm:h-8 rounded-b-full -mt-3 sm:-mt-4" style="background-color:#f6d1c0;"></div>
-        </div>
-        <div class="absolute top-1/3 right-20 floating delay-2">
-            <div class="w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-full"></div>
-            <div class="w-10 sm:w-12 h-5 sm:h-6 rounded-b-full -mt-2 sm:-mt-3" style="background-color:#f9e1da;"></div>
-        </div>
-    </div>
-    
-    <div class="container mx-auto px-4 relative z-10">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2" style="color:#954C2E;">Sweet Words From Our Customers</h2>
-        <p class="text-center mb-8 sm:mb-10 md:mb-12 text-sm sm:text-base" style="color:#4E1F00;">What people say about our delicious treats</p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            <!-- Testimonial 1 -->
-            <div class="p-4 sm:p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-                <div class="flex items-center mb-4">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" style="background-color:#f9e1da; color:#954C2E;">JD</div>
-                    <div class="ml-3 sm:ml-4">
-                        <h4 class="font-semibold text-sm sm:text-base" style="color:#333333;">Jane Doe</h4>
-                        <p class="text-xs sm:text-sm" style="color:#4E1F00;">Pastry Lover</p>
-                    </div>
-                </div>
-                <p class="mb-3 sm:mb-4 text-xs sm:text-sm" style="color:#333333;">"The chocolate croissants are to die for! Flaky, buttery, and just the right amount of chocolate."</p>
-                <div class="flex text-sm sm:text-base" style="color:#954C2E;">★ ★ ★ ★ ★</div>
-            </div>
-            
-            <!-- Testimonial 2 -->
-            <div class="p-4 sm:p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-                <div class="flex items-center mb-4">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" style="background-color:#f9e1da; color:#954C2E;">JS</div>
-                    <div class="ml-3 sm:ml-4">
-                        <h4 class="font-semibold text-sm sm:text-base" style="color:#333333;">John Smith</h4>
-                        <p class="text-xs sm:text-sm" style="color:#4E1F00;">Cake Enthusiast</p>
-                    </div>
-                </div>
-                <p class="mb-3 sm:mb-4 text-xs sm:text-sm" style="color:#333333;">"Ordered a birthday cake for my wife and it was perfect! Beautiful decoration and amazing taste."</p>
-                <div class="flex text-sm sm:text-base" style="color:#954C2E;">★ ★ ★ ★ ★</div>
-            </div>
-            
-            <!-- Testimonial 3 -->
-            <div class="p-4 sm:p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-                <div class="flex items-center mb-4">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" style="background-color:#f9e1da; color:#954C2E;">AM</div>
-                    <div class="ml-3 sm:ml-4">
-                        <h4 class="font-semibold text-sm sm:text-base" style="color:#333333;">Alice Miller</h4>
-                        <p class="text-xs sm:text-sm" style="color:#4E1F00;">Regular Customer</p>
-                    </div>
-                </div>
-                <p class="mb-3 sm:mb-4 text-xs sm:text-sm" style="color:#333333;">"I've tried almost everything and never been disappointed. The macarons are my absolute favorite!"</p>
-                <div class="flex text-sm sm:text-base" style="color:#954C2E;">★ ★ ★ ★ ★</div>
-            </div>
-        </div>
-    </div>
-</section>
 
   <!-- Footer -->
 <footer class="bg-white text-gray-800 py-6 px-4">
@@ -648,7 +511,7 @@
         <h3 class="text-primary font-bold text-xl mb-2">Policies</h3>
         <ul class="space-y-1 text-center md:text-left">
           <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Disclaimer</a></li>
-          <li><a href="/CAKES/allcakes.html" class="text-sm hover:text-primary transition-colors">Privacy Policy</a></li>
+          <li><a href="/POLICIES/privacy.html" class="text-sm hover:text-primary transition-colors">Privacy Policy</a></li>
           <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Cancellation Policy</a></li>
           <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Shipping & Delivery Policy</a></li>
           <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Refund & Cancellation Policy</a></li>
@@ -693,17 +556,244 @@
     </div>
   </div>
 </footer>
+
 <!-- Floating Action Buttons -->
 <div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3">
     <!-- Scroll to Top Button -->
-    <button id="scrollToTop" class="w-12 h-12 bg-primary hover:bg-secondary rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
+    <button id="scrollToTop" class="w-12 h-12 bg-primary hover:bg-secondary rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-400 transform hover:scale-110 opacity-0 invisible">
         <i class="fas fa-arrow-up text-lg"></i>
     </button>
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/919503464162" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110">
+    <a href="https://wa.me/919503464162" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-400 transform hover:scale-110">
         <i class="fab fa-whatsapp text-lg"></i>
     </a>
 </div>
-    <script src="./custom.js"></script>
+
+<script>document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+    }
+
+    // Mobile Cakes Dropdown
+    const mobileCakesToggle = document.getElementById('mobileCakesToggle');
+    const mobileCakesMenu = document.getElementById('mobileCakesMenu');
+    if (mobileCakesToggle && mobileCakesMenu) {
+        mobileCakesToggle.addEventListener('click', () => {
+            mobileCakesMenu.classList.toggle('hidden');
+            const icon = mobileCakesToggle.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+    }
+
+    // Mobile Pastries Dropdown
+    const mobilePastriesToggle = document.getElementById('mobilePastriesToggle');
+    const mobilePastriesMenu = document.getElementById('mobilePastriesMenu');
+    if (mobilePastriesToggle && mobilePastriesMenu) {
+        mobilePastriesToggle.addEventListener('click', () => {
+            mobilePastriesMenu.classList.toggle('hidden');
+            const icon = mobilePastriesToggle.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+    }
+
+    // Delivery Location Modal
+    const deliveryLocationBtn = document.getElementById('deliveryLocationBtn');
+    const deliveryModal = document.getElementById('deliveryModal');
+    const closeModal = document.getElementById('closeModal');
+    const locationInput = document.getElementById('locationInput');
+    const confirmLocation = document.getElementById('confirmLocation');
+    const selectedLocation = document.getElementById('selectedLocation');
+    const locationError = document.getElementById('locationError');
+    const locationSuccess = document.getElementById('locationSuccess');
+    const locationOptions = document.querySelectorAll('.location-option');
+
+    if (deliveryLocationBtn && deliveryModal && closeModal) {
+        deliveryLocationBtn.addEventListener('click', () => {
+            deliveryModal.classList.remove('hidden');
+            deliveryModal.classList.add('flex');
+            const modalContent = deliveryModal.querySelector('div');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        });
+
+        closeModal.addEventListener('click', () => {
+            const modalContent = deliveryModal.querySelector('div');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                deliveryModal.classList.add('hidden');
+                deliveryModal.classList.remove('flex');
+            }, 400); // Match the transition duration
+        });
+
+        // Close modal when clicking outside
+        deliveryModal.addEventListener('click', (e) => {
+            if (e.target === deliveryModal) {
+                const modalContent = deliveryModal.querySelector('div');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    deliveryModal.classList.add('hidden');
+                    deliveryModal.classList.remove('flex');
+                }, 400);
+            }
+        });
+    }
+
+    if (locationInput && confirmLocation && selectedLocation && locationError && locationSuccess) {
+        locationInput.addEventListener('input', () => {
+            const value = locationInput.value.trim();
+            confirmLocation.disabled = value === '';
+            locationError.classList.add('hidden');
+            locationSuccess.classList.add('hidden');
+        });
+
+        confirmLocation.addEventListener('click', () => {
+            const value = locationInput.value.trim();
+            if (value) {
+                selectedLocation.textContent = value.length > 20 ? value.substring(0, 17) + '...' : value;
+                locationSuccess.textContent = `Location set to ${value}`;
+                locationSuccess.classList.remove('hidden');
+                locationError.classList.add('hidden');
+                setTimeout(() => {
+                    const modalContent = deliveryModal.querySelector('div');
+                    modalContent.classList.remove('scale-100');
+                    modalContent.classList.add('scale-95');
+                    setTimeout(() => {
+                        deliveryModal.classList.add('hidden');
+                        deliveryModal.classList.remove('flex');
+                    }, 400);
+                }, 1000);
+            } else {
+                locationError.textContent = 'Please enter a valid location';
+                locationError.classList.remove('hidden');
+                locationSuccess.classList.add('hidden');
+            }
+        });
+
+        locationOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const locationText = option.textContent.trim().replace(/^.*?\s/, '');
+                locationInput.value = locationText;
+                confirmLocation.disabled = false;
+                locationError.classList.add('hidden');
+            });
+        });
+    }
+
+    // Search Overlay
+    const searchToggle = document.getElementById('searchToggle');
+    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const closeSearch = document.getElementById('closeSearch');
+    const searchInput = document.getElementById('searchInput');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+
+    if (searchToggle && searchOverlay && closeSearch) {
+        searchToggle.addEventListener('click', () => {
+            searchOverlay.classList.remove('hidden');
+            searchOverlay.classList.add('flex');
+            const overlayContent = searchOverlay.querySelector('div');
+            overlayContent.classList.remove('scale-95');
+            overlayContent.classList.add('scale-100');
+            searchInput.focus();
+        });
+
+        if (mobileSearchToggle) {
+            mobileSearchToggle.addEventListener('click', () => {
+                searchOverlay.classList.remove('hidden');
+                searchOverlay.classList.add('flex');
+                const overlayContent = searchOverlay.querySelector('div');
+                overlayContent.classList.remove('scale-95');
+                overlayContent.classList.add('scale-100');
+                searchInput.focus();
+            });
+        }
+
+        closeSearch.addEventListener('click', () => {
+            const overlayContent = searchOverlay.querySelector('div');
+            overlayContent.classList.remove('scale-100');
+            overlayContent.classList.add('scale-95');
+            setTimeout(() => {
+                searchOverlay.classList.add('hidden');
+                searchOverlay.classList.remove('flex');
+            }, 400);
+        });
+
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) {
+                const overlayContent = searchOverlay.querySelector('div');
+                overlayContent.classList.remove('scale-100');
+                overlayContent.classList.add('scale-95');
+                setTimeout(() => {
+                    searchOverlay.classList.add('hidden');
+                    searchOverlay.classList.remove('flex');
+                }, 400);
+            }
+        });
+    }
+
+    if (searchInput && searchSuggestions) {
+        const suggestions = [
+            'Chocolate Cake',
+            'Vanilla Pastry',
+            'Red Velvet Cake',
+            'Fruit Cake',
+            'Black Forest',
+            'Barbie Cake',
+            'Photo Cake',
+            'Bento Cake'
+        ];
+
+        searchInput.addEventListener('input', () => {
+            const value = searchInput.value.trim().toLowerCase();
+            searchSuggestions.innerHTML = '';
+            if (value) {
+                const filteredSuggestions = suggestions.filter(suggestion =>
+                    suggestion.toLowerCase().includes(value)
+                );
+                filteredSuggestions.forEach(suggestion => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md cursor-pointer';
+                    div.textContent = suggestion;
+                    div.addEventListener('click', () => {
+                        searchInput.value = suggestion;
+                        searchSuggestions.innerHTML = '';
+                    });
+                    searchSuggestions.appendChild(div);
+                });
+            }
+        });
+    }
+
+    // Scroll to Top Button
+    const scrollToTop = document.getElementById('scrollToTop');
+    if (scrollToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTop.classList.remove('opacity-0', 'invisible');
+                scrollToTop.classList.add('opacity-100', 'visible');
+            } else {
+                scrollToTop.classList.remove('opacity-100', 'visible');
+                scrollToTop.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+});</script>
+
 </body>
 </html>

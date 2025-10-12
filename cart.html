@@ -1,78 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Shopping Cart</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    :root {
-      --primary: #4E1F00;
-      --secondary: #F5F5DC;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart</title>
+    
+    <!-- Optional: Favicon Logo for Browser Tab -->
+    <link rel="icon" type="image/png" href="/IMG/LOGO_1-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#660B05',
+                        secondary: '#4E1F00',
+                        light: '#fef5f8',
+                        dark: '#333333'
+                    },
+                    boxShadow: {
+                        'nav': '0 2px 5px rgba(0, 0, 0, 0.05)',
+                        'main-nav': '0 2px 15px rgba(0, 0, 0, 0.05)',
+                        'dropdown': '0 15px 30px rgba(0,0,0,0.12)',
+                        'card': '0 4px 10px rgba(0,0,0,0.1)',
+                        'btn': '0 4px 15px rgba(233, 30, 99, 0.3)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .delay-1 { animation-delay: 0.5s; }
+        .delay-2 { animation-delay: 1s; }
+        .delay-3 { animation-delay: 1.5s; }
+        .delay-4 { animation-delay: 2s; }
+        :root {
+          --primary: #4E1F00;
+          --secondary: #F5F5DC;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+        .empty-cart {
+          background-image: url('https://cdn.dribbble.com/users/5107895/screenshots/14532312/media/a7e6c2e9333d0989e3a54c95dd8321d7.jpg');
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          min-height: 350px;
+        }
 
-    .empty-cart {
-      background-image: url('https://cdn.dribbble.com/users/5107895/screenshots/14532312/media/a7e6c2e9333d0989e3a54c95dd8321d7.jpg');
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      min-height: 350px;
-    }
+        .cart-item {
+          transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .cart-item:hover {
+          background-color: #fafafa;
+          transform: scale(1.01);
+        }
 
-    .cart-item {
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-    .cart-item:hover {
-      background-color: #fafafa;
-      transform: scale(1.01);
-    }
+        .quantity-btn {
+          transition: all 0.2s ease;
+        }
 
-    .quantity-btn {
-      transition: all 0.2s ease;
-    }
+        .quantity-btn:hover {
+          background-color: #e5e7eb;
+        }
 
-    .quantity-btn:hover {
-      background-color: #e5e7eb;
-    }
+        .remove-btn:hover {
+          color: #dc2626;
+          transform: translateX(3px);
+        }
 
-    .remove-btn:hover {
-      color: #dc2626;
-      transform: translateX(3px);
-    }
+        #checkout-btn {
+          background-color: var(--primary);
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 6px -1px rgba(78, 31, 0, 0.3);
+        }
 
-    #checkout-btn {
-      background-color: var(--primary);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px -1px rgba(78, 31, 0, 0.3);
-    }
+        #checkout-btn:hover {
+          background-color: #3a1800;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 10px -1px rgba(78, 31, 0, 0.4);
+        }
 
-    #checkout-btn:hover {
-      background-color: #3a1800;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 10px -1px rgba(78, 31, 0, 0.4);
-    }
+        #item-count {
+          background-color: var(--primary);
+        }
 
-    #item-count {
-      background-color: var(--primary);
-    }
-
-    h1, h2, h3 {
-      color: var(--primary);
-    }
-  </style>
+        h1, h2, h3 {
+          color: var(--primary);
+        }
+    </style>
 </head>
-<body class="bg-[var(--secondary)] min-h-screen flex justify-center items-start py-10">
+<body class="bg-white">
+
+<!-- First Navbar (Top) -->
+<nav class="sticky top-0 z-50 flex items-center justify-between px-3 py-2 md:px-8 md:py-4 text-white bg-primary">
+    <div class="flex items-center">
+        <span class="text-xs sm:text-sm md:text-base">Welcome To The Home Bakery</span>
+    </div>
+    <div class="flex items-center space-x-2">
+        <i class="fas fa-map-marker-alt text-white text-xs sm:text-sm"></i>
+        <div class="flex flex-col">
+            <span class="text-[10px] sm:text-xs text-white">Deliver to</span>
+            <button id="deliveryLocationBtn" class="text-xs sm:text-sm font-medium text-white hover:text-gray-300 transition-colors duration-300 flex items-center">
+                <span id="selectedLocation" class="max-w-[80px] sm:max-w-none truncate">Select Location</span>
+                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Second Navbar (Main) -->
+<nav class="sticky top-12 sm:top-14 md:top-16 z-40 lg:px-8 bg-white shadow-lg border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div class="flex justify-between items-center h-16 sm:h-20 md:h-24">
+            
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <img src="/IMG/nohat_bg_removed_8c9aa728.png" alt="The Home Bakery Logo" class="h-10 w-12 sm:h-12 sm:w-14 md:h-16 md:w-18 transition-transform duration-300 hover:scale-105">
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="../index.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">Home</a>
+                
+                <!-- Cakes Dropdown -->
+                <div class="relative group">
+                    <a href="/cakes/Allcakes.html" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                        Cakes
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[500px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                        <div class="p-6 grid grid-cols-4 gap-6">
+                            <div>
+                                <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
+                                    <i class="fas fa-utensils mr-2"></i>By Type
+                                </h3>
+                                <ul class="space-y-1">
+                                    <li><a href="./CAKES/allcakes.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
+                                    <li><a href="./cakes/choco.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Red Velvet</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Fruit Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Black Forest</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
+                                    <i class="fas fa-calendar-alt mr-2"></i>By Occasion
+                                </h3>
+                                <ul class="space-y-1">
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Birthday Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Anniversary Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Wedding Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Graduation Cakes</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
+                                    <i class="fas fa-child mr-2"></i>Kids Cakes
+                                </h3>
+                                <ul class="space-y-1">
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Barbie Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Car Theme</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Cartoon Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Spiderman</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
+                                    <i class="fas fa-star mr-2"></i>Specialty
+                                </h3>
+                                <ul class="space-y-1">
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Photo Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Bento Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Pull Me Up</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Pinata Cakes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pastries Dropdown -->
+                <div class="relative group">
+                    <a href="#" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                        Pastries
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[220px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                        <div class="p-6">
+                            <div>
+                                <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
+                                    <i class="fas fa-ice-cream mr-2"></i>By Flavours
+                                </h3>
+                                <ul class="space-y-1">
+                                    <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Strawberry</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Blueberry</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Lemon</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Matcha</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="./CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+                 <a href="./SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
+                <a href="#" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
+                <a href="../contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+                <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
+            </div>
+
+    <!-- Right Side Icons -->
+<div class="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+    <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
+        <!-- Search -->
+        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-2 text-black hover:text-primary">
+            <i class="fas fa-search text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Search</span>
+        </a>
+
+        <!-- Login - Hidden on very small screens -->
+        <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
+            <i class="fas fa-user text-base sm:text-lg"></i>
+            <span class="text-xs mt-1">Login</span>
+        </a>
+
+        <!-- Wishlist -->
+        <a href="wishlist.html" class="relative flex flex-col items-center p-0 text-black hover:text-primary">
+            <i class="fas fa-heart text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Wishlist</span>
+            <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+        </a>
+    </div>
+
+    <!-- Cart -->
+    <a href="cart.html" class="relative flex flex-col items-center p-1 py-1 px-1 text-black hover:text-primary">
+        <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
+        <span class="hidden sm:block text-xs mt-1">Cart</span>
+        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
+        <i class="fas fa-bars text-lg sm:text-xl"></i>
+    </button>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="navLinks" class="md:hidden hidden bg-white border-t border-gray-100">
+        <div class="px-4 py-4 space-y-2 max-h-[70vh] overflow-y-auto">
+            <a href="../index.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Home</a>
+            
+            <!-- Mobile Cakes Dropdown -->
+            <div class="space-y-0">
+                <button id="mobileCakesToggle" class="w-full flex items-center justify-between px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">
+                    Cakes
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                </button>
+                <div id="mobileCakesMenu" class="hidden bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mt-1">
+                    <div class="p-4 space-y-2">
+                        <div>
+                            <h4 class="flex items-center text-primary font-semibold text-xs mb-2">
+                                <i class="fas fa-utensils mr-1"></i>By Type
+                            </h4>
+                            <ul class="space-y-1 text-xs">
+                                <li><a href="/CAKES/allcakes.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">All Cakes</a></li>
+                                <li><a href="/cakes/choco.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Red Velvet</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Fruit Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Black Forest</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="flex items-center text-primary font-semibold text-xs mb-2">
+                                <i class="fas fa-calendar-alt mr-1"></i>By Occasion
+                            </h4>
+                            <ul class="space-y-1 text-xs">
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Birthday Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Anniversary Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Wedding Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Graduation Cakes</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="flex items-center text-primary font-semibold text-xs mb-2">
+                                <i class="fas fa-child mr-1"></i>Kids Cakes
+                            </h4>
+                            <ul class="space-y-1 text-xs">
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Barbie Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Car Theme</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Cartoon Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Spiderman</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="flex items-center text-primary font-semibold text-xs mb-2">
+                                <i class="fas fa-star mr-1"></i>Specialty
+                            </h4>
+                            <ul class="space-y-1 text-xs">
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Photo Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Bento Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Pull Me Up</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Pinata Cakes</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Pastries Dropdown -->
+            <div class="space-y-0">
+                <button id="mobilePastriesToggle" class="w-full flex items-center justify-between px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">
+                    Pastries
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                </button>
+                <div id="mobilePastriesMenu" class="hidden bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mt-1">
+                    <div class="p-4 space-y-2">
+                        <div>
+                            <h4 class="flex items-center text-primary font-semibold text-xs mb-2">
+                                <i class="fas fa-ice-cream mr-1"></i>By Flavours
+                            </h4>
+                            <ul class="space-y-1 text-xs">
+                                <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Strawberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Blueberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Lemon</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Matcha</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="./CUSTOM/custom.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+            <a href="#" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
+            <a href="/contact.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+            <a href="/about.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
+            
+            <div class="flex items-center justify-around pt-4 border-t border-gray-100 mt-4">
+                <a href="#" id="mobileSearchToggle" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
+                    <i class="fas fa-search text-lg"></i>
+                    <span class="text-xs mt-1">Search</span>
+                </a>
+                <a href="wishlist.html" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
+                    <i class="fas fa-heart text-lg"></i>
+                    <span class="text-xs mt-1">Wishlist</span>
+                </a>
+                <a href="cart.html" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span class="text-xs mt-1">Cart</span>
+                </a>
+                <a href="login.html" class="flex flex-col items-center p-3 text-gray-700 hover:text-primary">
+                    <i class="fas fa-user text-lg"></i>
+                    <span class="text-xs mt-1">Login</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Delivery Location Modal -->
+<div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Choose Delivery Location</h3>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="locationInput" placeholder="Enter your area, city or pincode" class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+            <div id="locationError" class="text-red-500 text-xs sm:text-sm mt-1 hidden"></div>
+            <div id="locationSuccess" class="text-green-500 text-xs sm:text-sm mt-1 hidden"></div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="text-xs sm:text-sm font-medium text-gray-700 mb-2">Popular Areas in Pune</h4>
+            <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Koregaon Park
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Baner
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Wakad
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Hinjewadi
+                </button>
+            </div>
+        </div>
+
+        <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg text-sm sm:text-base font-medium hover:from-secondary hover:to-primary transition-all duration-300 disabled:opacity-50" disabled>
+            Confirm Location
+        </button>
+    </div>
+</div>
+
+<!-- Search Overlay -->
+<div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Search Products</h3>
+            <button id="closeSearch" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search for cakes, pastries..." class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+        </div>
+        
+        <div id="searchSuggestions" class="max-h-64 overflow-y-auto scrollbar-hide"></div>
+    </div>
+</div>
+
   <div class="container mx-auto px-4 max-w-6xl">
     <div class="bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
-      <h1 class="text-3xl font-extrabold mb-8 flex items-center">
-        <i class="fas fa-shopping-cart mr-3 text-[var(--primary)]"></i>
+      <h1 class="text-3xl font-extrabold mb-8 flex items-center text-[#660B05]">
+        <i class="fas fa-shopping-cart mr-3 text-[#660B05]"></i>
         Your Shopping Cart
-        <span id="item-count" class="ml-3 text-xs font-semibold text-white px-2 py-0.5 rounded-full"></span>
+        <span id="item-count" class="ml-3 text-xs font-semibold text-white px-2 py-0.5 bg-[#660B05] rounded-full"></span>
       </h1>
 
       <div id="cart-container">
@@ -101,7 +478,7 @@
 
       <div id="empty-cart-message" class="empty-cart text-center py-8 hidden">
         <p class="text-gray-700 text-lg mb-4">Your cart is feeling light!</p>
-        <a href="index.html" class="mt-6 inline-block bg-[var(--primary)] hover:bg-[#3a1800] text-white px-6 py-3 rounded-lg font-medium transition-transform transform hover:-translate-x-1">
+        <a href="index.html" class="mt-6 inline-block bg-[#660B05] hover:bg-[#660B05] text-white px-6 py-3 rounded-lg font-medium transition-transform transform hover:-translate-x-1">
           <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
         </a>
       </div>
@@ -117,107 +494,548 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const cartItemsContainer = document.getElementById('cart-items');
-      const emptyCartMessage = document.getElementById('empty-cart-message');
-      const cartContainer = document.getElementById('cart-container');
-      const cartActions = document.getElementById('cart-actions');
-      const orderSummary = document.getElementById('order-summary');
-      const itemCount = document.getElementById('item-count');
+  <!-- Footer -->
+<footer class="bg-white text-gray-800 py-6 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
+      
+      <!-- About Us -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">The Home Bakery</h3>
+        <img src="path-to-your-logo.png" alt="The Home Bakery Logo" class="mb-2 max-w-32" onerror="this.style.display='none'">
+        <p class="text-sm mb-4">We bake happiness into every product.</p>
+        
+        <h3 class="text-primary font-bold text-lg mb-2">Follow Us</h3>
+        <div class="flex justify-center md:justify-start space-x-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/the_home_bakery_pune?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://wa.me/919503464162?text=Hi%20The%20Home%20Bakery%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-pinterest-p"></i>
+          </a>
+        </div>
+      </div>
+  <!-- Policies Section -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Policies</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Disclaimer</a></li>
+          <li><a href="/POLICIES/privacy.html" class="text-sm hover:text-primary transition-colors">Privacy Policy</a></li>
+          <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Cancellation Policy</a></li>
+          <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Shipping & Delivery Policy</a></li>
+          <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Refund & Cancellation Policy</a></li>
+        </ul>
+      </div>
 
-      const deliveryCharge = 99;
+      <!-- Quick Links -->
+      <div class="hidden md:block">
+        <h3 class="text-primary font-bold text-xl mb-2">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Home</a></li>
+          <li><a href="/CAKES/allcakes.html" class="text-sm hover:text-primary transition-colors">Cakes</a></li>
+          <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Pastries</a></li>
+          <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Customise</a></li>
+          <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Special Offers</a></li>
+        </ul>
+      </div>
 
-      function renderCart() {
-        cartItemsContainer.innerHTML = '';
-        let subtotal = 0;
-        let totalItems = 0;
+      <!-- Contact & Social -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Contact Us</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li class="flex items-start justify-center md:justify-start">
+            <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary text-sm"></i>
+            <span class="text-sm">G - 004, ALDEA ESPANOLA PHASE, 6 & 7, opp. Orchid Hotel, Mahalunge, Pune Maharashtra 411045</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-phone-alt mr-3 text-primary text-sm"></i>
+            <span class="text-sm">+91 95034 64162</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-envelope mr-3 text-primary text-sm"></i>
+            <span class="text-sm">hello@homebakery.com</span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-        if (cart.length === 0) {
-          emptyCartMessage.classList.remove('hidden');
-          cartContainer.classList.add('hidden');
-          cartActions.classList.add('hidden');
-          itemCount.textContent = '0';
-          return;
-        }
+    <!-- Copyright -->
+    <div class="border-t border-gray-300 mt-6 pt-4 text-center">
+      <p class="text-sm">© 2025 The Home Bakery. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
-        emptyCartMessage.classList.add('hidden');
-        cartContainer.classList.remove('hidden');
-        cartActions.classList.remove('hidden');
-        orderSummary.classList.remove('hidden');
 
-        cart.forEach((item, index) => {
-          const itemTotal = item.price * item.quantity;
-          subtotal += itemTotal;
-          totalItems += item.quantity;
+<!-- Floating Action Buttons -->
+<div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3">
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="w-12 h-12 bg-primary hover:bg-secondary rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919503464162" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110">
+        <i class="fab fa-whatsapp text-lg"></i>
+    </a>
+</div>
 
-          const itemElement = document.createElement('div');
-          itemElement.className = 'cart-item flex flex-col sm:flex-row justify-between items-start sm:items-center py-6 px-4';
-          itemElement.innerHTML = `
-            <div class="flex items-start w-full sm:w-2/3 mb-4 sm:mb-0">
-              <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl mr-4 shadow-sm border border-gray-100">
-              <div>
-                <h3 class="font-medium text-lg text-[var(--primary)]">${item.name}</h3>
-                <p class="text-gray-500 text-sm mt-1">${item.description || 'Delicious bakery item'}</p>
-                <button onclick="removeItem(${index})" class="remove-btn mt-3 text-red-500 hover:text-red-700 text-sm flex items-center">
-                  <i class="fas fa-trash-alt mr-1.5"></i> Remove
-                </button>
-              </div>
+
+
+<script>
+    // Wishlist functionality
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+function toggleWishlist(button, id, name, price, description, image) {
+    const heartIcon = button.querySelector('i');
+    const isInWishlist = wishlist.some(item => item.id === id);
+    
+    if (isInWishlist) {
+        // Remove from wishlist
+        wishlist = wishlist.filter(item => item.id !== id);
+        heartIcon.classList.remove('text-red-500', 'fa-solid');
+        heartIcon.classList.add('text-gray-600', 'fa-regular');
+        showNotification(`${name} removed from wishlist`);
+    } else {
+        // Add to wishlist
+        wishlist.push({ id, name, price, description, image });
+        heartIcon.classList.remove('text-gray-600', 'fa-regular');
+        heartIcon.classList.add('text-red-500', 'fa-solid');
+        showNotification(`${name} added to wishlist`);
+    }
+    
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+}
+
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    const text = document.getElementById('notification-text');
+    text.textContent = message;
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+        notification.classList.add('hidden');
+    }, 3000);
+}
+
+// Search functionality
+const products = [
+    { id: 'chocolate-fudge-cake', name: 'Chocolate Fudge Cake', category: 'Cakes' },
+    { id: 'red-velvet-dream', name: 'Red Velvet Dream', category: 'Cakes' },
+    { id: 'berry-cheesecake', name: 'Berry Cheesecake', category: 'Cakes' },
+    { id: 'lemon-meringue', name: 'Lemon Meringue', category: 'Cakes' },
+    { id: 'mango-saffron-pastry', name: 'Mango Saffron Pastry', category: 'Pastries' },
+    { id: 'masala-chai-puff', name: 'Masala Chai Puff', category: 'Pastries' },
+    { id: 'rose-gulab-jamun-tart', name: 'Rose Gulab Jamun Cheesecake', category: 'Pastries' },
+    { id: 'pista-kulfi-pastry', name: 'Pistachio Cheesecake Cups', category: 'Pastries' },
+    { id: 'cheesecake-jars', name: 'Cheesecake Jars', category: 'Pastries' },
+    { id: 'brownie', name: 'Chocolate Brownie', category: 'Pastries' },
+    { id: 'cookies', name: 'Assorted Cookies', category: 'Pastries' },
+    { id: 'croissant', name: 'Butter Croissant', category: 'Pastries' },
+    { id: 'donuts', name: 'Glazed Donuts', category: 'Pastries' },
+    { id: 'bombolonis', name: 'Cream Filled Bombolonis', category: 'Pastries' },
+    { id: 'cupcakes', name: 'Vanilla Cupcakes', category: 'Pastries' },
+    { id: 'muffins', name: 'Blueberry Muffins', category: 'Pastries' },
+    { id: 'cold-coffee', name: 'Iced Cold Coffee', category: 'Beverages' },
+    { id: 'french-fries', name: 'Crispy French Fries', category: 'Snacks' },
+    { id: 'vanilla-cake', name: 'Vanilla Cake', category: 'Cakes' },
+    { id: 'pineapple-cake', name: 'Pineapple Cake', category: 'Cakes' },
+    { id: 'blueberry-cake', name: 'Blueberry Cake', category: 'Cakes' },
+    { id: 'mango-cake', name: 'Mango Cake', category: 'Cakes' },
+    { id: 'butterscotch-cake', name: 'Butterscotch Cake', category: 'Cakes' },
+    { id: 'kulfi-falooda-cake', name: 'Kulfi Falooda Cake', category: 'Cakes' },
+    { id: 'dutch-chocolate-cake', name: 'Dutch Chocolate Cake', category: 'Cakes' },
+    { id: 'black-forest-cake', name: 'Black Forest Cake', category: 'Cakes' },
+    { id: 'white-forest-cake', name: 'White Forest Cake', category: 'Cakes' },
+    { id: 'choco-chips-cake', name: 'Choco Chips Cake', category: 'Cakes' },
+    { id: 'choco-truffle-cake', name: 'Choco Truffle Cake', category: 'Cakes' },
+    { id: 'choco-coffee-cake', name: 'Choco Coffee Cake', category: 'Cakes' },
+    { id: 'tiramisu-cake', name: 'Tiramisu Cake', category: 'Cakes' },
+    { id: 'choco-vanilla-cake', name: 'Choco Vanilla Cake', category: 'Cakes' },
+    { id: 'choco-hazelnut-cake', name: 'Choco Hazelnut Cake', category: 'Cakes' },
+    { id: 'choco-vanilla-oreo-cake', name: 'Choco Vanilla Oreo Cake', category: 'Cakes' },
+    { id: 'pistachio-rose-cake', name: 'Pistachio Rose Cake', category: 'Cakes' },
+    { id: 'banana-choco-walnut-cake', name: 'Banana Choco Walnut Cake', category: 'Cakes' },
+    { id: 'date-walnut-cake', name: 'Date & Walnut Cake', category: 'Cakes' },
+    { id: 'mava-cake', name: 'Mava Cake', category: 'Cakes' },
+    { id: 'paan-gulkand-cake', name: 'Paan Gulkand Cake', category: 'Cakes' },
+    { id: 'gulab-jamun-cake', name: 'Gulab Jamun Cake', category: 'Cakes' },
+    { id: 'rasmalai-cake', name: 'Rasmalai Cake', category: 'Cakes' },
+    { id: 'fresh-mix-fruit-cake', name: 'Fresh Mix Fruit Cake', category: 'Cakes' },
+    { id: 'pineapple-pastry', name: 'Pineapple', category: 'Pastries' },
+    { id: 'butterscotch-pastry', name: 'Butterscotch', category: 'Pastries' },
+    { id: 'kulfi-falooda-pastry', name: 'Kulfi Falooda', category: 'Pastries' },
+    { id: 'dutch-chocolate-pastry', name: 'Dutch Chocolate', category: 'Pastries' },
+    { id: 'chocolate-truffle-pastry', name: 'Chocolate Truffle', category: 'Pastries' },
+    { id: 'chocolate-bomboloni', name: 'Chocolate Bomboloni', category: 'Pastries' },
+    { id: 'nutella-bomboloni', name: 'Nutella Bomboloni', category: 'Pastries' },
+    { id: 'biscoff-bomboloni', name: 'Biscoff Bomboloni', category: 'Pastries' },
+    { id: 'lotus-biscoff-cheesecake-jar', name: 'Lotus Biscoff Cheesecake Jar', category: 'Pastries' },
+    { id: 'blueberry-cheesecake-jar', name: 'Blueberry Cheesecake Jar', category: 'Pastries' },
+    { id: 'nutella-cheesecake-jar', name: 'Nutella Cheesecake Jar', category: 'Pastries' },
+    { id: 'strawberry-cheesecake-jar', name: 'Strawberry Cheesecake Jar', category: 'Pastries' },
+    { id: 'chocolate-cheesecake-jar', name: 'Chocolate Cheesecake Jar', category: 'Pastries' },
+    { id: 'choco-hazelnut-cheesecake-jar', name: 'Choco Hazelnut Cheesecake Jar', category: 'Pastries' },
+    { id: 'chocolate-brownie', name: 'Chocolate Brownie', category: 'Pastries' },
+    { id: 'walnut-brownie', name: 'Walnut Brownie', category: 'Pastries' },
+    { id: 'cream-cheese-korean-bun', name: 'Cream Cheese Korean Bun', category: 'Pastries' },
+    { id: 'vanilla-dryfruits', name: 'Vanilla Dryfruits', category: 'Pastries' },
+    { id: 'chocolate-muffin', name: 'Chocolate Muffin', category: 'Pastries' },
+    { id: 'banana-muffin', name: 'Banana Muffin', category: 'Pastries' },
+    { id: 'date-walnut-muffin', name: 'Date & Walnut Muffin', category: 'Pastries' },
+    { id: 'lotus-biscoff-cheesecake', name: 'Lotus Biscoff Cheesecake', category: 'Pastries' },
+    { id: 'blueberry-cheesecake', name: 'Blueberry Cheesecake', category: 'Pastries' },
+    { id: 'nutella-cheesecake', name: 'Nutella Cheesecake', category: 'Pastries' },
+    { id: 'strawberry-cheesecake', name: 'Strawberry Cheesecake', category: 'Pastries' },
+    { id: 'newyork-cheesecake', name: 'Newyork Cheesecake', category: 'Pastries' },
+    { id: 'chocolate-cheesecake', name: 'Chocolate Cheesecake', category: 'Pastries' },
+    { id: 'rasmalai-cheesecake', name: 'Rasmalai Cheesecake', category: 'Pastries' },
+    { id: 'motichoor-cheesecake', name: 'Motichoor Cheesecake', category: 'Pastries' },
+    { id: 'dark-chocolate-donut', name: 'Dark Chocolate Donut', category: 'Pastries' },
+    { id: 'white-chocolate-donut', name: 'White Chocolate Donut', category: 'Pastries' },
+    { id: 'milk-chocolate-donut', name: 'Milk Chocolate Donut', category: 'Pastries' },
+    { id: 'nutella-donut', name: 'Nutella Donut', category: 'Pastries' },
+    { id: 'biscoff-donut', name: 'Biscoff Donut', category: 'Pastries' },
+    { id: 'french-butter-croissant', name: 'French Butter Croissant', category: 'Pastries' },
+    { id: 'almond-croissant', name: 'Almond Croissant', category: 'Pastries' },
+    { id: 'chocolate-croissant', name: 'Chocolate Croissant', category: 'Pastries' },
+    { id: 'vanilla-cupcake', name: 'Vanilla Cupcake', category: 'Pastries' },
+    { id: 'pineapple-cupcake', name: 'Pineapple Cupcake', category: 'Pastries' },
+    { id: 'strawberry-cupcake', name: 'Strawberry Cupcake', category: 'Pastries' },
+    { id: 'blueberry-cupcake', name: 'Blueberry Cupcake', category: 'Pastries' },
+    { id: 'chocolate-cupcake', name: 'Chocolate Cupcake', category: 'Pastries' },
+    { id: 'dry-fruits-cookies', name: 'Dry Fruits Cookies', category: 'Pastries' },
+    { id: 'choco-chips-cookies', name: 'Choco Chips Cookies', category: 'Pastries' },
+    { id: 'coconut-cookies', name: 'Coconut Cookies', category: 'Pastries' },
+    { id: 'healthy-dry-fruits-cookies', name: 'Healthy Dry Fruits Cookies', category: 'Pastries' },
+    { id: 'healthy-chocochips-cookies', name: 'Healthy Chocochips Cookies', category: 'Pastries' },
+    { id: 'cakesickles', name: 'Cakesickles', category: 'Pastries' }
+];
+
+function showSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    setTimeout(() => overlay.querySelector('.scale-95').classList.add('scale-100'), 10);
+}
+
+function hideSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.querySelector('.scale-95').classList.remove('scale-100');
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 300);
+}
+
+function performSearch(query) {
+    const suggestions = document.getElementById('searchSuggestions');
+    const filtered = products.filter(product => 
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.category.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5); // Limit to 5 suggestions
+
+    suggestions.innerHTML = '';
+
+    if (query.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">Start typing to see suggestions...</p>';
+        return;
+    }
+
+    if (filtered.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">No products found.</p>';
+        return;
+    }
+
+    filtered.forEach(product => {
+        const suggestion = document.createElement('a');
+        suggestion.href = `product-details.html?id=${product.id}`;
+        suggestion.className = 'flex items-center p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors text-sm';
+        suggestion.innerHTML = `
+            <i class="fas fa-search text-primary mr-3"></i>
+            <div class="flex-1 min-w-0">
+                <div class="font-medium text-gray-900 truncate">${product.name}</div>
+                <div class="text-xs text-gray-500 truncate">${product.category}</div>
             </div>
-            <div class="flex flex-col sm:flex-row items-end sm:items-center justify-between w-full sm:w-1/3">
-              <div class="flex items-center mb-3 sm:mb-0">
-                <button onclick="updateQuantity(${index}, -1)" class="quantity-btn px-3 py-1 border border-gray-300 rounded-l hover:bg-gray-100 text-gray-600">
-                  <i class="fas fa-minus text-sm"></i>
-                </button>
-                <span class="px-4 py-1 border-t border-b border-gray-300 bg-gray-50 text-gray-700">${item.quantity}</span>
-                <button onclick="updateQuantity(${index}, 1)" class="quantity-btn px-3 py-1 border border-gray-300 rounded-r hover:bg-gray-100 text-gray-600">
-                  <i class="fas fa-plus text-sm"></i>
-                </button>
-              </div>
-              <div class="text-right">
-                <p class="text-lg font-semibold text-[var(--primary)]">₹${itemTotal.toLocaleString('en-IN')}</p>
-                <p class="text-xs text-gray-400 mt-1">₹${item.price.toLocaleString('en-IN')} each</p>
-              </div>
-            </div>
-          `;
-          cartItemsContainer.appendChild(itemElement);
+        `;
+        suggestions.appendChild(suggestion);
+    });
+}
+
+// Combined DOMContentLoaded for wishlist init, scroll functionality, search, and mobile menu
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const hamburgerIcon = menuToggle.querySelector('i');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            const isOpen = !navLinks.classList.contains('hidden');
+            if (isOpen) {
+                hamburgerIcon.classList.remove('fa-bars');
+                hamburgerIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            } else {
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = ''; // Restore scroll
+            }
         });
 
-        document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
-        document.getElementById('delivery').textContent = `₹${deliveryCharge.toLocaleString('en-IN')}`;
-        document.getElementById('cart-total').textContent = `₹${(subtotal + deliveryCharge).toLocaleString('en-IN')}`;
-        itemCount.textContent = totalItems;
+        // Close menu when clicking on a link
+        const mobileLinks = navLinks.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.add('hidden');
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu on outside click (optional, but enhances UX)
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.add('hidden');
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Mobile Dropdown Toggles
+    const mobileCakesToggle = document.getElementById('mobileCakesToggle');
+    const mobileCakesMenu = document.getElementById('mobileCakesMenu');
+    const cakesIcon = mobileCakesToggle?.querySelector('i');
+
+    if (mobileCakesToggle && mobileCakesMenu && cakesIcon) {
+        mobileCakesToggle.addEventListener('click', () => {
+            mobileCakesMenu.classList.toggle('hidden');
+            cakesIcon.classList.toggle('rotate-180');
+        });
+    }
+
+    const mobilePastriesToggle = document.getElementById('mobilePastriesToggle');
+    const mobilePastriesMenu = document.getElementById('mobilePastriesMenu');
+    const pastriesIcon = mobilePastriesToggle?.querySelector('i');
+
+    if (mobilePastriesToggle && mobilePastriesMenu && pastriesIcon) {
+        mobilePastriesToggle.addEventListener('click', () => {
+            mobilePastriesMenu.classList.toggle('hidden');
+            pastriesIcon.classList.toggle('rotate-180');
+        });
+    }
+
+    // Wishlist initialization
+    const buttons = document.querySelectorAll('button[onclick^="toggleWishlist"]');
+    buttons.forEach(button => {
+        const onclick = button.getAttribute('onclick');
+        const match = onclick.match(/'([^']+)'/);
+        if (match) {
+            const id = match[1];
+            const isInWishlist = wishlist.some(item => item.id === id);
+            const heartIcon = button.querySelector('i');
+            if (isInWishlist) {
+                heartIcon.classList.remove('text-gray-600', 'fa-regular');
+                heartIcon.classList.add('text-red-500', 'fa-solid');
+            } else {
+                heartIcon.classList.remove('text-red-500', 'fa-solid');
+                heartIcon.classList.add('text-gray-600', 'fa-regular');
+            }
+        }
+    });
+
+    // Search toggle
+    const searchToggle = document.getElementById('searchToggle');
+    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+    const closeSearch = document.getElementById('closeSearch');
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchToggle) searchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+    if (mobileSearchToggle) mobileSearchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+    if (closeSearch) closeSearch.addEventListener('click', hideSearchOverlay);
+
+    // Close on overlay click
+    document.getElementById('searchOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'searchOverlay') hideSearchOverlay();
+    });
+
+    // Search input handler
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.length > 0) performSearch(searchInput.value);
+        });
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') hideSearchOverlay();
+            if (e.key === 'Enter' && searchInput.value) {
+                window.location.href = `product-details.html?q=${encodeURIComponent(searchInput.value)}`;
+            }
+        });
+    }
+
+    // Scroll to Top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+            scrollToTopBtn.classList.add('opacity-100', 'visible');
+        } else {
+            scrollToTopBtn.classList.remove('opacity-100', 'visible');
+            scrollToTopBtn.classList.add('opacity-0', 'invisible');
+        }
+    });
+    if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Delivery Location Modal
+    const deliveryModal = document.getElementById('deliveryModal');
+    const deliveryLocationBtn = document.getElementById('deliveryLocationBtn');
+    const closeModalBtn = document.getElementById('closeModal');
+    const locationOptions = document.querySelectorAll('.location-option');
+    const confirmLocationBtn = document.getElementById('confirmLocation');
+    const selectedLocation = document.getElementById('selectedLocation');
+
+    if (deliveryLocationBtn && deliveryModal) {
+        deliveryLocationBtn.addEventListener('click', () => {
+            deliveryModal.classList.remove('hidden');
+        });
+    }
+
+    if (closeModalBtn && deliveryModal) {
+        closeModalBtn.addEventListener('click', () => {
+            deliveryModal.classList.add('hidden');
+        });
+    }
+
+    locationOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const location = option.textContent.trim();
+            selectedLocation.textContent = location;
+            confirmLocationBtn.disabled = false;
+        });
+    });
+
+    if (confirmLocationBtn) {
+        confirmLocationBtn.addEventListener('click', () => {
+            deliveryModal.classList.add('hidden');
+        });
+    }
+
+    // Cart-specific functionality
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    const cartContainer = document.getElementById('cart-container');
+    const cartActions = document.getElementById('cart-actions');
+    const orderSummary = document.getElementById('order-summary');
+    const itemCount = document.getElementById('item-count');
+
+    const deliveryCharge = 99;
+
+    function renderCart() {
+      cartItemsContainer.innerHTML = '';
+      let subtotal = 0;
+      let totalItems = 0;
+
+      if (cart.length === 0) {
+        emptyCartMessage.classList.remove('hidden');
+        cartContainer.classList.add('hidden');
+        cartActions.classList.add('hidden');
+        itemCount.textContent = '0';
+        return;
       }
 
-      window.updateQuantity = function(index, change) {
-        const newQuantity = cart[index].quantity + change;
-        if (newQuantity > 0) {
-          cart[index].quantity = newQuantity;
-        } else {
-          cart.splice(index, 1);
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        renderCart();
-      };
+      emptyCartMessage.classList.add('hidden');
+      cartContainer.classList.remove('hidden');
+      cartActions.classList.remove('hidden');
+      orderSummary.classList.remove('hidden');
 
-      window.removeItem = function(index) {
-        cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        renderCart();
-      };
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        totalItems += item.quantity;
 
-      document.getElementById('checkout-btn').addEventListener('click', function() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        if (cart.length > 0) {
-          window.location.href = 'checkout.html';
-        } else {
-          alert('Your cart is empty!');
-        }
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item flex flex-col sm:flex-row justify-between items-start sm:items-center py-6 px-4';
+        itemElement.innerHTML = `
+          <div class="flex items-start w-full sm:w-2/3 mb-4 sm:mb-0">
+            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl mr-4 shadow-sm border border-gray-100">
+            <div>
+              <h3 class="font-medium text-lg text-[var(--primary)]">${item.name}</h3>
+              <p class="text-gray-500 text-sm mt-1">${item.description || 'Delicious bakery item'}</p>
+              <button onclick="removeItem(${index})" class="remove-btn mt-3 text-red-500 hover:text-red-700 text-sm flex items-center">
+                <i class="fas fa-trash-alt mr-1.5"></i> Remove
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row items-end sm:items-center justify-between w-full sm:w-1/3">
+            <div class="flex items-center mb-3 sm:mb-0">
+              <button onclick="updateQuantity(${index}, -1)" class="quantity-btn px-3 py-1 border border-gray-300 rounded-l hover:bg-gray-100 text-gray-600">
+                <i class="fas fa-minus text-sm"></i>
+              </button>
+              <span class="px-4 py-1 border-t border-b border-gray-300 bg-gray-50 text-gray-700">${item.quantity}</span>
+              <button onclick="updateQuantity(${index}, 1)" class="quantity-btn px-3 py-1 border border-gray-300 rounded-r hover:bg-gray-100 text-gray-600">
+                <i class="fas fa-plus text-sm"></i>
+              </button>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-semibold text-[var(--primary)]">₹${itemTotal.toLocaleString('en-IN')}</p>
+              <p class="text-xs text-gray-400 mt-1">₹${item.price.toLocaleString('en-IN')} each</p>
+            </div>
+          </div>
+        `;
+        cartItemsContainer.appendChild(itemElement);
       });
 
+      document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+      document.getElementById('delivery').textContent = `₹${deliveryCharge.toLocaleString('en-IN')}`;
+      document.getElementById('cart-total').textContent = `₹${(subtotal + deliveryCharge).toLocaleString('en-IN')}`;
+      itemCount.textContent = totalItems;
+    }
+
+    window.updateQuantity = function(index, change) {
+      const newQuantity = cart[index].quantity + change;
+      if (newQuantity > 0) {
+        cart[index].quantity = newQuantity;
+      } else {
+        cart.splice(index, 1);
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
+    };
+
+    window.removeItem = function(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    };
+
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length > 0) {
+        window.location.href = 'checkout.html';
+      } else {
+        alert('Your cart is empty!');
+      }
     });
-  </script>
+
+    renderCart();
+});
+</script>
+
 </body>
 </html>

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Home Bakery -INDEX</title>
+    
+    <!-- Optional: Favicon Logo for Browser Tab -->
+    <link rel="icon" type="image/png" href="/IMG/LOGO_1-removebg-preview.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -68,7 +71,7 @@
 </nav>
 
 <!-- Second Navbar (Main) -->
-<nav class="sticky top-12 sm:top-14 md:top-16 z-40 bg-white shadow-lg border-b border-gray-100">
+<nav class="sticky top-12 sm:top-14 md:top-16 z-40 lg:px-8 bg-white shadow-lg border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div class="flex justify-between items-center h-16 sm:h-20 md:h-24">
             
@@ -87,7 +90,7 @@
                         Cakes
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                     </a>
-                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[650px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[500px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
                         <div class="p-6 grid grid-cols-4 gap-6">
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
@@ -164,39 +167,40 @@
                     </div>
                 </div>
                 <a href="./CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+                 <a href="./SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
                 <a href="#" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
                 <a href="../contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
                 <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             </div>
 
-          <!-- Right Side Icons -->
-<div class="flex items-center space-x-2 sm:space-x-3 md:space-x-5">
+    <!-- Right Side Icons -->
+<div class="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
     <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
         <!-- Search -->
-        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
+        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-2 text-black hover:text-primary">
             <i class="fas fa-search text-base sm:text-lg"></i>
             <span class="hidden sm:block text-xs mt-1">Search</span>
         </a>
 
+        <!-- Login - Hidden on very small screens -->
+        <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
+            <i class="fas fa-user text-base sm:text-lg"></i>
+            <span class="text-xs mt-1">Login</span>
+        </a>
+
         <!-- Wishlist -->
-        <a href="wishlist.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
+        <a href="wishlist.html" class="relative flex flex-col items-center p-0 text-black hover:text-primary">
             <i class="fas fa-heart text-base sm:text-lg"></i>
             <span class="hidden sm:block text-xs mt-1">Wishlist</span>
-            <span id="wishlist-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+            <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
         </a>
     </div>
 
     <!-- Cart -->
-    <a href="cart.html" class="relative flex flex-col items-center p-1 text-black hover:text-primary">
+    <a href="cart.html" class="relative flex flex-col items-center p-1 py-1 px-1 text-black hover:text-primary">
         <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
         <span class="hidden sm:block text-xs mt-1">Cart</span>
         <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
-    </a>
-
-    <!-- Login - Hidden on very small screens -->
-    <a href="login.html" class="hidden sm:flex flex-col items-center p-1 text-black hover:text-primary">
-        <i class="fas fa-user text-base sm:text-lg"></i>
-        <span class="text-xs mt-1">Login</span>
     </a>
 
     <!-- Mobile Menu Button -->
@@ -204,6 +208,7 @@
         <i class="fas fa-bars text-lg sm:text-xl"></i>
     </button>
 </div>
+
         </div>
     </div>
 
@@ -366,8 +371,8 @@
 </div>
 
 <!-- Search Overlay -->
-<div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+<div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800">Search Products</h3>
             <button id="closeSearch" class="text-gray-500 hover:text-gray-700 transition-colors">
@@ -382,7 +387,7 @@
             </div>
         </div>
         
-        <div id="searchSuggestions" class="max-h-64 overflow-y-auto"></div>
+        <div id="searchSuggestions" class="max-h-64 overflow-y-auto scrollbar-hide"></div>
     </div>
 </div>
 
@@ -559,8 +564,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop" alt="Chocolate Fudge Cake" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'chocolate-fudge-cake', 'Chocolate Fudge Cake', '₹2,499', 'Rich chocolate layers', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'chocolate-fudge-cake', 'Chocolate Fudge Cake', '₹2,499', 'Rich chocolate layers', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -580,8 +585,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=400&h=300&fit=crop" alt="Red Velvet Dream" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'red-velvet-dream', 'Red Velvet Dream', '₹2,799', 'Classic velvet cake', 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=400')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'red-velvet-dream', 'Red Velvet Dream', '₹2,799', 'Classic velvet cake', 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=400')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -601,8 +606,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop" alt="Berry Cheesecake" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'berry-cheesecake', 'Berry Cheesecake', '₹2,999', 'Creamy cheesecake', 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'berry-cheesecake', 'Berry Cheesecake', '₹2,999', 'Creamy cheesecake', 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -622,8 +627,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400&h=300&fit=crop" alt="Lemon Meringue" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'lemon-meringue', 'Lemon Meringue', '₹2,599', 'Tangy lemon cake', 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'lemon-meringue', 'Lemon Meringue', '₹2,599', 'Tangy lemon cake', 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -653,8 +658,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="IMG/Mango Saffron Pastry.jpg" alt="Mango Saffron Pastry" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'mango-saffron-pastry', 'Mango Saffron Pastry', '₹499', 'Light sponge', 'IMG/Mango Saffron Pastry.jpg')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'mango-saffron-pastry', 'Mango Saffron Pastry', '₹499', 'Light sponge', 'IMG/Mango Saffron Pastry.jpg')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -674,8 +679,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="IMG/Masala Chai Puff.jpg" alt="Masala Chai Puff" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'masala-chai-puff', 'Masala Chai Puff', '₹299', 'Flaky puff pastry', 'IMG/Masala Chai Puff.jpg')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'masala-chai-puff', 'Masala Chai Puff', '₹299', 'Flaky puff pastry', 'IMG/Masala Chai Puff.jpg')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -695,8 +700,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="IMG/Rose Gulab Jamun Tart.jpg" alt="Rose Gulab Jamun Tart" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'rose-gulab-jamun-tart', 'Rose Gulab Jamun Cheesecake', '₹550', 'Gulab jamun tart', 'IMG/Rose Gulab Jamun Tart.jpg')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'rose-gulab-jamun-tart', 'Rose Gulab Jamun Cheesecake', '₹550', 'Gulab jamun tart', 'IMG/Rose Gulab Jamun Tart.jpg')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -716,8 +721,8 @@
                 <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
                     <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
                         <img src="IMG/Pista Kulfi Pastry.jpg" alt="Pista Kulfi Pastry" class="object-cover w-full h-full">
-                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 text-gray-400 hover:text-red-500" onclick="toggleWishlist(this, 'pista-kulfi-pastry', 'Pistachio Cheesecake Cups', '₹450', 'Creamy pistachio', 'IMG/Pista Kulfi Pastry.jpg')">
-                            <i class="fas fa-heart text-lg sm:text-xl"></i>
+                        <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, 'pista-kulfi-pastry', 'Pistachio Cheesecake Cups', '₹450', 'Creamy pistachio', 'IMG/Pista Kulfi Pastry.jpg')">
+                            <i class="fas fa-heart text-base"></i>
                         </button>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5">
@@ -736,10 +741,9 @@
         </div>
     </div>
 </section>
-
 <!-- Main Banner -->
 <section class="relative w-full h-48 sm:h-64 md:h-80 lg:h-[500px] overflow-hidden">
-    <img src="/IMG/MAIN BANNER 6.jpg" alt="Banner" class="w-full h-full object-cover object-center">
+    <img src="/CAKES/IMG/B4.jpg" alt="Banner" class="w-full h-full object-cover object-center">
     <div class="absolute inset-0 bg-black/30"></div>
     <div class="absolute inset-0 flex items-center justify-center text-center px-4">
         <h1 class="text-base sm:text-xl md:text-2xl lg:text-4xl font-bold text-white drop-shadow-lg">
@@ -888,86 +892,100 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-white text-light py-14 sm:py-12 md:py-12 px-4">
+  <!-- Footer -->
+<footer class="bg-white text-gray-800 py-6 px-4">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center sm:text-left">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
       
       <!-- About Us -->
-      <div class="col-span-1">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4">
-          The Home Bakery
-        </h3>
-        <p class="text-black text-xs sm:text-sm md:text-base">
-          We bake happiness into every product.
-        </p>
-      </div>
-
-      <!-- Quick Links (hidden on small screens) -->
-      <div class="hidden sm:block">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4">
-          Quick Links
-        </h3>
-        <ul class="space-y-1 sm:space-y-2">
-          <li><a href="/index.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Home</a></li>
-          <li><a href="/CAKES/allcakes.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Cakes</a></li>
-          <li><a href="/PASTRIES/chocopastry.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Pastries</a></li>
-          <li><a href="/CUSTOM/custom.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Customise</a></li>
-          <li><a href="/SIDEBY/sideby.html" class="text-black text-xs sm:text-sm md:text-base hover:text-primary transition-colors">Special Offers</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="col-span-1 sm:col-span-2 md:col-span-1">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4">
-          Contact Us
-        </h3>
-        <ul class="space-y-1 sm:space-y-2 text-black flex flex-col items-center sm:items-start">
-          <li class="flex items-start justify-center sm:justify-start">
-            <i class="fas fa-map-marker-alt mt-0.5 sm:mt-1 mr-2 sm:mr-3 text-primary text-xs sm:text-sm md:text-base"></i>
-            <span class="text-xs sm:text-sm md:text-base">G - 004, ALDEA ESPANOLA PHASE,<br> 6 & 7, opp. Orchid Hotel, Mahalunge, Pune Maharashtra 411045</span>
-          </li>
-          <li class="flex items-center justify-center sm:justify-start">
-            <i class="fas fa-phone-alt mr-2 sm:mr-3 text-primary text-xs sm:text-sm md:text-base"></i>
-            <span class="text-xs sm:text-sm md:text-base">+91 95034 64162</span>
-          </li>
-          <li class="flex items-center justify-center sm:justify-start">
-            <i class="fas fa-envelope mr-2 sm:mr-3 text-primary text-xs sm:text-sm md:text-base"></i>
-            <span class="text-xs sm:text-sm md:text-base">hello@homebakery.com</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Social Media -->
-      <div class="col-span-1">
-        <h3 class="text-primary font-bold text-base sm:text-lg md:text-xl mb-2 sm:mb-3 md:mb-4 text-center md:text-left">
-          Follow Us
-        </h3>
-        <div class="flex justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4">
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-facebook-f text-xs sm:text-sm md:text-base"></i>
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">The Home Bakery</h3>
+        <img src="path-to-your-logo.png" alt="The Home Bakery Logo" class="mb-2 max-w-32" onerror="this.style.display='none'">
+        <p class="text-sm mb-4">We bake happiness into every product.</p>
+        
+        <h3 class="text-primary font-bold text-lg mb-2">Follow Us</h3>
+        <div class="flex justify-center md:justify-start space-x-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-instagram text-xs sm:text-sm md:text-base"></i>
+          <a href="https://www.instagram.com/the_home_bakery_pune?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-instagram"></i>
           </a>
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-twitter text-xs sm:text-sm md:text-base"></i>
+          <a href="https://wa.me/919503464162?text=Hi%20The%20Home%20Bakery%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-whatsapp"></i>
           </a>
-          <a href="#" class="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
-            <i class="fab fa-pinterest-p text-xs sm:text-sm md:text-base"></i>
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-pinterest-p"></i>
           </a>
         </div>
       </div>
+  <!-- Policies Section -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Policies</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li><a href="/POLICIES/disclaimer.html" class="text-sm hover:text-primary transition-colors">Disclaimer</a></li>
+          <li><a href="/POLICIES/privacy.html" class="text-sm hover:text-primary transition-colors">Privacy Policy</a></li>
+          <li><a href="/POLICIES/cancel.html" class="text-sm hover:text-primary transition-colors">Cancellation Policy</a></li>
+          <li><a href="/POLICIES/shipping.html" class="text-sm hover:text-primary transition-colors">Shipping & Delivery Policy</a></li>
+          <li><a href="/POLICIES/refund.html" class="text-sm hover:text-primary transition-colors">Refund & Cancellation Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="hidden md:block">
+        <h3 class="text-primary font-bold text-xl mb-2">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Home</a></li>
+          <li><a href="/CAKES/allcakes.html" class="text-sm hover:text-primary transition-colors">Cakes</a></li>
+          <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Pastries</a></li>
+          <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Customise</a></li>
+          <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Special Offers</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact & Social -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Contact Us</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li class="flex items-start justify-center md:justify-start">
+            <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary text-sm"></i>
+            <span class="text-sm">G - 004, ALDEA ESPANOLA PHASE, 6 & 7, opp. Orchid Hotel, Mahalunge, Pune Maharashtra 411045</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-phone-alt mr-3 text-primary text-sm"></i>
+            <span class="text-sm">+91 95034 64162</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-envelope mr-3 text-primary text-sm"></i>
+            <span class="text-sm">hello@homebakery.com</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
- <!-- Bottom -->
-<div class="border-t border-gray-300 py-0.5 text-center flex justify-center items-center text-black text-xs sm:text-sm mt-1">
-  <p class="m-0 leading-tight text-center">© 2025 The Home Bakery. All rights reserved.</p>
-</div>
+    <!-- Copyright -->
+    <div class="border-t border-gray-300 mt-6 pt-4 text-center">
+      <p class="text-sm">© 2025 The Home Bakery. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 
 
+<!-- Floating Action Buttons -->
+<div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3">
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="w-12 h-12 bg-primary hover:bg-secondary rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919503464162" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110">
+        <i class="fab fa-whatsapp text-lg"></i>
+    </a>
+</div>
+
 <script src="index.js"></script>
+
+
 
 </body>
 </html>

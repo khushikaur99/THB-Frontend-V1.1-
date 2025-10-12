@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --primary: #660B05;
@@ -78,10 +79,16 @@
             font-size: 13px;
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background: #550904;
             transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(102, 11, 5, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
         
         .btn-secondary {
@@ -536,6 +543,201 @@
                 left: 8px;
             }
         }
+
+        /* Success Overlay Styles */
+        #successOverlay {
+            z-index: 9999 !important;
+        }
+
+        #successOverlay .success-content {
+            animation: bounceIn 0.5s ease;
+            position: relative;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        #successOverlay .detail-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        #successOverlay .detail-section h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #successOverlay .detail-section h3 i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        #successOverlay .detail-section h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        #successOverlay .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f3f4;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        #successOverlay .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        #successOverlay .detail-item span:first-child {
+            font-weight: bold;
+            min-width: 140px;
+            color: var(--text);
+        }
+
+        #successOverlay .detail-item span:last-child {
+            text-align: right;
+            flex: 1;
+            color: var(--text-light);
+        }
+
+        #successOverlay .total-highlight {
+            background: linear-gradient(135deg, var(--primary), #550904);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            margin: 16px 0;
+            font-size: 18px;
+        }
+
+        #successOverlay .success-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        #successOverlay .success-header h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        #successOverlay .success-header .success-icon {
+            font-size: 64px;
+            color: #28a745;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        #successOverlay .success-header .order-id {
+            background: #d4edda;
+            color: #155724;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        #successOverlay .sections-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            #successOverlay .sections-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Responsive for Success Overlay */
+        @media (max-width: 768px) {
+            #successOverlay .success-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 24px 20px;
+                max-height: 85vh;
+            }
+
+            #successOverlay .detail-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            #successOverlay .detail-item span:first-child {
+                min-width: auto;
+            }
+
+            #successOverlay .section-title {
+                font-size: 20px;
+            }
+
+            #successOverlay .success-header h2 {
+                font-size: 24px;
+            }
+
+            #successOverlay .detail-section {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #successOverlay .success-content {
+                padding: 16px 12px;
+                margin: 15% auto;
+            }
+
+            #successOverlay .detail-section {
+                padding: 12px;
+            }
+
+            #successOverlay .detail-item {
+                font-size: 13px;
+            }
+
+            #successOverlay .success-header .success-icon {
+                font-size: 48px;
+            }
+        }
+
+        #successOverlay #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #successOverlay .content-inner {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -561,11 +763,11 @@
                     <h3 class="section-title">Delivery Schedule</h3>
                     <div class="space-y-4">
                         <div class="flex gap-4 delivery-btn-group">
-                            <button id="today" class="btn-secondary flex-1">Today</button>
+                            <button id="today" class="btn-selected flex-1">Today</button>
                             <button id="customDate" class="btn-secondary flex-1">Custom Date</button>
                         </div>
                         <div id="dateTimeDisplay" class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gray-50 p-4 rounded-xl gap-3">
-                            <span id="selectedDate" class="font-semibold text-gray-700 text-sm sm:text-base">Today, September 23, 2025, 02:45 PM IST</span>
+                            <span id="selectedDate" class="font-semibold text-gray-700 text-sm sm:text-base">Today, October 12, 2025, 02:45 PM IST</span>
                             <select id="deliveryTime" class="form-input w-full sm:w-auto sm:min-w-[160px]">
                                 <option value="1:00PM to 3:00PM">1:00PM to 3:00PM</option>
                                 <option value="3:00PM to 5:00PM">3:00PM to 5:00PM</option>
@@ -650,7 +852,7 @@
                             <input type="text" id="discountCode" placeholder="Enter discount code" class="form-input flex-1 rounded-r-none">
                             <button id="applyDiscount" class="btn-primary rounded-l-none">APPLY</button>
                         </div>
-                        <a href="#" id="viewCoupons" class="text-primary flex items-center text-sm font-semibold hover:text-primary-dark transition-colors">
+                        <a href="#" id="viewCoupons" class="text-primary flex items-center text-sm font-semibold hover:text-primary-dark transition-colors" style="color: var(--primary);">
                             <i class="fas fa-percentage mr-2"></i>View Available Coupons
                         </a>
                     </div>
@@ -894,6 +1096,91 @@
             document.body.style.overflow = 'auto';
         }
 
+        // FIXED Success Overlay Close function
+        function closeSuccessOverlay() {
+            const overlay = document.getElementById('successOverlay');
+            if (overlay) {
+                // Remove overlay with animation
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => {
+                    if (overlay && overlay.parentNode) {
+                        document.body.removeChild(overlay);
+                    }
+                    // Re-enable place order button if it exists
+                    const placeOrderBtn = document.getElementById('placeOrder');
+                    if (placeOrderBtn) {
+                        placeOrderBtn.disabled = false;
+                        placeOrderBtn.innerHTML = '<i class="fas fa-shopping-cart mr-2"></i>PLACE ORDER';
+                    }
+                    // Clear cart
+                    localStorage.removeItem('cart');
+                    cartItems = [];
+                    // Redirect to home after 1 second
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                }, 300);
+            }
+        }
+
+        // BLAST CONFETTI IMMEDIATELY ON PLACE ORDER
+        function blastImmediateConfetti() {
+            // Multiple confetti blasts for maximum effect
+            confetti({
+                particleCount: 200,
+                spread: 90,
+                origin: { y: 0.5 },
+                colors: ['#660B05', '#4E1F00', '#fef5f8', '#FFFFFF', '#E0C9C0'],
+                startVelocity: 50,
+                decay: 0.9,
+                gravity: 1,
+                drift: 0,
+                ticks: 300,
+                shapes: ['square', 'circle']
+            });
+
+            // Second blast from different angle
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#660B05', '#4E1F00'],
+                    startVelocity: 45,
+                    decay: 0.9
+                });
+            }, 250);
+
+            // Third blast from right
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#660B05', '#FFFFFF'],
+                    startVelocity: 45,
+                    decay: 0.9
+                });
+            }, 400);
+
+            // Continuous smaller bursts
+            const continuousBurst = setInterval(() => {
+                confetti({
+                    particleCount: 50,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#660B05', '#E0C9C0'],
+                    startVelocity: 30,
+                    decay: 0.92
+                });
+            }, 600);
+
+            setTimeout(() => clearInterval(continuousBurst), 3000);
+        }
+
         // Coupons Modal Functions
         function closeCouponsModal() {
             closeModal('couponsModal');
@@ -917,6 +1204,12 @@
             document.getElementById('selectedDate').textContent = `Today, ${today.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true })} IST`;
             if (datePickerInstance) datePickerInstance.destroy();
             document.getElementById('calendarContainer').classList.add('hidden');
+
+            // Highlight today button
+            document.getElementById('today').classList.remove('btn-secondary');
+            document.getElementById('today').classList.add('btn-selected');
+            document.getElementById('customDate').classList.remove('btn-selected');
+            document.getElementById('customDate').classList.add('btn-secondary');
         });
 
         document.getElementById('customDate').addEventListener('click', () => {
@@ -939,6 +1232,12 @@
                 });
             }
             datePickerInstance.open();
+
+            // Highlight custom date button
+            document.getElementById('customDate').classList.remove('btn-secondary');
+            document.getElementById('customDate').classList.add('btn-selected');
+            document.getElementById('today').classList.remove('btn-selected');
+            document.getElementById('today').classList.add('btn-secondary');
         });
 
         // Phone validation
@@ -1159,7 +1458,7 @@
             `;
         }
 
-        // Place Order
+        // PLACE ORDER WITH IMMEDIATE CONFETTI BLAST - FIXED CLOSE BUTTON
         document.getElementById('placeOrder').addEventListener('click', () => {
             const name = document.getElementById('orderName').value.trim();
             const phone = document.getElementById('orderPhone').value.trim();
@@ -1190,11 +1489,17 @@
                 return;
             }
 
+            // IMMEDIATELY BLAST CONFETTI ON CLICK
+            blastImmediateConfetti();
+
             // Calculate final total
             const subTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const deliveryCharge = subTotal > 500 ? 0 : 40;
             const taxes = Math.round(subTotal * 0.05);
             const total = subTotal + deliveryCharge + taxes - discount;
+
+            const paymentMethodText = paymentMethod === 'online' ? 'Pay Online' : paymentMethod === 'cod' ? 'Cash on Delivery' : 'Pickup by Store';
+            const orderTypeText = orderType === 'gift' ? 'Gift Order' : 'Own Order';
 
             const orderDetails = {
                 orderId: 'ORD' + Date.now(),
@@ -1223,16 +1528,154 @@
 
             console.log('Order placed:', orderDetails);
             
-            // Show success message
-            let paymentMethodText = paymentMethod === 'online' ? 'Pay Online' : paymentMethod === 'cod' ? 'Cash on Delivery' : 'Pickup by Store';
-            alert(`🎉 Order placed successfully!\n\nOrder ID: ${orderDetails.orderId}\nTotal: ₹${total.toLocaleString('en-IN')}\nPayment: ${paymentMethodText}\n\nThank you for your order, ${name}!`);
+            // Disable button immediately to prevent double click
+            const placeOrderBtn = document.getElementById('placeOrder');
+            placeOrderBtn.disabled = true;
+            placeOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>PROCESSING ORDER...';
             
-            // Clear cart and redirect
-            localStorage.removeItem('cart');
-            cartItems = [];
-            
-            // In a real application, you would redirect to a success page
-            window.location.href = '/order-success.html';
+            // Show success overlay after 1.5 seconds
+            setTimeout(() => {
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'successOverlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 9999;
+                    backdrop-filter: blur(5px);
+                `;
+                
+                const content = document.createElement('div');
+                content.className = 'success-content';
+                content.style.cssText = `
+                    background: var(--card-bg);
+                    padding: 40px;
+                    border-radius: 24px;
+                    text-align: center;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                    max-width: 700px;
+                    width: 90%;
+                    max-height: 85vh;
+                    overflow-y: auto;
+                    position: relative;
+                    border: 1px solid var(--border);
+                `;
+                
+                // Create content structure FIRST
+                content.innerHTML = `
+                    <span class="close" id="closeSuccess" style="
+                        position: absolute;
+                        top: 12px;
+                        right: 16px;
+                        font-size: 22px;
+                        cursor: pointer;
+                        color: var(--text-light);
+                        transition: color 0.3s ease;
+                        z-index: 2;
+                        font-weight: bold;
+                    ">&times;</span>
+                    <div class="content-inner">
+                        <div class="success-header">
+                            <i class="fas fa-check-circle success-icon"></i>
+                            <h2>Order Placed Successfully! 🎉</h2>
+                            <div class="order-id">Order ID: ${orderDetails.orderId}</div>
+                        </div>
+                        <div class="sections-grid">
+                            <div class="detail-section">
+                                <h3><i class="fas fa-user"></i>Person Details</h3>
+                                <div class="detail-item"><span>Name:</span><span>${name}</span></div>
+                                <div class="detail-item"><span>Phone:</span><span>${phone}</span></div>
+                                <div class="detail-item"><span>Address:</span><span>${address}</span></div>
+                                ${orderType === 'gift' ? `
+                                    <div>
+                                        <h4><i class="fas fa-gift"></i>Gift Recipient Details</h4>
+                                        <div class="detail-item"><span>Recipient Name:</span><span>${orderDetails.recipientName}</span></div>
+                                        <div class="detail-item"><span>Recipient Phone:</span><span>${orderDetails.recipientPhone}</span></div>
+                                        ${orderDetails.giftMessage ? `<div class="detail-item"><span>Message:</span><span>${orderDetails.giftMessage}</span></div>` : ''}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="detail-section">
+                                <h3><i class="fas fa-shopping-bag"></i>Order Details</h3>
+                                <div class="detail-item"><span>Order Type:</span><span>${orderTypeText}</span></div>
+                                <div class="detail-item"><span>Items:</span><span>${cartItems.reduce((sum, item) => sum + item.quantity, 0)} items</span></div>
+                                <div class="detail-item"><span>Subtotal:</span><span>₹${subTotal.toLocaleString('en-IN')}</span></div>
+                                <div class="detail-item"><span>Delivery Charge:</span><span>${deliveryCharge === 0 ? 'FREE' : `₹${deliveryCharge}`}</span></div>
+                                <div class="detail-item"><span>Taxes:</span><span>₹${taxes.toLocaleString('en-IN')}</span></div>
+                                ${discount > 0 ? `<div class="detail-item"><span>Discount:</span><span class="text-green-600">-₹${discount}</span></div>` : ''}
+                                <div class="total-highlight">
+                                    <strong>Total: ₹${total.toLocaleString('en-IN')}</strong>
+                                </div>
+                                <div class="detail-item"><span>Payment Method:</span><span>${paymentMethodText}</span></div>
+                                <div class="detail-item"><span>Delivery Schedule:</span><span>${document.getElementById('selectedDate').textContent}, ${document.getElementById('deliveryTime').value}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                overlay.appendChild(content);
+                document.body.appendChild(overlay);
+
+                // NOW ADD EVENT LISTENER AFTER ELEMENT IS CREATED
+                const closeBtn = document.getElementById('closeSuccess');
+                closeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeSuccessOverlay();
+                });
+
+                // Add hover effects
+                closeBtn.addEventListener('mouseenter', () => {
+                    closeBtn.style.color = 'var(--primary)';
+                });
+                
+                closeBtn.addEventListener('mouseleave', () => {
+                    closeBtn.style.color = 'var(--text-light)';
+                });
+
+                // Additional confetti inside overlay
+                setTimeout(() => {
+                    const canvas = document.createElement('canvas');
+                    canvas.id = 'confetti-canvas';
+                    canvas.style.cssText = `
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        pointer-events: none;
+                        z-index: 0;
+                    `;
+                    content.insertBefore(canvas, content.firstChild);
+
+                    const myConfetti = confetti.create(canvas, {
+                        resize: true,
+                        useWorker: true
+                    });
+                    myConfetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }, 100);
+
+                // Auto close after 2 minutes
+                setTimeout(closeSuccessOverlay, 120000);
+
+                // Close overlay when clicking outside
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        closeSuccessOverlay();
+                    }
+                });
+            }, 1500);
         });
 
         // Close modal when clicking outside

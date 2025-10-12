@@ -1,388 +1,221 @@
 // Wishlist functionality
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-let wishlistDetails = JSON.parse(localStorage.getItem('wishlistDetails')) || [];
 
-function toggleWishlist(element, id, name, price, description, image) {
-    const isInWishlist = wishlist.includes(id);
+function toggleWishlist(button, id, name, price, description, image) {
+    const heartIcon = button.querySelector('i');
+    const isInWishlist = wishlist.some(item => item.id === id);
+    
     if (isInWishlist) {
-        wishlist = wishlist.filter(item => item !== id);
-        wishlistDetails = wishlistDetails.filter(item => item.id !== id);
-        element.classList.remove('active');
-        element.style.color = '#9ca3af';
-        showNotification('Removed from wishlist');
+        // Remove from wishlist
+        wishlist = wishlist.filter(item => item.id !== id);
+        heartIcon.classList.remove('text-red-500', 'fa-solid');
+        heartIcon.classList.add('text-gray-600', 'fa-regular');
+        showNotification(`${name} removed from wishlist`);
     } else {
-        wishlist.push(id);
-        wishlistDetails.push({ id, name, price, description, image });
-        element.classList.add('active');
-        element.style.color = '#ef4444';
-        showNotification('Added to wishlist');
+        // Add to wishlist
+        wishlist.push({ id, name, price, description, image });
+        heartIcon.classList.remove('text-gray-600', 'fa-regular');
+        heartIcon.classList.add('text-red-500', 'fa-solid');
+        showNotification(`${name} added to wishlist`);
     }
+    
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    localStorage.setItem('wishlistDetails', JSON.stringify(wishlistDetails));
-    updateWishlistCount();
-}
-
-function updateWishlistCount() {
-    const wishlistCount = document.getElementById('wishlist-count');
-    if (wishlistCount) {
-        wishlistCount.textContent = wishlist.length;
-    }
 }
 
 function showNotification(message) {
     const notification = document.getElementById('notification');
-    const notificationText = document.getElementById('notification-text');
-    if (notification && notificationText) {
-        notificationText.textContent = message;
-        notification.classList.remove('hidden');
-        setTimeout(() => {
-            notification.classList.add('hidden');
-        }, 3000);
-    }
+    const text = document.getElementById('notification-text');
+    text.textContent = message;
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+        notification.classList.add('hidden');
+    }, 3000);
 }
 
-// Categories from sideby products
-const categories = {
-    'cheesecake-jars': {
-        name: 'Cheesecake Jars',
-        icon: 'fas fa-jar',
-        products: [
-            { name: 'Lotus Biscoff', price: 200 },
-            { name: 'Blueberry', price: 170 },
-            { name: 'Nutella', price: 200 },
-            { name: 'Strawberry', price: 170 },
-            { name: 'Chocolate', price: 200 },
-            { name: 'Choco Hazelnut', price: 200 }
-        ]
-    },
-    'brownie': {
-        name: 'Brownie',
-        icon: 'fas fa-square',
-        products: [
-            { name: 'Chocolate brownie', price: 80 },
-            { name: 'Walnut brownie', price: 80 }
-        ]
-    },
-    'cookies': {
-        name: 'Cookies',
-        icon: 'fas fa-cookie-bite',
-        products: [
-            { name: 'Dry fruits cookies', price: 150 },
-            { name: 'Choco chips cookies', price: 150 },
-            { name: 'Coconut cookies', price: 150 },
-            { name: 'Dry fruits cookies (large)', price: 200 },
-            { name: 'Choco chips cookies (large)', price: 200 }
-        ]
-    },
-    'croissant': {
-        name: 'Croissant',
-        icon: 'fas fa-bread-slice',
-        products: [
-            { name: 'French butter croissant', price: 140 },
-            { name: 'Almond croissant', price: 160 },
-            { name: 'Chocolate croissant', price: 180 }
-        ]
-    },
-    'donuts': {
-        name: 'Donuts',
-        icon: 'fas fa-donut',
-        products: [
-            { name: 'Dark chocolate donut', price: 120 },
-            { name: 'White chocolate donut', price: 120 },
-            { name: 'Milk chocolate donut', price: 120 },
-            { name: 'Nutella donut', price: 120 },
-            { name: 'Biscoff donut', price: 120 }
-        ]
-    },
-    'bombolonis': {
-        name: 'Bombolonis',
-        icon: 'fas fa-gem',
-        products: [
-            { name: 'Chocolate bomboloni', price: 150 },
-            { name: 'Nutella bomboloni', price: 150 },
-            { name: 'Biscoff bomboloni', price: 150 },
-            { name: 'Cream Cheese Korean', price: 160 },
-            { name: 'Cakesickles', price: 80 }
-        ]
-    },
-    'cupcakes': {
-        name: 'Cupcakes',
-        icon: 'fas fa-birthday-cake',
-        products: [
-            { name: 'Vanilla cupcake', price: 70 },
-            { name: 'Pineapple cupcake', price: 70 },
-            { name: 'Strawberry Cupcake', price: 70 },
-            { name: 'Blueberry cupcake', price: 70 },
-            { name: 'Chocolate cupcake', price: 80 }
-        ]
-    },
-    'muffins': {
-        name: 'Muffins',
-        icon: 'fas fa-mug-hot',
-        products: [
-            { name: 'Vanilla Dryfruits', price: 60 },
-            { name: 'Chocolate', price: 60 },
-            { name: 'Banana', price: 60 },
-            { name: 'Date & Walnut', price: 70 }
-        ]
-    },
-    'others': {
-        name: 'Others',
-        icon: 'fas fa-ellipsis-h',
-        products: [
-            { name: 'Cold Coffee', price: 60 },
-            { name: 'French Fries', price: 90 }
-        ]
-    }
-};
-
-// Products data for search suggestions
-let allProducts = [
-    // Existing cakes and pastries
-    { id: 'chocolate-fudge-cake', name: 'Chocolate Fudge Cake', category: 'Cakes', type: 'id' },
-    { id: 'red-velvet-dream', name: 'Red Velvet Dream', category: 'Cakes', type: 'id' },
-    { id: 'berry-cheesecake', name: 'Berry Cheesecake', category: 'Cakes', type: 'id' },
-    { id: 'lemon-meringue', name: 'Lemon Meringue', category: 'Cakes', type: 'id' },
-    { id: 'mango-saffron-pastry', name: 'Mango Saffron Pastry', category: 'Pastries', type: 'id' },
-    { id: 'masala-chai-puff', name: 'Masala Chai Puff', category: 'Pastries', type: 'id' },
-    { id: 'rose-gulab-jamun-tart', name: 'Rose Gulab Jamun Cheesecake', category: 'Pastries', type: 'id' },
-    { id: 'pista-kulfi-pastry', name: 'Pistachio Cheesecake Cups', category: 'Pastries', type: 'id' },
-    // New products from categories
-    ...Object.entries(categories).flatMap(([slug, cat]) => 
-        cat.products.map(p => {
-            const productId = `${slug}-${p.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`;
-            return {
-                id: productId,
-                name: p.name,
-                category: cat.name,
-                slug: slug,
-                type: 'category_product'
-            };
-        })
-    )
+// Search functionality
+const products = [
+    { id: 'chocolate-fudge-cake', name: 'Chocolate Fudge Cake', category: 'Cakes' },
+    { id: 'red-velvet-dream', name: 'Red Velvet Dream', category: 'Cakes' },
+    { id: 'berry-cheesecake', name: 'Berry Cheesecake', category: 'Cakes' },
+    { id: 'lemon-meringue', name: 'Lemon Meringue', category: 'Cakes' },
+    { id: 'mango-saffron-pastry', name: 'Mango Saffron Pastry', category: 'Pastries' },
+    { id: 'masala-chai-puff', name: 'Masala Chai Puff', category: 'Pastries' },
+    { id: 'rose-gulab-jamun-tart', name: 'Rose Gulab Jamun Cheesecake', category: 'Pastries' },
+    { id: 'pista-kulfi-pastry', name: 'Pistachio Cheesecake Cups', category: 'Pastries' },
+    { id: 'cheesecake-jars', name: 'Cheesecake Jars', category: 'Pastries' },
+    { id: 'brownie', name: 'Chocolate Brownie', category: 'Pastries' },
+    { id: 'cookies', name: 'Assorted Cookies', category: 'Pastries' },
+    { id: 'croissant', name: 'Butter Croissant', category: 'Pastries' },
+    { id: 'donuts', name: 'Glazed Donuts', category: 'Pastries' },
+    { id: 'bombolonis', name: 'Cream Filled Bombolonis', category: 'Pastries' },
+    { id: 'cupcakes', name: 'Vanilla Cupcakes', category: 'Pastries' },
+    { id: 'muffins', name: 'Blueberry Muffins', category: 'Pastries' },
+    { id: 'cold-coffee', name: 'Iced Cold Coffee', category: 'Beverages' },
+    { id: 'french-fries', name: 'Crispy French Fries', category: 'Snacks' },
+    { id: 'vanilla-cake', name: 'Vanilla Cake', category: 'Cakes' },
+    { id: 'pineapple-cake', name: 'Pineapple Cake', category: 'Cakes' },
+    { id: 'blueberry-cake', name: 'Blueberry Cake', category: 'Cakes' },
+    { id: 'mango-cake', name: 'Mango Cake', category: 'Cakes' },
+    { id: 'butterscotch-cake', name: 'Butterscotch Cake', category: 'Cakes' },
+    { id: 'kulfi-falooda-cake', name: 'Kulfi Falooda Cake', category: 'Cakes' },
+    { id: 'dutch-chocolate-cake', name: 'Dutch Chocolate Cake', category: 'Cakes' },
+    { id: 'black-forest-cake', name: 'Black Forest Cake', category: 'Cakes' },
+    { id: 'white-forest-cake', name: 'White Forest Cake', category: 'Cakes' },
+    { id: 'choco-chips-cake', name: 'Choco Chips Cake', category: 'Cakes' },
+    { id: 'choco-truffle-cake', name: 'Choco Truffle Cake', category: 'Cakes' },
+    { id: 'choco-coffee-cake', name: 'Choco Coffee Cake', category: 'Cakes' },
+    { id: 'tiramisu-cake', name: 'Tiramisu Cake', category: 'Cakes' },
+    { id: 'choco-vanilla-cake', name: 'Choco Vanilla Cake', category: 'Cakes' },
+    { id: 'choco-hazelnut-cake', name: 'Choco Hazelnut Cake', category: 'Cakes' },
+    { id: 'choco-vanilla-oreo-cake', name: 'Choco Vanilla Oreo Cake', category: 'Cakes' },
+    { id: 'pistachio-rose-cake', name: 'Pistachio Rose Cake', category: 'Cakes' },
+    { id: 'banana-choco-walnut-cake', name: 'Banana Choco Walnut Cake', category: 'Cakes' },
+    { id: 'date-walnut-cake', name: 'Date & Walnut Cake', category: 'Cakes' },
+    { id: 'mava-cake', name: 'Mava Cake', category: 'Cakes' },
+    { id: 'paan-gulkand-cake', name: 'Paan Gulkand Cake', category: 'Cakes' },
+    { id: 'gulab-jamun-cake', name: 'Gulab Jamun Cake', category: 'Cakes' },
+    { id: 'rasmalai-cake', name: 'Rasmalai Cake', category: 'Cakes' },
+    { id: 'fresh-mix-fruit-cake', name: 'Fresh Mix Fruit Cake', category: 'Cakes' },
+    { id: 'pineapple-pastry', name: 'Pineapple', category: 'Pastries' },
+    { id: 'butterscotch-pastry', name: 'Butterscotch', category: 'Pastries' },
+    { id: 'kulfi-falooda-pastry', name: 'Kulfi Falooda', category: 'Pastries' },
+    { id: 'dutch-chocolate-pastry', name: 'Dutch Chocolate', category: 'Pastries' },
+    { id: 'chocolate-truffle-pastry', name: 'Chocolate Truffle', category: 'Pastries' },
+    { id: 'chocolate-bomboloni', name: 'Chocolate Bomboloni', category: 'Pastries' },
+    { id: 'nutella-bomboloni', name: 'Nutella Bomboloni', category: 'Pastries' },
+    { id: 'biscoff-bomboloni', name: 'Biscoff Bomboloni', category: 'Pastries' },
+    { id: 'lotus-biscoff-cheesecake-jar', name: 'Lotus Biscoff Cheesecake Jar', category: 'Pastries' },
+    { id: 'blueberry-cheesecake-jar', name: 'Blueberry Cheesecake Jar', category: 'Pastries' },
+    { id: 'nutella-cheesecake-jar', name: 'Nutella Cheesecake Jar', category: 'Pastries' },
+    { id: 'strawberry-cheesecake-jar', name: 'Strawberry Cheesecake Jar', category: 'Pastries' },
+    { id: 'chocolate-cheesecake-jar', name: 'Chocolate Cheesecake Jar', category: 'Pastries' },
+    { id: 'choco-hazelnut-cheesecake-jar', name: 'Choco Hazelnut Cheesecake Jar', category: 'Pastries' },
+    { id: 'chocolate-brownie', name: 'Chocolate Brownie', category: 'Pastries' },
+    { id: 'walnut-brownie', name: 'Walnut Brownie', category: 'Pastries' },
+    { id: 'cream-cheese-korean-bun', name: 'Cream Cheese Korean Bun', category: 'Pastries' },
+    { id: 'vanilla-dryfruits', name: 'Vanilla Dryfruits', category: 'Pastries' },
+    { id: 'chocolate-muffin', name: 'Chocolate Muffin', category: 'Pastries' },
+    { id: 'banana-muffin', name: 'Banana Muffin', category: 'Pastries' },
+    { id: 'date-walnut-muffin', name: 'Date & Walnut Muffin', category: 'Pastries' },
+    { id: 'lotus-biscoff-cheesecake', name: 'Lotus Biscoff Cheesecake', category: 'Pastries' },
+    { id: 'blueberry-cheesecake', name: 'Blueberry Cheesecake', category: 'Pastries' },
+    { id: 'nutella-cheesecake', name: 'Nutella Cheesecake', category: 'Pastries' },
+    { id: 'strawberry-cheesecake', name: 'Strawberry Cheesecake', category: 'Pastries' },
+    { id: 'newyork-cheesecake', name: 'Newyork Cheesecake', category: 'Pastries' },
+    { id: 'chocolate-cheesecake', name: 'Chocolate Cheesecake', category: 'Pastries' },
+    { id: 'rasmalai-cheesecake', name: 'Rasmalai Cheesecake', category: 'Pastries' },
+    { id: 'motichoor-cheesecake', name: 'Motichoor Cheesecake', category: 'Pastries' },
+    { id: 'dark-chocolate-donut', name: 'Dark Chocolate Donut', category: 'Pastries' },
+    { id: 'white-chocolate-donut', name: 'White Chocolate Donut', category: 'Pastries' },
+    { id: 'milk-chocolate-donut', name: 'Milk Chocolate Donut', category: 'Pastries' },
+    { id: 'nutella-donut', name: 'Nutella Donut', category: 'Pastries' },
+    { id: 'biscoff-donut', name: 'Biscoff Donut', category: 'Pastries' },
+    { id: 'french-butter-croissant', name: 'French Butter Croissant', category: 'Pastries' },
+    { id: 'almond-croissant', name: 'Almond Croissant', category: 'Pastries' },
+    { id: 'chocolate-croissant', name: 'Chocolate Croissant', category: 'Pastries' },
+    { id: 'vanilla-cupcake', name: 'Vanilla Cupcake', category: 'Pastries' },
+    { id: 'pineapple-cupcake', name: 'Pineapple Cupcake', category: 'Pastries' },
+    { id: 'strawberry-cupcake', name: 'Strawberry Cupcake', category: 'Pastries' },
+    { id: 'blueberry-cupcake', name: 'Blueberry Cupcake', category: 'Pastries' },
+    { id: 'chocolate-cupcake', name: 'Chocolate Cupcake', category: 'Pastries' },
+    { id: 'dry-fruits-cookies', name: 'Dry Fruits Cookies', category: 'Pastries' },
+    { id: 'choco-chips-cookies', name: 'Choco Chips Cookies', category: 'Pastries' },
+    { id: 'coconut-cookies', name: 'Coconut Cookies', category: 'Pastries' },
+    { id: 'healthy-dry-fruits-cookies', name: 'Healthy Dry Fruits Cookies', category: 'Pastries' },
+    { id: 'healthy-chocochips-cookies', name: 'Healthy Chocochips Cookies', category: 'Pastries' },
+    { id: 'cakesickles', name: 'Cakesickles', category: 'Pastries' }
 ];
 
-// Delivery Location Modal
+function showSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    setTimeout(() => overlay.querySelector('.scale-95').classList.add('scale-100'), 10);
+}
+
+function hideSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.querySelector('.scale-95').classList.remove('scale-100');
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 300);
+}
+
+function performSearch(query) {
+    const suggestions = document.getElementById('searchSuggestions');
+    const filtered = products.filter(product => 
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.category.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5); // Limit to 5 suggestions
+
+    suggestions.innerHTML = '';
+
+    if (query.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">Start typing to see suggestions...</p>';
+        return;
+    }
+
+    if (filtered.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">No products found.</p>';
+        return;
+    }
+
+    filtered.forEach(product => {
+        const suggestion = document.createElement('a');
+        suggestion.href = `product-details.html?id=${product.id}`;
+        suggestion.className = 'flex items-center p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors text-sm';
+        suggestion.innerHTML = `
+            <i class="fas fa-search text-primary mr-3"></i>
+            <div class="flex-1 min-w-0">
+                <div class="font-medium text-gray-900 truncate">${product.name}</div>
+                <div class="text-xs text-gray-500 truncate">${product.category}</div>
+            </div>
+        `;
+        suggestions.appendChild(suggestion);
+    });
+}
+
+// Combined DOMContentLoaded for wishlist init, scroll functionality, search, and mobile menu
 document.addEventListener('DOMContentLoaded', function() {
-    const puneDeliveryAreas = [
-        'Koregaon Park', 'Baner', 'Wakad', 'Hinjewadi', 'FC Road', 'Viman Nagar',
-        'Kothrud', 'Aundh', 'Shivaji Nagar', 'Camp', 'Deccan', 'Karve Nagar'
-    ];
-
-    const punePincodes = ['411001', '411002', '411003', '411004', '411005', '411006'];
-
-    const modal = document.getElementById('deliveryModal');
-    const deliveryLocationBtn = document.getElementById('deliveryLocationBtn');
-    const closeModal = document.getElementById('closeModal');
-    const locationInput = document.getElementById('locationInput');
-    const confirmLocationBtn = document.getElementById('confirmLocation');
-    const locationOptions = document.querySelectorAll('.location-option');
-    const selectedLocationSpan = document.getElementById('selectedLocation');
-    const locationError = document.getElementById('locationError');
-    const locationSuccess = document.getElementById('locationSuccess');
-
-    let selectedLocation = '';
-    let isValidLocation = false;
-
-    function openModal() {
-        if (modal) {
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    function closeModalFunc() {
-        if (modal) {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-    }
-
-    function validateLocation(location) {
-        const isAreaValid = puneDeliveryAreas.some(area => 
-            area.toLowerCase().includes(location.toLowerCase())
-        );
-        const isPincodeValid = punePincodes.includes(location);
-        return isAreaValid || isPincodeValid;
-    }
-
-    function updateLocationUI(isValid, location = '') {
-        if (isValid) {
-            if (locationError) locationError.classList.add('hidden');
-            if (locationSuccess) {
-                locationSuccess.classList.remove('hidden');
-                locationSuccess.textContent = `Great! We deliver to ${location}.`;
-            }
-            if (confirmLocationBtn) confirmLocationBtn.disabled = false;
-            isValidLocation = true;
-            selectedLocation = location;
-        } else {
-            if (locationError) {
-                locationError.classList.remove('hidden');
-                locationError.textContent = location ? "We don't deliver to this location yet." : "Please enter a valid location.";
-            }
-            if (locationSuccess) locationSuccess.classList.add('hidden');
-            if (confirmLocationBtn) confirmLocationBtn.disabled = true;
-            isValidLocation = false;
-        }
-    }
-
-    if (deliveryLocationBtn) {
-        deliveryLocationBtn.addEventListener('click', openModal);
-    }
-
-    if (closeModal) {
-        closeModal.addEventListener('click', closeModalFunc);
-    }
-
-    if (locationInput) {
-        locationInput.addEventListener('input', function(e) {
-            const location = e.target.value.trim();
-            if (location.length > 2) {
-                updateLocationUI(validateLocation(location), location);
-            } else {
-                updateLocationUI(false);
-            }
-        });
-    }
-
-    if (locationOptions) {
-        locationOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const location = this.textContent.trim().replace(/^.*?\s/, '').trim();
-                if (locationInput) locationInput.value = location;
-                updateLocationUI(true, location);
-            });
-        });
-    }
-
-    if (confirmLocationBtn) {
-        confirmLocationBtn.addEventListener('click', function() {
-            if (isValidLocation && selectedLocation) {
-                if (selectedLocationSpan) selectedLocationSpan.textContent = selectedLocation;
-                localStorage.setItem('deliveryLocation', selectedLocation);
-                closeModalFunc();
-            }
-        });
-    }
-
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModalFunc();
-        });
-    }
-
-    // Search functionality
-    const searchToggle = document.getElementById('searchToggle');
-    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const closeSearch = document.getElementById('closeSearch');
-    const searchInput = document.getElementById('searchInput');
-    const searchSuggestions = document.getElementById('searchSuggestions');
-
-    function openSearch() {
-        if (searchOverlay) {
-            searchOverlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        if (searchInput) searchInput.focus();
-    }
-
-    function closeSearchFunc() {
-        if (searchOverlay) {
-            searchOverlay.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-        if (searchInput) searchInput.value = '';
-        if (searchSuggestions) searchSuggestions.innerHTML = '';
-    }
-
-    function displaySuggestions(suggestions) {
-        if (suggestions.length === 0) {
-            searchSuggestions.innerHTML = '<p class="text-gray-500 text-sm p-2">No products found.</p>';
-            return;
-        }
-        searchSuggestions.innerHTML = suggestions.map(product => {
-            let href;
-            if (product.type === 'id') {
-                href = `product-details.html?id=${product.id}`;
-            } else {
-                href = `product-details.html?category=${product.slug}&product=${encodeURIComponent(product.name)}`;
-            }
-            return `
-                <a href="${href}" class="block p-2 hover:bg-gray-100 border-b border-gray-100 last:border-b-0">
-                    <div class="flex items-center">
-                        <i class="fas fa-search text-primary mr-2"></i>
-                        <div>
-                            <h4 class="font-medium text-sm">${product.name}</h4>
-                            <p class="text-xs text-gray-500">${product.category}</p>
-                        </div>
-                    </div>
-                </a>
-            `;
-        }).join('');
-    }
-
-    if (searchToggle) {
-        searchToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            openSearch();
-        });
-    }
-
-    if (mobileSearchToggle) {
-        mobileSearchToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            openSearch();
-            // Close mobile menu if open
-            const navLinks = document.getElementById('navLinks');
-            const menuToggle = document.getElementById('menuToggle');
-            if (navLinks && !navLinks.classList.contains('hidden')) {
-                navLinks.classList.add('hidden');
-                const icon = menuToggle.querySelector('i');
-                if (icon) {
-                    icon.className = 'fas fa-bars text-lg sm:text-xl';
-                }
-            }
-        });
-    }
-
-    if (closeSearch) {
-        closeSearch.addEventListener('click', closeSearchFunc);
-    }
-
-    if (searchOverlay) {
-        searchOverlay.addEventListener('click', (e) => {
-            if (e.target === searchOverlay) closeSearchFunc();
-        });
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            if (query.length > 0) {
-                const filtered = allProducts.filter(product => 
-                    product.name.toLowerCase().includes(query) ||
-                    product.category.toLowerCase().includes(query)
-                );
-                displaySuggestions(filtered);
-            } else {
-                searchSuggestions.innerHTML = '';
-            }
-        });
-    }
-
-    // Mobile menu toggle
+    // Mobile Menu Toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
+    const hamburgerIcon = menuToggle.querySelector('i');
+
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('hidden');
-            const icon = this.querySelector('i');
-            if (navLinks.classList.contains('hidden')) {
-                icon.className = 'fas fa-bars text-lg sm:text-xl';
+            const isOpen = !navLinks.classList.contains('hidden');
+            if (isOpen) {
+                hamburgerIcon.classList.remove('fa-bars');
+                hamburgerIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
             } else {
-                icon.className = 'fas fa-times text-lg sm:text-xl';
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = ''; // Restore scroll
+            }
+        });
+
+        // Close menu when clicking on a link
+        const mobileLinks = navLinks.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.add('hidden');
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu on outside click (optional, but enhances UX)
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.add('hidden');
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
             }
         });
     }
@@ -390,30 +223,95 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Dropdown Toggles
     const mobileCakesToggle = document.getElementById('mobileCakesToggle');
     const mobileCakesMenu = document.getElementById('mobileCakesMenu');
+    const cakesIcon = mobileCakesToggle?.querySelector('i');
+
+    if (mobileCakesToggle && mobileCakesMenu && cakesIcon) {
+        mobileCakesToggle.addEventListener('click', () => {
+            mobileCakesMenu.classList.toggle('hidden');
+            cakesIcon.classList.toggle('rotate-180');
+        });
+    }
+
     const mobilePastriesToggle = document.getElementById('mobilePastriesToggle');
     const mobilePastriesMenu = document.getElementById('mobilePastriesMenu');
+    const pastriesIcon = mobilePastriesToggle?.querySelector('i');
 
-    if (mobileCakesToggle && mobileCakesMenu) {
-        mobileCakesToggle.addEventListener('click', function() {
-            mobileCakesMenu.classList.toggle('hidden');
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('rotate-180');
-            }
-        });
-    }
-
-    if (mobilePastriesToggle && mobilePastriesMenu) {
-        mobilePastriesToggle.addEventListener('click', function() {
+    if (mobilePastriesToggle && mobilePastriesMenu && pastriesIcon) {
+        mobilePastriesToggle.addEventListener('click', () => {
             mobilePastriesMenu.classList.toggle('hidden');
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('rotate-180');
+            pastriesIcon.classList.toggle('rotate-180');
+        });
+    }
+
+    // Wishlist initialization
+    const buttons = document.querySelectorAll('button[onclick^="toggleWishlist"]');
+    buttons.forEach(button => {
+        const onclick = button.getAttribute('onclick');
+        const match = onclick.match(/'([^']+)'/);
+        if (match) {
+            const id = match[1];
+            const isInWishlist = wishlist.some(item => item.id === id);
+            const heartIcon = button.querySelector('i');
+            if (isInWishlist) {
+                heartIcon.classList.remove('text-gray-600', 'fa-regular');
+                heartIcon.classList.add('text-red-500', 'fa-solid');
+            } else {
+                heartIcon.classList.remove('text-red-500', 'fa-solid');
+                heartIcon.classList.add('text-gray-600', 'fa-regular');
+            }
+        }
+    });
+
+    // Search toggle
+    const searchToggle = document.getElementById('searchToggle');
+    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+    const closeSearch = document.getElementById('closeSearch');
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchToggle) searchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+    if (mobileSearchToggle) mobileSearchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+    if (closeSearch) closeSearch.addEventListener('click', hideSearchOverlay);
+
+    // Close on overlay click
+    document.getElementById('searchOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'searchOverlay') hideSearchOverlay();
+    });
+
+    // Search input handler
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.length > 0) performSearch(searchInput.value);
+        });
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') hideSearchOverlay();
+            if (e.key === 'Enter' && searchInput.value) {
+                window.location.href = `product-details.html?q=${encodeURIComponent(searchInput.value)}`;
             }
         });
     }
 
-    // Horizontal scroll functionality
+    // Scroll to Top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+            scrollToTopBtn.classList.add('opacity-100', 'visible');
+        } else {
+            scrollToTopBtn.classList.remove('opacity-100', 'visible');
+            scrollToTopBtn.classList.add('opacity-0', 'invisible');
+        }
+    });
+    if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Updated Horizontal scroll functionality
     const scrollContainer = document.getElementById('scrollContainer');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -423,17 +321,21 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScrolling = false;
 
     function getCardWidth() {
+        if (!scrollContainer || scrollContainer.children.length === 0) return 0;
         const firstCard = scrollContainer.children[0];
-        const cardWidth = firstCard.offsetWidth;
-        const gap = window.innerWidth < 640 ? 12 : window.innerWidth < 768 ? 16 : 24;
-        return cardWidth + gap;
+        const style = window.getComputedStyle(scrollContainer);
+        const gap = parseFloat(style.gap) || 0;
+        return firstCard.offsetWidth + gap;
     }
 
     function scrollToCard(index) {
         if (isScrolling) return;
         isScrolling = true;
         const cardWidth = getCardWidth();
-        const scrollPosition = index * cardWidth;
+        const totalCards = scrollContainer.children.length;
+        const maxIndex = Math.max(0, totalCards - 1);
+        const boundedIndex = Math.max(0, Math.min(index, maxIndex));
+        const scrollPosition = boundedIndex * cardWidth;
         
         scrollContainer.scrollTo({
             left: scrollPosition,
@@ -442,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(() => {
             isScrolling = false;
-            currentIndex = index;
+            currentIndex = boundedIndex;
         }, 600);
     }
 
@@ -456,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function prevCard() {
         if (isScrolling) return;
         const totalCards = scrollContainer.children.length;
-        const prevIndex = (currentIndex - 1 + totalCards) % totalCards;
+        const prevIndex = currentIndex === 0 ? totalCards - 1 : currentIndex - 1;
         scrollToCard(prevIndex);
     }
 
@@ -464,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isUserInteracting && !isScrolling) {
             autoScrollInterval = setInterval(() => {
                 nextCard();
-            }, 5000);
+            }, 6000);
         }
     }
 
@@ -530,12 +432,4 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToCard(currentIndex);
         }, 100);
     });
-
-    updateWishlistCount();
-
-    const savedLocation = localStorage.getItem('deliveryLocation');
-    if (savedLocation && selectedLocationSpan) {
-        selectedLocationSpan.textContent = savedLocation;
-        selectedLocation = savedLocation;
-    }
 });

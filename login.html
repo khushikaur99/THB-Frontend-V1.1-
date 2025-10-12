@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bakery Login / Signup</title>
+  <title>Login / Signup</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -92,7 +93,7 @@
 <body class="flex items-center justify-center min-h-screen p-4">
 
   <!-- Main Card -->
-  <div class="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full max-w-[1000px] h-auto md:h-[500px] overflow-hidden">
+  <div class="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full max-w-[1000px] h-auto md:h-[560px] overflow-hidden">
 
     <!-- Left Section (Login / Signup Forms) -->
     <div class="w-full md:w-1/2 flex flex-col justify-center px-6 md:px-10 py-8 md:py-0 order-2 md:order-1">
@@ -101,13 +102,13 @@
         <h2 class="text-2xl md:text-3xl font-bold text-[#660B05] mb-2 uppercase">WELCOME BACK!!</h2>
         <p class="text-gray-500 text-sm mb-6">Enter your email and password to access your account</p>
 
-        <form class="space-y-4">
+        <form onsubmit="handleLogin(event)" class="space-y-4">
           <input type="email" placeholder="Email" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
 
           <!-- Password with Eye -->
           <div class="password-wrapper">
             <input type="password" placeholder="Password" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
-            <span class="toggle-password" onclick="togglePassword(this)">👁</span>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword(this)"></i>
           </div>
 
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm space-y-2 sm:space-y-0">
@@ -133,19 +134,20 @@
         <h2 class="text-2xl md:text-3xl font-bold text-[#660B05] mb-2">Let's Bake Memories Together</h2>
         <p class="text-gray-500 text-sm mb-6">Create your account and never miss out on sweet moments again.</p>
 
-        <form class="space-y-4">
+        <form onsubmit="handleSignup(event)" class="space-y-4">
           <input type="text" placeholder="Full Name" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
           <input type="email" placeholder="Email" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
+          <input type="tel" placeholder="Phone Number" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
 
           <!-- Password with Eye -->
           <div class="password-wrapper">
             <input type="password" placeholder="Password" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
-            <span class="toggle-password" onclick="togglePassword(this)">👁</span>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword(this)"></i>
           </div>
 
           <div class="password-wrapper">
             <input type="password" placeholder="Confirm Password" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#660B05]">
-            <span class="toggle-password" onclick="togglePassword(this)">👁</span>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword(this)"></i>
           </div>
 
           <button class="w-full bg-[#660B05] hover:bg-[#954C2E] text-white font-medium py-2.5 rounded-lg shadow-md transition">Sign Up</button>
@@ -154,6 +156,20 @@
         <!-- Switch to Login -->
         <p class="text-sm text-gray-600 text-center mt-4">
           Already have an account?
+          <button onclick="showLogin()" class="text-[#660B05] hover:underline font-semibold">Login</button>
+        </p>
+      </div>
+
+      <!-- Logged In Section (Hidden Initially) -->
+      <div id="loggedInSection" class="hidden">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#660B05] mb-2 uppercase">WELCOME BACK!!</h2>
+        <p class="text-gray-500 text-sm mb-6">You are logged in successfully.</p>
+
+        <button onclick="logout()" class="w-full bg-[#660B05] hover:bg-[#954C2E] text-white font-medium py-2.5 rounded-lg shadow-md transition">Logout</button>
+
+        <!-- Switch to Login -->
+        <p class="text-sm text-gray-600 text-center mt-4">
+          Want to login as different user?
           <button onclick="showLogin()" class="text-[#660B05] hover:underline font-semibold">Login</button>
         </p>
       </div>
@@ -218,6 +234,41 @@
   </div>
 
   <script>
+    function isLoggedIn() {
+      const session = localStorage.getItem('userSession');
+      if (!session) return false;
+      try {
+        const { expiry } = JSON.parse(session);
+        if (Date.now() < expiry) return true;
+      } catch (e) {}
+      localStorage.removeItem('userSession');
+      return false;
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      localStorage.setItem('userSession', JSON.stringify({ expiry: Date.now() + 24 * 60 * 60 * 1000 }));
+      location.reload();
+    }
+
+    function handleSignup(event) {
+      event.preventDefault();
+      localStorage.setItem('userSession', JSON.stringify({ expiry: Date.now() + 24 * 60 * 60 * 1000 }));
+      location.reload();
+    }
+
+    function logout() {
+      localStorage.removeItem('userSession');
+      location.reload();
+    }
+
+    // Check session on load
+    if (isLoggedIn()) {
+      document.getElementById('loginSection').classList.add('hidden');
+      document.getElementById('signupSection').classList.add('hidden');
+      document.getElementById('loggedInSection').classList.remove('hidden');
+    }
+
     function showSignup() {
       document.getElementById("loginSection").classList.add("hidden");
       document.getElementById("signupSection").classList.remove("hidden");
@@ -226,16 +277,19 @@
     function showLogin() {
       document.getElementById("signupSection").classList.add("hidden");
       document.getElementById("loginSection").classList.remove("hidden");
+      document.getElementById('loggedInSection').classList.add('hidden');
     }
 
     function togglePassword(element) {
       const input = element.previousElementSibling;
       if (input.type === "password") {
         input.type = "text";
-        element.textContent = "🙈";
+        element.classList.remove('fa-eye');
+        element.classList.add('fa-eye-slash');
       } else {
         input.type = "password";
-        element.textContent = "👁";
+        element.classList.remove('fa-eye-slash');
+        element.classList.add('fa-eye');
       }
     }
 

@@ -409,3 +409,105 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initial attachment of event listeners
     attachProductCardListeners();
 });
+
+// ==================== SEARCH FUNCTIONALITY ====================
+// EXACT SAME AS FIRST CODE - Search functionality
+const products = [
+    { id: '1', name: 'Choco Pastry', category: 'Pastries' },
+    { id: '2', name: 'Vanilla Pastry', category: 'Pastries' },
+    { id: '3', name: 'Strawberry Pastry', category: 'Pastries' },
+    { id: '4', name: 'Death by Chocolate Pastry', category: 'Chocolate Pastries' },
+    { id: '5', name: 'Chocolate Truffle Pastry', category: 'Chocolate Pastries' },
+    { id: '6', name: 'Chocolate Fudge Pastry', category: 'Chocolate Pastries' },
+    { id: '7', name: 'Dark Chocolate Mousse Pastry', category: 'Chocolate Pastries' },
+    // Add more products from your database as needed
+    { id: 'chocolate-fudge-cake', name: 'Chocolate Fudge Cake', category: 'Cakes' },
+    { id: 'red-velvet-dream', name: 'Red Velvet Dream', category: 'Cakes' },
+    { id: 'berry-cheesecake', name: 'Berry Cheesecake', category: 'Cakes' },
+    { id: 'lemon-meringue', name: 'Lemon Meringue', category: 'Cakes' },
+    { id: 'mango-saffron-pastry', name: 'Mango Saffron Pastry', category: 'Pastries' },
+    { id: 'masala-chai-puff', name: 'Masala Chai Puff', category: 'Pastries' },
+    { id: 'rose-gulab-jamun-tart', name: 'Rose Gulab Jamun Cheesecake', category: 'Pastries' },
+    { id: 'pista-kulfi-pastry', name: 'Pistachio Cheesecake Cups', category: 'Pastries' },
+    // ... include all products from the first code's array ...
+    { id: 'cakesickles', name: 'Cakesickles', category: 'Pastries' }
+];
+
+function showSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    setTimeout(() => overlay.querySelector('.scale-95').classList.add('scale-100'), 10);
+}
+
+function hideSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.querySelector('.scale-95').classList.remove('scale-100');
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 300);
+}
+
+function performSearch(query) {
+    const suggestions = document.getElementById('searchSuggestions');
+    const filtered = products.filter(product => 
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.category.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5); // Limit to 5 suggestions
+
+    suggestions.innerHTML = '';
+
+    if (query.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">Start typing to see suggestions...</p>';
+        return;
+    }
+
+    if (filtered.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">No products found.</p>';
+        return;
+    }
+
+    filtered.forEach(product => {
+        const suggestion = document.createElement('a');
+        suggestion.href = `product-details.html?id=${product.id}`;
+        suggestion.className = 'flex items-center p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors text-sm';
+        suggestion.innerHTML = `
+            <i class="fas fa-search text-primary mr-3"></i>
+            <div class="flex-1 min-w-0">
+                <div class="font-medium text-gray-900 truncate">${product.name}</div>
+                <div class="text-xs text-gray-500 truncate">${product.category}</div>
+            </div>
+        `;
+        suggestions.appendChild(suggestion);
+    });
+}
+
+// Search toggle handlers
+const searchToggle = document.getElementById('searchToggle');
+const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+const closeSearch = document.getElementById('closeSearch');
+const searchInput = document.getElementById('searchInput');
+
+if (searchToggle) searchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+if (mobileSearchToggle) mobileSearchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+if (closeSearch) closeSearch.addEventListener('click', hideSearchOverlay);
+
+// Close on overlay click
+document.getElementById('searchOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'searchOverlay') hideSearchOverlay();
+});
+
+// Search input handler
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+    searchInput.addEventListener('focus', () => {
+        if (searchInput.value.length > 0) performSearch(searchInput.value);
+    });
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') hideSearchOverlay();
+        if (e.key === 'Enter' && searchInput.value) {
+            window.location.href = `product-details.html?q=${encodeURIComponent(searchInput.value)}`;
+        }
+    });
+}

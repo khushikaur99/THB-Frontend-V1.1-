@@ -3,27 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Sweet Delights Bakery</title>
+    <title>About Us - The Home Bakery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(to right, #A53860, #c2185b);
-        }
-        .card-shadow {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-        /* Background Animation */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
         body {
+            font-family: 'Poppins', sans-serif;
             position: relative;
-            overflow-x: hidden;
         }
+        
+        /* Single Background for entire page */
         body::before {
             content: '';
             position: fixed;
@@ -31,111 +25,649 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #f9a8d4, #fed7e2, #f9a8d4, #fed7e2);
-            background-size: 400%;
-            opacity: 0.3;
-            z-index: -1;
-            animation: gradientShift 15s ease infinite;
+            background-image: url('https://images.unsplash.com/photo-1568254183919-78a4f43a2877?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -2;
         }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        
+        /* White overlay for entire page */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.726);
+            z-index: -1;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .brown-bg {
+            background-color: #8B5E3C;
+        }
+        
+        .light-brown-bg {
+            background-color: #F5E6D3;
+        }
+        
+        .medium-brown-bg {
+            background-color: #D7B899;
+        }
+        
+        .dark-brown {
+            color: #5D4037;
+        }
+        
+        .light-brown {
+            color: #F5E6D3;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .scroll-down {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        .brown-btn {
+            background-color: #8B5E3C;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .brown-btn:hover {
+            background-color: #6F4C2E;
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B5E3C, transparent);
+        }
+        
+        /* Bumpety styles */
+        .bumpety {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 20;
+        }
+        
+        .bumpety-1 {
+            width: 12px;
+            height: 12px;
+            background-color: #FF6B6B;
+            top: 10%;
+            left: 15%;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .bumpety-2 {
+            width: 8px;
+            height: 8px;
+            background-color: #4ECDC4;
+            top: 25%;
+            left: 85%;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+        
+        .bumpety-3 {
+            width: 10px;
+            height: 10px;
+            background-color: #FFD166;
+            top: 60%;
+            left: 10%;
+            animation: float 3.5s ease-in-out infinite 1s;
+        }
+        
+        .bumpety-4 {
+            width: 14px;
+            height: 14px;
+            background-color: #6A0572;
+            top: 75%;
+            left: 90%;
+            animation: float 4.5s ease-in-out infinite 1.5s;
+        }
+        
+        .bumpety-5 {
+            width: 9px;
+            height: 9px;
+            background-color: #06D6A0;
+            top: 40%;
+            left: 5%;
+            animation: float 5.5s ease-in-out infinite 0.8s;
+        }
+        
+        .bumpety-6 {
+            width: 11px;
+            height: 11px;
+            background-color: #118AB2;
+            top: 15%;
+            left: 70%;
+            animation: float 4s ease-in-out infinite 1.2s;
+        }
+        
+        .bumpety-7 {
+            width: 7px;
+            height: 7px;
+            background-color: #EF476F;
+            top: 80%;
+            left: 20%;
+            animation: float 6s ease-in-out infinite 0.3s;
+        }
+        
+        .bumpety-8 {
+            width: 13px;
+            height: 13px;
+            background-color: #FF9E6D;
+            top: 50%;
+            left: 95%;
+            animation: float 5s ease-in-out infinite 1.7s;
+        }
+        
+        .bumpety-container {
+            position: relative;
+            height: 100px;
+            overflow: hidden;
+            background-color: #F5E6D3;
+        }
+        
+        .bumpety-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        
+        .bumpety-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 50px;
+        }
+        
+        .bumpety-wave .shape-fill {
+            fill: #F5E6D3;
+        }
+        
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        .animate-fadeInUp { animation: fadeInUp 1.2s ease-out forwards; }
+        .animate-fadeIn { animation: fadeIn 1.2s ease-out forwards; }
+        
+        /* Remove background from all sections */
+        section {
+            background: transparent !important;
+        }
+        
+        /* Hero section specific styling */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(139, 94, 60, 0.7), rgba(245, 230, 211, 0.3));
+            z-index: -1;
+        }
+
+        /* Back Arrow Styling */
+        .back-arrow {
+            transition: all 0.3s ease;
+        }
+
+        .back-arrow:hover {
+            transform: translateX(-2px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(139, 94, 60, 0.2);
         }
     </style>
 </head>
-<body class="bg-rose-100 font-serif">
-    <!-- Header Section -->
-    <header class="gradient-bg text-white py-8">
-        <div class="container mx-auto text-center px-4">
-            <h1 class="text-5xl font-extrabold animate-fade-in-down">About Sweet Delights Bakery</h1>
-            <p class="mt-3 text-xl animate-fade-in-up">Crafting Sweet Moments Since 2010</p>
-        </div>
-    </header>
+<body class="bg-transparent">
 
-    <!-- Main Content -->
-    <main class="container mx-auto py-16 px-4">
-        <!-- Our Story Section -->
-        <section class="mb-20">
-            <h2 class="text-4xl font-bold text-[#A53860] text-center mb-8 animate-pulse">Our Story</h2>
-            <div class="flex flex-col md:flex-row items-center gap-10 bg-white rounded-lg p-8 card-shadow hover-lift">
-                <div class="md:w-1/2">
-                    <p class="text-gray-800 text-lg leading-relaxed animate-fade-in">
-                        Sweet Delights Bakery was born from a love for creating joy through handcrafted treats. Since 2010, our passionate bakers have been blending the finest ingredients with creativity and care. From fluffy cupcakes to crusty artisan breads, every bite is a celebration of flavor and happiness.
-                    </p>
-                </div>
-                <yer
-                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bakery Pastries" 
-                         class="rounded-lg w-full object-cover h-80 transform hover:scale-105 transition-transform duration-300">
-                </div>
-            </div>
-        </section>
+    <!-- Back Arrow Button -->
+    <a href="javascript:history.back()" class="fixed top-4 left-4 z-50 bg-white text-dark-brown p-3 rounded-full shadow-lg back-arrow" aria-label="Go back to previous page">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </a>
 
-        <!-- Our Team Section -->
-        <section class="mb-20">
-            <h2 class="text-4xl font-bold text-[#A53860] text-center mb-8 animate-pulse">Meet Our Team</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <!-- Team Member 1 -->
-                <div class="text-center bg-white rounded-lg p-6 card-shadow hover-lift">
-                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Anna" 
-                         class="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-[#c2185b]">
-                    <h3 class="text-2xl font-bold text-[#A53860]">Anna Smith</h3>
-                    <p class="text-gray-600 font-medium">Head Baker</p>
-                    <p class="text-gray-500 text-sm mt-2">With 15 years of expertise, Anna’s pastries are a blend of tradition and innovation.</p>
-                </div>
-                <!-- Team Member 2 -->
-                <div class="text-center bg-white rounded-lg p-6 card-shadow hover-lift">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="John" 
-                         class="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-[#c2185b]">
-                    <h3 class="text-2xl font-bold text-[#A53860]">John Doe</h3>
-                    <p class="text-gray-600 font-medium">Pastry Chef</p>
-                    <p class="text-gray-500 text-sm mt-2">John’s desserts turn simple ingredients into unforgettable delights.</p>
-                </div>
-                <!-- Team Member 3 -->
-                <div class="text-center bg-white rounded-lg p-6 card-shadow hover-lift">
-                    <img src="https://images.unsplash.com/photo-1595475207225-428b62c44b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Emma" 
-                         class="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-[#c2185b]">
-                    <h3 class="text-2xl font-bold text-[#A53860]">Emma Lee</h3>
-                    <p class="text-gray-600 font-medium">Store Manager</p>
-                    <p class="text-gray-500 text-sm mt-2">Emma’s warm smile ensures every visit is a sweet experience.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Our Mission Section -->
-        <section class="text-center bg-white rounded-lg p-8 card-shadow hover-lift">
-            <h2 class="text-4xl font-bold text-[#A53860] mb-6 animate-pulse">Our Mission</h2>
-            <p class="text-gray-800 text-lg max-w-3xl mx-auto leading-relaxed animate-fade-in">
-                At Sweet Delights, we bake more than just treats—we create memories. Our mission is to craft high-quality, 
-                delicious goods that bring people together and make every moment special.
+    <!-- Hero Section -->
+   <section class="hero-section overflow-hidden relative">
+    <!-- Hero Content -->
+    <div class="relative z-10 flex justify-center items-center min-h-screen px-6">
+        <!-- Rectangular background for text with gradient -->
+        <div class="rounded-2xl p-12 md:p-16 text-center shadow-2xl max-w-7xl w-full"
+             style="background: linear-gradient(135deg, #F5E6D3, #D7B899);">
+            <h1 class="script-font text-5xl sm:text-6xl md:text-7xl mb-6 dark-brown drop-shadow-lg animate-fadeInUp">
+                Welcome to The Home Bakery 🍰
+            </h1>
+            <p class="text-lg sm:text-2xl md:text-3xl max-w-5xl mx-auto mb-10 dark-brown drop-shadow-md animate-fadeInUp"
+               style="animation-delay: 0.3s;">
+                Crafting Happiness Since 2020
             </p>
-        </section>
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="gradient-bg text-white py-8">
-        <div class="container mx-auto text-center px-4">
-            <p class="text-lg">© 2025 Sweet Delights Bakery. All rights reserved.</p>
-            <p class="mt-3">Follow us on social media for the latest updates!</p>
+            <a href="#our-journey"
+               class="brown-btn px-10 py-4 rounded-full shadow-lg font-semibold text-lg animate-fadeIn"
+               style="animation-delay: 0.6s;">
+                Explore Our Story
+            </a>
         </div>
-    </footer>
+    </div>
 
-    <style>
-        /* Custom Animations */
-        @keyframes fadeInDown {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+    <!-- Scroll Down Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-down">
+        <a href="#our-journey" class="text-white text-2xl">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+</section>
+
+
+    <!-- Story Section -->
+    <section id="our-journey" class="relative py-16">
+        <div class="relative z-10 container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Image Column -->
+                <div class="lg:w-1/2 opacity-0 translate-y-8" id="story-image">
+                    <div class="relative">
+                        <div class="rounded-2xl overflow-hidden shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" 
+                                 alt="Baker preparing pastries" class="w-full h-auto">
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 brown-bg text-white p-6 rounded-2xl shadow-lg opacity-0 translate-y-8" id="years-card">
+                            <p class="text-3xl font-bold">3+</p>
+                            <p class="text-lg">Years of Excellence</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Text Column -->
+                <div class="lg:w-1/2 opacity-0 translate-y-8" id="story-text">
+                    <!-- Typing heading -->
+                    <h2 class="heading-font text-3xl md:text-4xl dark-brown mb-6 typing-heading" data-text="Our Journey"></h2>
+                    
+                    <!-- Paragraphs -->
+                    <p class="text-lg text-gray-700 mb-6">The Home Bakery began its delightful journey in 2020, founded from home by Mrs. Anjali Nilesh Pande out of her passion for baking and spreading happiness through homemade goodness.</p>
+                    <p class="text-lg text-gray-700 mb-6">What started as a small kitchen experiment soon turned into a beloved local bakery, known for its authentic flavors, premium ingredients, and heartfelt service.</p>
+                    <p class="text-lg text-gray-700 mb-8">Today, we continue to bake with the same love and dedication, creating sweet memories for every celebration and everyday moment.</p>
+                    
+                    <!-- Founder Info -->
+                    <div class="flex items-center opacity-0 translate-y-8" id="founder-info">
+                        <div class="w-14 h-14 rounded-full brown-bg flex items-center justify-center mr-4">
+                            <span class="text-white text-2xl">👩‍🍳</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg dark-brown">Mrs. Anjali Nilesh Pande</p>
+                            <p class="text-gray-600">Founder & Head Baker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="divider my-16"></div>
+        </div>
+    </section>
+
+    <!-- Specialties Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="heading-font text-3xl md:text-4xl dark-brown mb-4">Our Sweet Creations</h2>
+                <p class="text-gray-600">Indulge in our handcrafted delights made with love and the finest ingredients</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cake Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover opacity-0 specialty-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1089&q=80" 
+                             alt="Cakes" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3 dark-brown">🍰</span>
+                            <h3 class="text-xl font-semibold dark-brown">Cakes</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm">Custom-designed celebration cakes, from birthdays to weddings, made with love and premium ingredients.</p>
+                    </div>
+                </div>
+                
+                <!-- Pastries Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover opacity-0 specialty-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="Pastries" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3 dark-brown">🥐</span>
+                            <h3 class="text-xl font-semibold dark-brown">Pastries</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm">Flaky, buttery pastries filled with sweet and savory delights, perfect for any time of day.</p>
+                    </div>
+                </div>
+                
+                <!-- Cupcakes Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover opacity-0 specialty-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                             alt="Cupcakes" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3 dark-brown">🧁</span>
+                            <h3 class="text-xl font-semibold dark-brown">Cupcakes</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm">Moist, flavorful cupcakes with creative frostings and decorations that bring joy in every bite.</p>
+                    </div>
+                </div>
+                
+                <!-- Desserts Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover opacity-0 specialty-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                             alt="Desserts" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3 dark-brown">🍮</span>
+                            <h3 class="text-xl font-semibold dark-brown">Desserts</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm">Indulgent desserts from creamy cheesecakes to delicate mousses that satisfy every sweet craving.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values Section -->
+<section class="relative py-24 overflow-hidden">
+  <div class="relative z-10 container mx-auto px-4">
+    <!-- Section Header -->
+    <div class="max-w-4xl mx-auto text-center mb-16">
+      <h2 class="heading-font text-4xl md:text-5xl dark-brown mb-4">Our Promise</h2>
+      <p class="text-xl md:text-2xl text-gray-700 italic">
+        "At The Home Bakery, we believe every celebration deserves something special."
+      </p>
+    </div>
+
+    <!-- Equal-Height Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+      
+      <!-- Card 1 -->
+      <div class="group relative flex flex-col">
+        <div class="flex flex-col justify-between bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden flex-grow transition-all duration-500 transform group-hover:scale-105 group-hover:shadow-2xl">
+          <div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200 to-amber-400 rounded-bl-3xl opacity-20"></div>
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white text-2xl shadow-lg mb-6 transform group-hover:scale-110 transition-transform duration-300">
+              <i class="fas fa-award"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Quality Excellence</h3>
+            <p class="text-sm text-gray-600 leading-snug mb-4">
+              We source only premium ingredients and maintain rigorous standards in every creation that leaves our kitchen.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-amber-500 rounded-full mr-3"></span>Premium organic ingredients</li>
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-amber-500 rounded-full mr-3"></span>Rigorous quality control</li>
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-amber-500 rounded-full mr-3"></span>Artisanal techniques</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="group relative flex flex-col">
+        <div class="flex flex-col justify-between bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden flex-grow transition-all duration-500 transform group-hover:scale-105 group-hover:shadow-2xl">
+          <div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-200 to-emerald-400 rounded-bl-3xl opacity-20"></div>
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white text-2xl shadow-lg mb-6 transform group-hover:scale-110 transition-transform duration-300">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Daily Freshness</h3>
+            <p class="text-sm text-gray-600 leading-snug mb-4">
+              Every item is baked fresh daily, ensuring you experience the perfect texture and flavor in every single bite.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></span>Baked fresh each morning</li>
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></span>No preservatives added</li>
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></span>Seasonal ingredients</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="group relative flex flex-col">
+        <div class="flex flex-col justify-between bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden flex-grow transition-all duration-500 transform group-hover:scale-105 group-hover:shadow-2xl">
+          <div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-rose-200 to-rose-400 rounded-bl-3xl opacity-20"></div>
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-rose-500 to-rose-700 flex items-center justify-center text-white text-2xl shadow-lg mb-6 transform group-hover:scale-110 transition-transform duration-300">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Made with Love</h3>
+            <p class="text-sm text-gray-600 leading-snug mb-4">
+              Each recipe is crafted with passion, turning simple ingredients into cherished memories and celebrations.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-rose-500 rounded-full mr-3"></span>Family recipes</li>
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-rose-500 rounded-full mr-3"></span>Handcrafted with care</li>
+              <li class="flex items-center text-sm text-gray-700"><span class="w-2 h-2 bg-rose-500 rounded-full mr-3"></span>Personalized service</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Quote -->
+    <div class="text-center mt-16">
+      <div class="inline-block bg-white/80 backdrop-blur-md rounded-2xl px-8 py-6 border border-gray-200">
+        <p class="text-gray-700 text-lg italic">
+          "Great baking is an art, but exceptional baking is a promise kept with every creation."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <script>
+        // Initialize GSAP and ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero section animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hero text animation
+            gsap.to("#hero-title", {
+                duration: 1,
+                opacity: 1,
+                y: 0,
+                ease: "power2.out"
+            });
+            
+            gsap.to("#hero-subtitle", {
+                duration: 1,
+                opacity: 1,
+                y: 0,
+                delay: 0.3,
+                ease: "power2.out"
+            });
+            
+            gsap.to("#hero-button", {
+                duration: 1,
+                opacity: 1,
+                y: 0,
+                delay: 0.6,
+                ease: "power2.out"
+            });
+            
+            // Story section animations
+            gsap.to("#story-image", {
+                scrollTrigger: {
+                    trigger: "#story-image",
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                duration: 1,
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            });
+            
+            gsap.to("#story-text", {
+                scrollTrigger: {
+                    trigger: "#story-text",
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                duration: 1,
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            });
+            
+            // Specialties cards animation
+            gsap.to(".specialty-card", {
+                scrollTrigger: {
+                    trigger: ".specialty-card",
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                stagger: 0.2,
+                ease: "power2.out"
+            });
+            
+            // Values animation
+            gsap.to(".value-item", {
+                scrollTrigger: {
+                    trigger: ".value-item",
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                stagger: 0.2,
+                ease: "power2.out"
+            });
+        });
+        
+        // Smooth scroll for the down arrow
+        document.querySelector('a[href="#our-journey"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#our-journey').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Typing effect for heading
+        function typeText(element, text, delay = 50) {
+            let i = 0;
+            element.textContent = '';
+            function typing() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typing, delay);
+                }
+            }
+            typing();
         }
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-down {
-            animation: fadeInDown 1s ease-in-out;
-        }
-        .animate-fade-in-up {
-            animation: fadeInUp 1s ease-in-out;
-        }
-    </style>
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    // Typing heading
+                    const heading = entry.target.querySelector('.typing-heading');
+                    typeText(heading, heading.getAttribute('data-text'));
+
+                    // Fade/slide animations
+                    const image = entry.target.querySelector('#story-image');
+                    const textCol = entry.target.querySelector('#story-text');
+                    const yearsCard = entry.target.querySelector('#years-card');
+                    const founderInfo = entry.target.querySelector('#founder-info');
+
+                    [image, textCol, yearsCard, founderInfo].forEach(el => {
+                        el.classList.remove('opacity-0', 'translate-y-8');
+                        el.classList.add('transition-all', 'duration-700', 'ease-out');
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(document.getElementById('our-journey'));
+    </script>
 </body>
 </html>

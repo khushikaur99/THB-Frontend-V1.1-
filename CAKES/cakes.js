@@ -1,3 +1,128 @@
+// Products array for search (adapted from productData, with category 'Cakes')
+const products = [
+    { id: 'truffle-bliss-birthday-cake', name: 'Truffle Bliss Birthday Cake', category: 'Cakes' },
+    { id: 'tropical-pineapple-cake', name: 'Tropical Pineapple Cake', category: 'Cakes' },
+    { id: 'decadent-red-velvet-cake', name: 'Decadent Red Velvet Cake', category: 'Cakes' },
+    { id: 'rasmalai-pista-cream-cake', name: 'Rasmalai Pista Cream Cake', category: 'Cakes' },
+    { id: 'classic-vanilla-cake', name: 'Classic Vanilla Cake', category: 'Cakes' },
+    { id: 'mango-meringue-dream-cake', name: 'Mango Meringue Dream Cake', category: 'Cakes' },
+    { id: 'salted-caramel-chocolate-cake', name: 'Salted Caramel Chocolate Cake', category: 'Cakes' },
+    { id: 'berry-cheesecake-delight', name: 'Berry Cheesecake Delight', category: 'Cakes' },
+    { id: 'coffee-walnut-crunch-cake', name: 'Coffee Walnut Crunch Cake', category: 'Cakes' },
+    { id: 'lemon-blueberry-burst-cake', name: 'Lemon Blueberry Burst Cake', category: 'Cakes' },
+    { id: 'black-forest-gateau', name: 'Black Forest Gateau', category: 'Cakes' },
+    { id: 'carrot-walnut-cake', name: 'Carrot Walnut Cake', category: 'Cakes' },
+    { id: 'cookies-cream-cake', name: 'Cookies & Cream Cake', category: 'Cakes' },
+    { id: 'strawberry-shortcake', name: 'Strawberry Shortcake', category: 'Cakes' },
+    { id: 'tiramisu-layer-cake', name: 'Tiramisu Layer Cake', category: 'Cakes' },
+    { id: 'hazelnut-praline-cake', name: 'Hazelnut Praline Cake', category: 'Cakes' },
+    { id: 'matcha-green-tea-cake', name: 'Matcha Green Tea Cake', category: 'Cakes' },
+    { id: 'peanut-butter-chocolate-cake', name: 'Peanut Butter Chocolate Cake', category: 'Cakes' },
+    { id: 'coconut-lime-cake', name: 'Coconut Lime Cake', category: 'Cakes' },
+    { id: 'pistachio-rose-cake', name: 'Pistachio Rose Cake', category: 'Cakes' }
+];
+
+// Search functions
+function showSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    setTimeout(() => overlay.querySelector('.scale-95').classList.add('scale-100'), 10);
+}
+
+function hideSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    overlay.querySelector('.scale-95').classList.remove('scale-100');
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 300);
+}
+
+function performSearch(query) {
+    const suggestions = document.getElementById('searchSuggestions');
+    const filtered = products.filter(product => 
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.category.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5); // Limit to 5 suggestions
+
+    suggestions.innerHTML = '';
+
+    if (query.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">Start typing to see suggestions...</p>';
+        return;
+    }
+
+    if (filtered.length === 0) {
+        suggestions.innerHTML = '<p class="text-xs text-gray-500 p-2">No products found.</p>';
+        return;
+    }
+
+    filtered.forEach(product => {
+        const suggestion = document.createElement('a');
+        suggestion.href = `product-details.html?id=${product.id}`;
+        suggestion.className = 'flex items-center p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors text-sm';
+        suggestion.innerHTML = `
+            <i class="fas fa-search text-primary mr-3"></i>
+            <div class="flex-1 min-w-0">
+                <div class="font-medium text-gray-900 truncate">${product.name}</div>
+                <div class="text-xs text-gray-500 truncate">${product.category}</div>
+            </div>
+        `;
+        suggestions.appendChild(suggestion);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchToggle = document.getElementById('searchToggle');
+    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+    const closeSearch = document.getElementById('closeSearch');
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchToggle) searchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+    if (mobileSearchToggle) mobileSearchToggle.addEventListener('click', (e) => { e.preventDefault(); showSearchOverlay(); });
+    if (closeSearch) closeSearch.addEventListener('click', hideSearchOverlay);
+
+    // Close on overlay click
+    document.getElementById('searchOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'searchOverlay') hideSearchOverlay();
+    });
+
+    // Search input handler
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.length > 0) performSearch(searchInput.value);
+        });
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') hideSearchOverlay();
+            if (e.key === 'Enter' && searchInput.value) {
+                window.location.href = `product-details.html?q=${encodeURIComponent(searchInput.value)}`;
+            }
+        });
+    }
+
+    // Scroll to Top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+            scrollToTopBtn.classList.add('opacity-100', 'visible');
+        } else {
+            scrollToTopBtn.classList.remove('opacity-100', 'visible');
+            scrollToTopBtn.classList.add('opacity-0', 'invisible');
+        }
+    });
+    if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const slideshow = document.getElementById('imageSlideshow');
     const slides = document.querySelectorAll('#imageSlideshow > div');
