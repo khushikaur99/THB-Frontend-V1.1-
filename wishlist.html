@@ -506,14 +506,24 @@
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('wishlistContainer');
         const emptyMsg = document.getElementById('wishlistEmptyMsg');
+        const USER_ID = 3; // Assuming hardcoded userId for demonstration; replace with actual logged-in user ID from session/auth
 
-        function getWishlist() {
-            return JSON.parse(localStorage.getItem('wishlist')) || [];
+        async function getWishlist() {
+            try {
+                const response = await fetch(`http://localhost:8082/api/wishlist/get-wishlist-items?userId=${USER_ID}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch wishlist');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Fetch wishlist error:', error);
+                return [];
+            }
         }
 
-        function renderWishlist() {
+        async function renderWishlist() {
             try {
-                const wishlist = getWishlist();  // Always fetch fresh
+                const wishlist = await getWishlist();  // Always fetch fresh
                 const navbarCount = document.getElementById('wishlist-count');
 
                 if (wishlist.length === 0) {
@@ -557,13 +567,23 @@
             }
         }
 
-        window.removeFromWishlist = function(id) {
+        window.removeFromWishlist = async function(id) {
             try {
-                let currentWishlist = getWishlist();
-                currentWishlist = currentWishlist.filter(item => item.id !== id);  // Handles string IDs; use != if numeric
-                localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
+                const response = await fetch('http://localhost:8082/api/wishlist/remove-wishlist-items', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: USER_ID,
+                        productId: id
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to remove item');
+                }
                 
-                renderWishlist();  // Re-renders with fresh data
+                await renderWishlist();  // Re-renders with fresh data
                 
                 // Optional notification
                 // showNotification('Item removed from wishlist');

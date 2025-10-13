@@ -122,7 +122,7 @@
 </nav>
 
 <!-- Second Navbar (Main) -->
-<nav class="sticky top-12 sm:top-14 md:top-16 z-40 bg-white shadow-lg border-b border-gray-100">
+<nav class="sticky top-12 sm:top-14 md:top-16 z-40 lg:px-8 bg-white shadow-lg border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div class="flex justify-between items-center h-16 sm:h-20 md:h-24">
             
@@ -133,60 +133,69 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-1">
-                <a href="/index.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">Home</a>
+                <a href="../index.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">Home</a>
                 
                 <!-- Cakes Dropdown -->
                 <div class="relative group">
-                    <a href="#" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <a href="/cakes/Allcakes.html" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
                         Cakes
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                     </a>
-                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[650px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
-                        <div class="p-6 grid grid-cols-4 gap-6">
+                    <div class="absolute left-1/2 transform -translate-x-1/4 mt-2 w-[800px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                        <div class="p-2 grid grid-cols-4 gap-6">
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
-                                    <i class="fas fa-utensils mr-2"></i>By Type
+                                    <i class="fas fa-utensils mr-2"></i>Basic Cakes
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/CAKES/allcakes.html?filter=all" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=chocolate" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=vanilla" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=redvelvet" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Red Velvet</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=fruit" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Fruit Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=blackforest" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Black Forest</a></li>
+                                    <li><a href="./CAKES/allcakes.html" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Pineapple Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Blueberry Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Mango Cake</a></li>
+                                     <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Butterscotch Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Kulfi Falooda Cake</a></li>
                                 </ul>
                             </div>
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
-                                    <i class="fas fa-calendar-alt mr-2"></i>By Occasion
+                                    <i class="fas fa-calendar-alt mr-2"></i>Chocolate Cakes
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/CAKES/allcakes.html?filter=birthday" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Birthday Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=anniversary" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Anniversary Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=wedding" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Wedding Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=graduation" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Graduation Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Choco Truffle Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Black Forest Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">White Forest Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Choco chips Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Choco Coffee Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Tiramisu Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Choco Vanilla Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Choco Hazelnut Cake</a></li>
+                                                                        <li><a href="#" class="block px-3 py-1 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Choco Vanilla Oreo Cake</a></li>
+
                                 </ul>
                             </div>
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
-                                    <i class="fas fa-child mr-2"></i>Kids Cakes
+                                    <i class="fas fa-child mr-2"></i>Tea Times Cakes
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/CAKES/allcakes.html?filter=barbie" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Barbie Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=car" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Car Theme</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=cartoon" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Cartoon Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=spiderman" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Spiderman</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Pistachio Rose Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Banana Choco Walnut Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Date & Walnut Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Mava Cake</a></li>
                                 </ul>
                             </div>
                             <div>
                                 <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
-                                    <i class="fas fa-star mr-2"></i>Specialty
+                                    <i class="fas fa-star mr-2"></i>Premium Cakes
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/CAKES/allcakes.html?filter=photo" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Photo Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=bento" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Bento Cakes</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=pullmeup" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Pull Me Up</a></li>
-                                    <li><a href="/CAKES/allcakes.html?filter=pinata" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Pinata Cakes</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Paan Gulkand Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Red Velvet Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Gulab Jamun Cake</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Rasmalai Cake</a></li>
+                                                                        <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Fresh Mix Fruit Cake</a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -206,21 +215,22 @@
                                     <i class="fas fa-ice-cream mr-2"></i>By Flavours
                                 </h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate</a></li>
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla</a></li>
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Strawberry</a></li>
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Blueberry</a></li>
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Lemon</a></li>
-                                    <li><a href="/PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Matcha</a></li>
+                                    <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Strawberry</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Blueberry</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Lemon</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Matcha</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <a href="./CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+                 <a href="./SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
                 <a href="#" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
-                <a href="/contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
-                <a href="/about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
+                <a href="../contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+                <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
             </div>
 
     <!-- Right Side Icons -->
@@ -280,12 +290,12 @@
                                 <i class="fas fa-utensils mr-1"></i>By Type
                             </h4>
                             <ul class="space-y-1 text-xs">
-                                <li><a href="/CAKES/allcakes.html?filter=all" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">All Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=chocolate" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=vanilla" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=redvelvet" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Red Velvet</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=fruit" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Fruit Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=blackforest" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Black Forest</a></li>
+                                <li><a href="/CAKES/allcakes.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">All Cakes</a></li>
+                                <li><a href="/cakes/choco.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Red Velvet</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Fruit Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Black Forest</a></li>
                             </ul>
                         </div>
                         <div>
@@ -293,10 +303,10 @@
                                 <i class="fas fa-calendar-alt mr-1"></i>By Occasion
                             </h4>
                             <ul class="space-y-1 text-xs">
-                                <li><a href="/CAKES/allcakes.html?filter=birthday" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Birthday Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=anniversary" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Anniversary Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=wedding" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Wedding Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=graduation" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Graduation Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Birthday Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Anniversary Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Wedding Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Graduation Cakes</a></li>
                             </ul>
                         </div>
                         <div>
@@ -304,10 +314,10 @@
                                 <i class="fas fa-child mr-1"></i>Kids Cakes
                             </h4>
                             <ul class="space-y-1 text-xs">
-                                <li><a href="/CAKES/allcakes.html?filter=barbie" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Barbie Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=car" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Car Theme</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=cartoon" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Cartoon Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=spiderman" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Spiderman</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Barbie Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Car Theme</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Cartoon Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Spiderman</a></li>
                             </ul>
                         </div>
                         <div>
@@ -315,10 +325,10 @@
                                 <i class="fas fa-star mr-1"></i>Specialty
                             </h4>
                             <ul class="space-y-1 text-xs">
-                                <li><a href="/CAKES/allcakes.html?filter=photo" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Photo Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=bento" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Bento Cakes</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=pullmeup" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Pull Me Up</a></li>
-                                <li><a href="/CAKES/allcakes.html?filter=pinata" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Pinata Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Photo Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Bento Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Pull Me Up</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Pinata Cakes</a></li>
                             </ul>
                         </div>
                     </div>
@@ -377,6 +387,49 @@
     </div>
 </nav>
 
+<!-- Delivery Location Modal -->
+<div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Choose Delivery Location</h3>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="locationInput" placeholder="Enter your area, city or pincode" class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+            <div id="locationError" class="text-red-500 text-xs sm:text-sm mt-1 hidden"></div>
+            <div id="locationSuccess" class="text-green-500 text-xs sm:text-sm mt-1 hidden"></div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="text-xs sm:text-sm font-medium text-gray-700 mb-2">Popular Areas in Pune</h4>
+            <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Koregaon Park
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Baner
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Wakad
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Hinjewadi
+                </button>
+            </div>
+        </div>
+
+        <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg text-sm sm:text-base font-medium hover:from-secondary hover:to-primary transition-all duration-300 disabled:opacity-50" disabled>
+            Confirm Location
+        </button>
+    </div>
+</div>
+
 <!-- Search Overlay -->
 <div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
     <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
@@ -397,66 +450,6 @@
         <div id="searchSuggestions" class="max-h-64 overflow-y-auto scrollbar-hide"></div>
     </div>
 </div>
-
-  <!-- Delivery Location Modal -->
-  <div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-    <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg font-semibold text-gray-800">Choose Delivery Location</h3>
-        <button id="closeModal" class="text-gray-500 hover:text-gray-700 transition-colors">
-          <i class="fas fa-times text-xl"></i>
-        </button>
-      </div>
-      
-      <!-- Location Input -->
-      <div class="mb-4">
-        <div class="relative">
-          <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
-          <input 
-            type="text" 
-            id="locationInput" 
-            placeholder="Enter your area, city or pincode"
-            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-          >
-          <button id="useCurrentLocation" class="absolute right-3 top-3 text-primary hover:text-secondary transition-colors">
-            <i class="fas fa-crosshairs"></i>
-          </button>
-        </div>
-        <div id="locationError" class="text-red-500 text-sm mt-1 hidden"></div>
-        <div id="locationSuccess" class="text-green-500 text-sm mt-1 hidden"></div>
-      </div>
-
-      <!-- Popular Areas -->
-      <div class="mb-4">
-        <h4 class="text-sm font-medium text-gray-700 mb-2">Popular Areas in Pune</h4>
-        <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
-          <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-            <i class="fas fa-map-pin text-primary mr-2"></i>Koregaon Park
-          </button>
-          <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-            <i class="fas fa-map-pin text-primary mr-2"></i>Baner
-          </button>
-          <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-            <i class="fas fa-map-pin text-primary mr-2"></i>Wakad
-          </button>
-          <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-            <i class="fas fa-map-pin text-primary mr-2"></i>Hinjewadi
-          </button>
-          <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-            <i class="fas fa-map-pin text-primary mr-2"></i>FC Road
-          </button>
-          <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-sm">
-            <i class="fas fa-map-pin text-primary mr-2"></i>Viman Nagar
-          </button>
-        </div>
-      </div>
-
-      <!-- Confirm Button -->
-      <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg font-medium hover:from-secondary hover:to-primary transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-        Confirm Location
-      </button>
-    </div>
-  </div>
 
 <!-- Full Image Responsive Slideshow -->
 <section class="relative w-full overflow-hidden group">
