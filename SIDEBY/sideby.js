@@ -261,7 +261,7 @@
                 },
                 'donuts': {
                     name: 'Donuts',
-                    icon: 'fas fa-donut',
+                      icon: 'fas fa-bread-slice',
                     products: [
                         { name: 'Dark chocolate donut', price: 120 },
                         { name: 'White chocolate donut', price: 120 },
