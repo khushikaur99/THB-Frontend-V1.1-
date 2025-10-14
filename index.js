@@ -1,3 +1,5 @@
+// index.js - Full JavaScript for The Home Bakery Index Page
+
 // Wishlist functionality
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
@@ -20,6 +22,7 @@ function toggleWishlist(button, id, name, price, description, image) {
     }
     
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
 }
 
 function showNotification(message) {
@@ -30,6 +33,13 @@ function showNotification(message) {
     setTimeout(() => {
         notification.classList.add('hidden');
     }, 3000);
+}
+
+function updateWishlistCount() {
+    const countElement = document.getElementById('wishlist-count');
+    if (countElement) {
+        countElement.textContent = wishlist.length;
+    }
 }
 
 // Search functionality
@@ -176,8 +186,151 @@ function performSearch(query) {
     });
 }
 
-// Combined DOMContentLoaded for wishlist init, scroll functionality, search, and mobile menu
+// Dynamic generation of Cakes & Pastries Section
+const featuredCakes = [
+    {
+        id: 'chocolate-fudge-cake',
+        name: 'Chocolate Fudge Cake',
+        price: '₹2,499',
+        description: 'Rich chocolate layers with creamy fudge',
+        image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop',
+        hasBr: true
+    },
+    {
+        id: 'red-velvet-dream',
+        name: 'Red Velvet Dream',
+        price: '₹2,799',
+        description: 'Classic velvet cake with cream cheese frosting',
+        image: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=400&h=300&fit=crop',
+        hasBr: false
+    },
+    {
+        id: 'berry-cheesecake',
+        name: 'Berry Cheesecake',
+        price: '₹2,999',
+        description: 'Creamy cheesecake topped with fresh berries',
+        image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop',
+        hasBr: false
+    },
+    {
+        id: 'lemon-meringue',
+        name: 'Lemon Meringue',
+        price: '₹2,599',
+        description: 'Tangy lemon cake with fluffy meringue',
+        image: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400&h=300&fit=crop',
+        hasBr: true
+    }
+];
+
+const featuredPastries = [
+    {
+        id: 'mango-saffron-pastry',
+        name: 'Mango Saffron Pastry',
+        price: '₹499',
+        description: 'Mango cream and saffron glaze',
+        image: 'IMG/Mango Saffron Pastry.jpg',
+        hasBr: false
+    },
+    {
+        id: 'masala-chai-puff',
+        name: 'Masala Chai Puff',
+        price: '₹299',
+        description: 'Flaky puff pastry with spiced chai filling',
+        image: 'IMG/Masala Chai Puff.jpg',
+        hasBr: false
+    },
+    {
+        id: 'rose-gulab-jamun-tart',
+        name: 'Rose Gulab Jamun Cheesecake',
+        price: '₹550',
+        description: 'Gulab jamun in buttery tart with rose glaze',
+        image: 'IMG/Rose Gulab Jamun Tart.jpg',
+        hasBr: false
+    },
+    {
+        id: 'pista-kulfi-pastry',
+        name: 'Pistachio Cheesecake Cups',
+        price: '₹450',
+        description: 'Creamy pistachio kulfi layered in soft pastry',
+        image: 'IMG/Pista Kulfi Pastry.jpg',
+        hasBr: false
+    }
+];
+
+function generateProductCard(product) {
+    const brTag = product.hasBr ? '<br>' : '';
+    return `
+        <div class="overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-card hover:shadow-xl relative">
+            <div class="overflow-hidden h-48 sm:h-52 md:h-60 relative">
+                <img src="${product.image}" alt="${product.name}" class="object-cover w-full h-full" loading="lazy">
+                <button class="absolute top-2 sm:top-3 right-2 sm:right-3 w-10 h-10 bg-white hover:bg-red-50 rounded-full flex items-center justify-center shadow-md hover:shadow-lg text-gray-600 hover:text-red-500 transition-all duration-300" onclick="toggleWishlist(this, '${product.id}', '${product.name}', '${product.price}', '${product.description}', '${product.image}')">
+                    <i class="fas fa-heart text-base"></i>
+                </button>
+            </div>
+            <div class="p-3 sm:p-4 md:p-5">
+                <h3 class="text-base sm:text-lg font-semibold">${product.name}</h3>
+                <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">${product.description}</p>${brTag}
+                <div class="mt-3 sm:mt-4 flex items-center justify-between">
+                    <span class="text-lg sm:text-xl font-bold text-primary">${product.price}</span>
+                    <a href="product-details.html?id=${product.id}" class="bg-primary text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2">
+                        <span>View</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateCakesAndPastriesSection() {
+    const section = document.createElement('section');
+    section.className = 'py-4 sm:py-6 md:py-8 bg-white';
+    section.innerHTML = `
+        <div class="max-w-8xl px-2 sm:px-4 mx-auto">
+            <!-- Notification -->
+            <div id="notification" class="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg hidden transition-opacity duration-300 z-50">
+                <span id="notification-text"></span>
+            </div>
+
+            <!-- Cakes Section -->
+            <div class="mb-10 sm:mb-12 md:mb-16">
+                <div class="text-center">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Our Signature Cakes</h2>
+                    <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mt-2 sm:mt-3 px-4">Handcrafted cakes made with premium ingredients and artistic designs</p>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 mt-6 sm:mt-8 md:mt-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    ${featuredCakes.map(product => generateProductCard(product)).join('')}
+                </div>
+            </div>
+            
+            <!-- Pastries Section -->
+            <div>
+                <div class="text-center">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Trending Pastries of 2025</h2>
+                    <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mt-2 sm:mt-3 px-4">Indulge in the finest bakery-style pastries with an Indian twist</p>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 mt-6 sm:mt-8 md:mt-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    ${featuredPastries.map(product => generateProductCard(product)).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+    return section;
+}
+
+// Combined DOMContentLoaded for all functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Dynamic section insertion after Product Categories Section (6 cards)
+    const productCategoriesSection = document.querySelector('section.py-6.sm\\:py-8.md\\:py-12.bg-white');
+    if (productCategoriesSection) {
+        productCategoriesSection.insertAdjacentElement('afterend', generateCakesAndPastriesSection());
+    } else {
+        // Fallback: append to body if product categories section not found
+        document.body.appendChild(generateCakesAndPastriesSection());
+    }
+
     // Mobile Menu Toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
@@ -243,24 +396,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Wishlist initialization
-    const buttons = document.querySelectorAll('button[onclick^="toggleWishlist"]');
-    buttons.forEach(button => {
-        const onclick = button.getAttribute('onclick');
-        const match = onclick.match(/'([^']+)'/);
-        if (match) {
-            const id = match[1];
-            const isInWishlist = wishlist.some(item => item.id === id);
-            const heartIcon = button.querySelector('i');
-            if (isInWishlist) {
-                heartIcon.classList.remove('text-gray-600', 'fa-regular');
-                heartIcon.classList.add('text-red-500', 'fa-solid');
-            } else {
-                heartIcon.classList.remove('text-red-500', 'fa-solid');
-                heartIcon.classList.add('text-gray-600', 'fa-regular');
+    // Wishlist initialization (now works on dynamically generated cards too)
+    updateWishlistCount();
+    // Re-init after dynamic insertion
+    setTimeout(() => {
+        const buttons = document.querySelectorAll('button[onclick^="toggleWishlist"]');
+        buttons.forEach(button => {
+            const onclick = button.getAttribute('onclick');
+            const match = onclick.match(/'([^']+)'/);
+            if (match) {
+                const id = match[1];
+                const isInWishlist = wishlist.some(item => item.id === id);
+                const heartIcon = button.querySelector('i');
+                if (isInWishlist) {
+                    heartIcon.classList.remove('text-gray-600', 'fa-regular');
+                    heartIcon.classList.add('text-red-500', 'fa-solid');
+                } else {
+                    heartIcon.classList.remove('text-red-500', 'fa-solid');
+                    heartIcon.classList.add('text-gray-600', 'fa-regular');
+                }
             }
-        }
-    });
+        });
+    }, 100);
 
     // Search toggle
     const searchToggle = document.getElementById('searchToggle');
@@ -311,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Updated Horizontal scroll functionality
+    // Horizontal scroll functionality
     const scrollContainer = document.getElementById('scrollContainer');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -432,4 +589,65 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToCard(currentIndex);
         }, 100);
     });
+
+    // Delivery Location Modal (basic functionality - expand as needed)
+    const deliveryBtn = document.getElementById('deliveryLocationBtn');
+    const deliveryModal = document.getElementById('deliveryModal');
+    const closeModal = document.getElementById('closeModal');
+    const locationInput = document.getElementById('locationInput');
+    const confirmLocation = document.getElementById('confirmLocation');
+    const selectedLocation = document.getElementById('selectedLocation');
+
+    if (deliveryBtn) deliveryBtn.addEventListener('click', () => deliveryModal.classList.remove('hidden'));
+    if (closeModal) closeModal.addEventListener('click', () => deliveryModal.classList.add('hidden'));
+    if (confirmLocation) {
+        confirmLocation.addEventListener('click', () => {
+            const location = locationInput.value || selectedLocation.textContent;
+            selectedLocation.textContent = location;
+            deliveryModal.classList.add('hidden');
+            showNotification(`Delivery set to ${location}`);
+        });
+    }
+    if (locationInput) {
+        locationInput.addEventListener('input', (e) => {
+            confirmLocation.disabled = e.target.value.trim() === '';
+        });
+    }
+
+    // Close modal on overlay click
+    deliveryModal.addEventListener('click', (e) => {
+        if (e.target.id === 'deliveryModal') deliveryModal.classList.add('hidden');
+    });
+
+    // Popular locations click handlers
+    document.querySelectorAll('.location-option').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const location = e.target.textContent.trim().replace(/^\d+\s*/, ''); // Remove icon text
+            locationInput.value = location;
+            confirmLocation.disabled = false;
+        });
+    });
 });
+
+// For backend integration: Example async load (uncomment and adapt)
+// async function loadFeaturedProducts() {
+//     try {
+//         const response = await fetch('/api/featured-products');
+//         if (response.ok) {
+//             const data = await response.json();
+//             featuredCakes = data.cakes || featuredCakes;
+//             featuredPastries = data.pastries || featuredPastries;
+//             // Regenerate section
+//             const existingSection = document.querySelector('section.py-4.sm\\:py-6.md\\:py-8.bg-white');
+//             if (existingSection) {
+//                 existingSection.remove();
+//             }
+//             document.querySelector('section.py-6.sm\\:py-8.md\\:py-12.bg-white').insertAdjacentElement('afterend', generateCakesAndPastriesSection());
+//         }
+//     } catch (error) {
+//         console.error('Failed to load featured products:', error);
+//     }
+// }
+
+// Call on load for backend
+// loadFeaturedProducts();
