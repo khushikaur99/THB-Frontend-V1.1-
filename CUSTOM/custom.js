@@ -661,3 +661,58 @@ function renderProducts(products) {
 
 // Initialize wishlist count on page load
 updateWishlistCount();
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+  const slideshow = document.getElementById('imageSlideshow');
+  
+  // Array of image sources for the four slides (adjust paths as needed)
+  const images = [
+    '/CAKES/IMG/B1.jpg',
+    '/CAKES/IMG/B2.jpg',
+    '/CAKES/IMG/B3.jpg',
+    '/CAKES/IMG/B4.jpg'
+  ];
+  
+  const alts = [
+    'Cake 1',
+    'Cake 2',
+    'Cake 3',
+    'Chocolate Cake'
+  ];
+  
+  // Dynamically create and append slides
+  images.forEach((src, index) => {
+    const slideDiv = document.createElement('div');
+    slideDiv.className = 'w-full flex-shrink-0';
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alts[index];
+    img.className = 'w-full h-auto max-h-[500px] object-cover rounded-none';
+    
+    slideDiv.appendChild(img);
+    slideshow.appendChild(slideDiv);
+  });
+  
+  let currentIndex = 0;
+  const totalSlides = images.length;
+  
+  // Function to update slide position
+  function updateSlide() {
+    const translateX = -currentIndex * 100;
+    slideshow.style.transform = `translateX(${translateX}%)`;
+  }
+  
+  // Next slide
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateSlide();
+  }
+  
+  // Auto-slide every 3 seconds
+  setInterval(nextSlide, 3000);
+  
+  // Initial position
+  updateSlide();
+});
