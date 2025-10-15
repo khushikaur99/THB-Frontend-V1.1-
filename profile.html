@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | The Home Bakery</title>
+    <link rel="shortcut icon" href="../IMAGES/01.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VY89H2VVPB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VY89H2VVPB');
+          tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#660B05',
+                        secondary: '#4E1F00',
+                        light: '#fef5f8',
+                        dark: '#333333'
+                    },
+                    boxShadow: {
+                        'nav': '0 2px 5px rgba(0, 0, 0, 0.05)',
+                        'main-nav': '0 2px 15px rgba(0, 0, 0, 0.05)',
+                        'dropdown': '0 15px 30px rgba(0,0,0,0.12)',
+                        'card': '0 4px 10px rgba(0,0,0,0.1)',
+                        'btn': '0 4px 15px rgba(233, 30, 99, 0.3)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+        .overlay-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+        .loading-spinner { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 3000; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #660B05; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .wishlist-icon-card { cursor: pointer; transition: color 0.2s; }
+        .wishlist-icon-card.active i { color: #e74c3c; }
+        .wishlist-icon-card.pulse { animation: pulse 0.6s ease; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .toastify-notification { position: fixed; top: 20px; right: 20px; z-index: 10000; }
+        .btn { padding: 0.75rem 1.5rem; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; transition: all 0.2s; color: white; }
+        .btn-primary { background: #660B05; }
+        .btn-primary:hover { background: #550909; }
+        .btn-secondary { background: #4E1F00; }
+        .btn-secondary:hover { background: #3d1800; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-danger:hover { background: #dc2626; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+        .hidden { display: none; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333333; }
+        .form-group input, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; color: #333333; }
+        .shipping-address-box { border: 1px solid #d1d5db; padding: 1rem; border-radius: 6px; margin-top: 0.5rem; background: #fef5f8; }
+        .form-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+        @media (max-width: 768px) { 
+            .form-actions { 
+                flex-direction: column; 
+                align-items: center; 
+                width: 100%; 
+            } 
+            .form-actions .btn { 
+                width: 100%; 
+                max-width: 300px; 
+            } 
+        }
+        .overlay .form-actions {
+            flex-direction: row;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        @media (max-width: 768px) {
+            .overlay .form-actions {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+            .overlay .form-actions .btn {
+                width: 100%;
+            }
+        }
+        .profile-container { background: #fef5f8; color: #333333; }
+        .profile-header h1 { color: #333333; }
+        .success-message, .error-message { padding: 0.75rem; border-radius: 6px; margin-top: 0.5rem; display: none; }
+        .success-message { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error-message { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body class="bg-[#fef5f8] min-h-screen text-[#333333]">
+
+    <!-- First Navbar (Top) -->
+<nav class="sticky top-0 z-50 flex items-center justify-between px-3 py-2 md:px-8 md:py-4 text-white bg-primary">
+    <div class="flex items-center">
+        <span class="text-xs sm:text-sm md:text-base">Welcome To The Home Bakery</span>
+    </div>
+    <div class="flex items-center space-x-2">
+        <i class="fas fa-map-marker-alt text-white text-xs sm:text-sm"></i>
+        <div class="flex flex-col">
+            <span class="text-[10px] sm:text-xs text-white">Deliver to</span>
+            <button id="deliveryLocationBtn" class="text-xs sm:text-sm font-medium text-white hover:text-gray-300 transition-colors duration-300 flex items-center">
+                <span id="selectedLocation" class="max-w-[80px] sm:max-w-none truncate">Select Location</span>
+                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Second Navbar (Main) -->
+<nav class="sticky top-12 sm:top-14 md:top-16 z-40 lg:px-8 bg-white shadow-lg border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div class="flex justify-between items-center h-16 sm:h-20 md:h-24">
+            
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <img src="/IMG/nohat_bg_removed_8c9aa728.png" alt="The Home Bakery Logo" class="h-10 w-12 sm:h-12 sm:w-14 md:h-16 md:w-18 transition-transform duration-300 hover:scale-105">
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="../index.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">Home</a>
+                
+                <!-- Cakes Dropdown -->
+                <div class="relative group">
+                    <a href="#" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                        Cakes
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[250px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                        <div class="p-2">
+                            <ul class="space-y-1">
+                                <li><a href="./CAKES/allcakes.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
+                                <li><a href="./CAKES/allcakes.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Basic Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Tea Time Cakes</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Premium Cakes</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pastries Dropdown -->
+                <div class="relative group">
+                    <a href="#" class="flex items-center px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200">
+                        Pastries
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[220px] bg-white shadow-dropdown rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-gray-100">
+                        <div class="p-6">
+                            <div>
+                                <h3 class="flex items-center text-primary font-semibold text-sm mb-3">
+                                    <i class="fas fa-ice-cream mr-2"></i>By Flavours
+                                </h3>
+                                <ul class="space-y-1">
+                                    <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Chocolate</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Vanilla</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Strawberry</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Blueberry</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Lemon</a></li>
+                                    <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">Matcha</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="./CUSTOM/custom.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+                 <a href="./SIDEBY/sideby.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Sideby</a>
+                <a href="#" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
+                <a href="../contact.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+                <a href="../about.html" class="px-4 py-2 text-base font-medium text-black hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
+            </div>
+
+    <!-- Right Side Icons -->
+<div class="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+    <div class="flex items-center space-x-1 sm:space-x-1 md:space-x-1">
+        <!-- Search -->
+        <a href="#" id="searchToggle" class="relative flex flex-col items-center p-2 text-black hover:text-primary">
+            <i class="fas fa-search text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Search</span>
+        </a>
+
+<!-- Login - Visible on all screens -->
+<div class="relative flex flex-col items-center p-1 text-black hover:text-primary group">
+    <a href="#" class="flex flex-col items-center">
+        <i class="fas fa-user text-base sm:text-lg"></i>
+       <span class="hidden sm:block text-xs mt-1">Login</span>
+    </a>
+    
+    <!-- Dropdown Menu -->
+    <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 border border-[#660B05] w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+        <div class="dropdown-content py-1">
+            <!-- Dynamic content will be populated by JS -->
+        </div>
+    </div>
+</div>
+        <!-- Wishlist -->
+        <a href="wishlist.html" class="relative flex flex-col items-center p-0 text-black hover:text-primary">
+            <i class="fas fa-heart text-base sm:text-lg"></i>
+            <span class="hidden sm:block text-xs mt-1">Wishlist</span>
+            <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+        </a>
+    </div>
+
+    <!-- Cart -->
+    <a href="cart.html" class="relative flex flex-col items-center p-1 py-1 px-1 text-black hover:text-primary">
+        <i class="fas fa-shopping-cart text-base sm:text-lg"></i>
+        <span class="hidden sm:block text-xs mt-1">Cart</span>
+        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">0</span>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button id="menuToggle" class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-50">
+        <i class="fas fa-bars text-lg sm:text-xl"></i>
+    </button>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="navLinks" class="md:hidden hidden bg-white border-t border-gray-100">
+        <div class="px-4 py-4 space-y-2 max-h-[70vh] overflow-y-auto">
+            <a href="../index.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Home</a>
+            
+            <!-- Mobile Cakes Dropdown -->
+            <div class="space-y-0">
+                <button id="mobileCakesToggle" class="w-full flex items-center justify-between px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">
+                    Cakes
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                </button>
+                <div id="mobileCakesMenu" class="hidden bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mt-1">
+                    <div class="p-4 space-y-2">
+                        <ul class="space-y-1 text-xs">
+                            
+
+                            <li><a href="/CAKES/allcakes.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">All Cakes</a></li>
+                             <li><a href="./CAKES/allcakes.html" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-gray-50 rounded-md">All Cakes</a></li>
+                            <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate Cakes</a></li>
+                            <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Tea Time Cakes</a></li>
+                            <li><a href="#" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Premium Cakes</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Pastries Dropdown -->
+            <div class="space-y-0">
+                <button id="mobilePastriesToggle" class="w-full flex items-center justify-between px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">
+                    Pastries
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                </button>
+                <div id="mobilePastriesMenu" class="hidden bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mt-1">
+                    <div class="p-4 space-y-2">
+                        <div>
+                            <h4 class="flex items-center text-primary font-semibold text-xs mb-2">
+                                <i class="fas fa-ice-cream mr-1"></i>By Flavours
+                            </h4>
+                            <ul class="space-y-1 text-xs">
+                                <li><a href="./PASTRIES/chocopastry.html" class="block px-3 py-2 text-gray-800 hover:text-primary hover:bg-white rounded-md">Chocolate</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Vanilla</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Strawberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Blueberry</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Lemon</a></li>
+                                <li><a href="#" class="block px-3 py-2 text-sm text-gray-800 hover:text-primary hover:bg-white rounded-md">Matcha</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="./CUSTOM/custom.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Customisation</a>
+            <a href="#" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Track Order</a>
+            <a href="/contact.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">Contact Us</a>
+            <a href="/about.html" class="block px-4 py-3 text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg">About Us</a>
+            
+        </div>
+    </div>
+</nav>
+
+<!-- Delivery Location Modal -->
+<div id="deliveryModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Choose Delivery Location</h3>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="locationInput" placeholder="Enter your area, city or pincode" class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+            <div id="locationError" class="text-red-500 text-xs sm:text-sm mt-1 hidden"></div>
+            <div id="locationSuccess" class="text-green-500 text-xs sm:text-sm mt-1 hidden"></div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="text-xs sm:text-sm font-medium text-gray-700 mb-2">Popular Areas in Pune</h4>
+            <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Koregaon Park
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Baner
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Wakad
+                </button>
+                <button class="location-option text-left p-2 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm">
+                    <i class="fas fa-map-pin text-primary mr-2"></i>Hinjewadi
+                </button>
+            </div>
+        </div>
+
+        <button id="confirmLocation" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg text-sm sm:text-base font-medium hover:from-secondary hover:to-primary transition-all duration-300 disabled:opacity-50" disabled>
+            Confirm Location
+        </button>
+    </div>
+</div>
+
+<!-- Search Overlay -->
+<div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-white rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Search Products</h3>
+            <button id="closeSearch" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-4">
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search for cakes, pastries..." class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            </div>
+        </div>
+        
+        <div id="searchSuggestions" class="max-h-64 overflow-y-auto scrollbar-hide"></div>
+    </div>
+</div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- Main Profile Container -->
+    <main class="profile-container max-w-2xl mx-auto p-6 bg-white my-8 rounded-lg shadow-md border border-[#660B05]">
+        <div class="profile-header text-center mb-8">
+            <h1 class="text-3xl font-bold text-[#333333]">User Profile</h1>
+        </div>
+
+        <form id="profile-form" class="profile-form space-y-6">
+            <!-- First Name and Last Name in the same row -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customerFirstName" class="block text-sm font-medium text-[#333333]">First Name</label>
+                    <input type="text" id="customerFirstName" name="customerFirstName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="customerLastName" class="block text-sm font-medium text-[#333333]">Last Name</label>
+                    <input type="text" id="customerLastName" name="customerLastName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="block text-sm font-medium text-[#333333]">Email Address</label>
+                <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile" class="block text-sm font-medium text-[#333333]">Phone Number</label>
+                <input type="tel" id="mobile" name="mobile" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="maritalStatus" class="block text-sm font-medium text-[#333333]">Marital Status</label>
+                <select id="maritalStatus" name="maritalStatus" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" disabled>
+                    <option value="">Select Status</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="dob-group">
+                <label for="customerDOB" class="block text-sm font-medium text-[#333333]">Date of Birth</label>
+                <input type="date" id="customerDOB" name="customerDOB" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" readonly>
+            </div>
+
+            <div class="form-group hidden" id="anniversary-group">
+                <label for="anniversary" class="block text-sm font-medium text-[#333333]">Anniversary Date</label>
+                <input type="date" id="anniversary" name="anniversary" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]" readonly>
+            </div>
+
+            <!-- Shipping address display container -->
+            <div class="form-group" id="shipping-address-container" style="display: none;">
+                <label class="block text-sm font-medium text-[#333333]">Shipping Address</label>
+                <div class="shipping-address-box">
+                    <p id="shipping-address-text" class="text-[#333333] mb-4"></p>
+                    <button type="button" id="edit-shipping-address-btn" class="btn btn-primary">Edit Shipping Address</button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="add-shipping-address-btn" class="btn btn-primary">Add Shipping Address</button>
+                <button type="button" id="edit-profile-btn" class="btn btn-secondary">Edit Profile</button>
+                <button type="button" id="save-profile-btn" class="btn btn-primary" style="display: none;">Save Changes</button>
+                <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display: none;">Cancel</button>
+                <button type="button" id="change-password-btn" class="btn btn-primary">Change Password</button>
+            </div>
+        </form>
+
+        <!-- Shipping Address Overlay -->
+        <div id="shipping-address-overlay" class="overlay hidden">
+            <div class="overlay-content">
+                <h2 id="overlay-title" class="text-2xl font-bold mb-6 text-[#333333]">Add Shipping Address</h2>
+                <form id="shipping-address-form" class="space-y-4">
+                    <div class="form-group">
+                        <label for="shipping-customer-phone" class="block text-sm font-medium text-[#333333]">Phone Number (WhatsApp) *</label>
+                        <input type="tel" placeholder="Enter mobile number" id="shipping-customer-phone" name="customerPhone" required pattern="[0-9]{10}" maxlength="10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-customer-email" class="block text-sm font-medium text-[#333333]">Email Address *</label>
+                        <input type="email" placeholder="Enter Email" id="shipping-customer-email" name="customerEmail" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-address" class="block text-sm font-medium text-[#333333]">Shipping Address *</label>
+                        <input type="text" placeholder="Enter your Address Here" id="shipping-address" name="shippingAddress" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shipping-city" class="block text-sm font-medium text-[#333333]">City *</label>
+                            <input type="text" placeholder="Enter City" id="shipping-city" name="shippingCity" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipping-state" class="block text-sm font-medium text-[#333333]">State *</label>
+                            <input type="text" placeholder="Enter State" id="shipping-state" name="shippingState" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shipping-pincode" class="block text-sm font-medium text-[#333333]">Pincode *</label>
+                            <input type="text" placeholder="Enter Valid Pincode" id="shipping-pincode" name="shippingPincode" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipping-country" class="block text-sm font-medium text-[#333333]">Country *</label>
+                            <input type="text" id="shipping-country" placeholder="Enter Country Name" name="shippingCountry" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-shipping-address-btn" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="save-shipping-address-btn" class="btn btn-primary">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Password Change Overlay -->
+        <div id="password-overlay" class="overlay hidden">
+            <div class="overlay-content relative">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-[#333333]">Change Password</h2>
+                    <button type="button" id="close-overlay" class="close-btn text-[#333333] hover:text-[#4E1F00]">&times;</button>
+                </div>
+                <form id="password-form" class="space-y-4">
+                    <div class="form-group">
+                        <label for="oldPassword" class="block text-sm font-medium text-[#333333]">Current Password</label>
+                        <input type="password" placeholder="Enter Old Password" id="oldPassword" name="oldPassword" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword" class="block text-sm font-medium text-[#333333]">New Password</label>
+                        <input type="password" placeholder="Create New Password" id="newPassword" name="newPassword" required minlength="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="block text-sm font-medium text-[#333333]">Confirm New Password</label>
+                        <input type="password" placeholder="Confirm New Password" id="confirmPassword" name="confirmPassword" required minlength="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#660B05] focus:ring-[#660B05]">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-password" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="submit-password" class="btn btn-primary">Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+        <p class="mt-4 text-[#333333]">Loading...</p>
+    </div>
+  <!-- Footer -->
+<footer class="bg-white text-gray-800 py-6 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
+      
+      <!-- About Us -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">The Home Bakery</h3>
+        <img src="path-to-your-logo.png" alt="The Home Bakery Logo" class="mb-2 max-w-32" onerror="this.style.display='none'">
+        <p class="text-sm mb-4">We bake happiness into every product.</p>
+        
+        <h3 class="text-primary font-bold text-lg mb-2">Follow Us</h3>
+        <div class="flex justify-center md:justify-start space-x-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/the_home_bakery_pune?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://wa.me/919503464162?text=Hi%20The%20Home%20Bakery%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-secondary transition-colors">
+            <i class="fab fa-pinterest-p"></i>
+          </a>
+        </div>
+      </div>
+  <!-- Policies Section -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Policies</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li><a href="/POLICIES/disclaimer.html" class="text-sm hover:text-primary transition-colors">Disclaimer</a></li>
+          <li><a href="/POLICIES/privacy.html" class="text-sm hover:text-primary transition-colors">Privacy Policy</a></li>
+          <li><a href="/POLICIES/cancel.html" class="text-sm hover:text-primary transition-colors">Cancellation Policy</a></li>
+          <li><a href="/POLICIES/shipping.html" class="text-sm hover:text-primary transition-colors">Shipping & Delivery Policy</a></li>
+          <li><a href="/POLICIES/refund.html" class="text-sm hover:text-primary transition-colors">Refund & Cancellation Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="hidden md:block">
+        <h3 class="text-primary font-bold text-xl mb-2">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="/index.html" class="text-sm hover:text-primary transition-colors">Home</a></li>
+          <li><a href="/CAKES/allcakes.html" class="text-sm hover:text-primary transition-colors">Cakes</a></li>
+          <li><a href="/PASTRIES/chocopastry.html" class="text-sm hover:text-primary transition-colors">Pastries</a></li>
+          <li><a href="/CUSTOM/custom.html" class="text-sm hover:text-primary transition-colors">Customise</a></li>
+          <li><a href="/SIDEBY/sideby.html" class="text-sm hover:text-primary transition-colors">Special Offers</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact & Social -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-primary font-bold text-xl mb-2">Contact Us</h3>
+        <ul class="space-y-1 text-center md:text-left">
+          <li class="flex items-start justify-center md:justify-start">
+            <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary text-sm"></i>
+            <span class="text-sm">G - 004, ALDEA ESPANOLA PHASE, 6 & 7, opp. Orchid Hotel, Mahalunge, Pune Maharashtra 411045</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-phone-alt mr-3 text-primary text-sm"></i>
+            <span class="text-sm">+91 95034 64162</span>
+          </li>
+          <li class="flex items-center justify-center md:justify-start">
+            <i class="fas fa-envelope mr-3 text-primary text-sm"></i>
+            <span class="text-sm">hello@homebakery.com</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-gray-300 mt-6 pt-4 text-center">
+      <p class="text-sm">© 2025 The Home Bakery. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Floating Action Buttons -->
+<div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3">
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="w-12 h-12 bg-primary hover:bg-secondary rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919503464162" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110">
+        <i class="fab fa-whatsapp text-lg"></i>
+    </a>
+</div>
+
+<script src="index.js"></script>
+    <script>
+        // Profile-specific scripts
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileForm = document.getElementById('profile-form');
+            const shippingOverlay = document.getElementById('shipping-address-overlay');
+            const passwordOverlay = document.getElementById('password-overlay');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const saveProfileBtn = document.getElementById('save-profile-btn');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const changePasswordBtn = document.getElementById('change-password-btn');
+            const addShippingBtn = document.getElementById('add-shipping-address-btn');
+            const editShippingBtn = document.getElementById('edit-shipping-address-btn');
+            const shippingForm = document.getElementById('shipping-address-form');
+            const passwordForm = document.getElementById('password-form');
+            const maritalStatusSelect = document.getElementById('maritalStatus');
+            const anniversaryGroup = document.getElementById('anniversary-group');
+            const shippingContainer = document.getElementById('shipping-address-container');
+            const shippingText = document.getElementById('shipping-address-text');
+            const overlayTitle = document.getElementById('overlay-title');
+            const cancelShippingBtn = document.getElementById('cancel-shipping-address-btn');
+            const closeOverlayBtn = document.getElementById('close-overlay');
+            const cancelPasswordBtn = document.getElementById('cancel-password');
+
+            // Load data from localStorage
+            function loadProfileData() {
+                const data = JSON.parse(localStorage.getItem('profileData')) || {
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    mobile: '',
+                    maritalStatus: '',
+                    dob: '',
+                    anniversary: '',
+                    shipping: null
+                };
+                document.getElementById('customerFirstName').value = data.firstName;
+                document.getElementById('customerLastName').value = data.lastName;
+                document.getElementById('email').value = data.email;
+                document.getElementById('mobile').value = data.mobile;
+                document.getElementById('maritalStatus').value = data.maritalStatus;
+                document.getElementById('customerDOB').value = data.dob;
+                document.getElementById('anniversary').value = data.anniversary;
+                toggleAnniversary();
+                if (data.shipping) {
+                    displayShippingAddress(data.shipping);
+                }
+            }
+
+            // Save profile data to localStorage
+            function saveProfileData(data) {
+                localStorage.setItem('profileData', JSON.stringify(data));
+                showMessage('Profile updated successfully!', 'success');
+            }
+
+            // Toggle anniversary field
+            function toggleAnniversary() {
+                if (maritalStatusSelect.value === 'Married') {
+                    anniversaryGroup.classList.remove('hidden');
+                } else {
+                    anniversaryGroup.classList.add('hidden');
+                }
+            }
+
+            // Display shipping address
+            function displayShippingAddress(shipping) {
+                shippingText.innerHTML = `
+                    <strong>${shipping.address}, ${shipping.city}, ${shipping.state} - ${shipping.pincode}</strong><br>
+                    ${shipping.phone} | ${shipping.email}
+                `;
+                shippingContainer.style.display = 'block';
+            }
+
+            // Show message
+            function showMessage(text, type) {
+                const msg = document.createElement('div');
+                msg.className = `${type}-message`;
+                msg.textContent = text;
+                msg.style.display = 'block';
+                const firstFormGroup = profileForm.querySelector('.form-group');
+                firstFormGroup.parentNode.insertBefore(msg, firstFormGroup);
+                setTimeout(() => {
+                    if (msg.parentNode) {
+                        msg.parentNode.removeChild(msg);
+                    }
+                }, 3000);
+            }
+
+            // Edit profile
+            editProfileBtn.addEventListener('click', () => {
+                const inputs = profileForm.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    input.removeAttribute('readonly');
+                    input.removeAttribute('disabled');
+                });
+                editProfileBtn.style.display = 'none';
+                saveProfileBtn.style.display = 'inline-block';
+                cancelEditBtn.style.display = 'inline-block';
+            });
+
+            // Save profile
+            saveProfileBtn.addEventListener('click', () => {
+                const data = JSON.parse(localStorage.getItem('profileData')) || {};
+                data.firstName = document.getElementById('customerFirstName').value;
+                data.lastName = document.getElementById('customerLastName').value;
+                data.email = document.getElementById('email').value;
+                data.mobile = document.getElementById('mobile').value;
+                data.maritalStatus = document.getElementById('maritalStatus').value;
+                data.dob = document.getElementById('customerDOB').value;
+                data.anniversary = document.getElementById('anniversary').value;
+                if (!data.firstName || !data.lastName || !data.email || !data.mobile || !data.maritalStatus) {
+                    showMessage('Please fill all required fields.', 'error');
+                    return;
+                }
+                saveProfileData(data);
+                const inputs = profileForm.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    if (input.tagName === 'INPUT') {
+                        input.setAttribute('readonly', true);
+                    } else {
+                        input.setAttribute('disabled', true);
+                    }
+                });
+                editProfileBtn.style.display = 'inline-block';
+                saveProfileBtn.style.display = 'none';
+                cancelEditBtn.style.display = 'none';
+                toggleAnniversary();
+            });
+
+            // Cancel edit
+            cancelEditBtn.addEventListener('click', () => {
+                loadProfileData();
+                editProfileBtn.style.display = 'inline-block';
+                saveProfileBtn.style.display = 'none';
+                cancelEditBtn.style.display = 'none';
+            });
+
+            // Marital status change
+            maritalStatusSelect.addEventListener('change', toggleAnniversary);
+
+            // Add/Edit shipping address
+            function openShippingModal(isEdit = false, shipping = null) {
+                overlayTitle.textContent = isEdit ? 'Edit Shipping Address' : 'Add Shipping Address';
+                if (isEdit && shipping) {
+                    document.getElementById('shipping-customer-phone').value = shipping.phone;
+                    document.getElementById('shipping-customer-email').value = shipping.email;
+                    document.getElementById('shipping-address').value = shipping.address;
+                    document.getElementById('shipping-city').value = shipping.city;
+                    document.getElementById('shipping-state').value = shipping.state;
+                    document.getElementById('shipping-pincode').value = shipping.pincode;
+                    document.getElementById('shipping-country').value = shipping.country;
+                } else {
+                    shippingForm.reset();
+                }
+                shippingOverlay.classList.remove('hidden');
+            }
+
+            addShippingBtn.addEventListener('click', () => openShippingModal(false));
+            if (editShippingBtn) {
+                editShippingBtn.addEventListener('click', () => {
+                    const data = JSON.parse(localStorage.getItem('profileData'));
+                    if (data && data.shipping) {
+                        openShippingModal(true, data.shipping);
+                    } else {
+                        showMessage('No shipping address found.', 'error');
+                    }
+                });
+            }
+
+            // Save shipping
+            shippingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const shipping = {
+                    phone: document.getElementById('shipping-customer-phone').value,
+                    email: document.getElementById('shipping-customer-email').value,
+                    address: document.getElementById('shipping-address').value,
+                    city: document.getElementById('shipping-city').value,
+                    state: document.getElementById('shipping-state').value,
+                    pincode: document.getElementById('shipping-pincode').value,
+                    country: document.getElementById('shipping-country').value
+                };
+                if (!shipping.phone || !shipping.email || !shipping.address || !shipping.city || !shipping.state || !shipping.pincode || !shipping.country) {
+                    showMessage('Please fill all fields.', 'error');
+                    return;
+                }
+                if (!/^\d{10}$/.test(shipping.phone)) {
+                    showMessage('Phone number must be 10 digits.', 'error');
+                    return;
+                }
+                if (!/^\d{6}$/.test(shipping.pincode)) {
+                    showMessage('Pincode must be 6 digits.', 'error');
+                    return;
+                }
+                const data = JSON.parse(localStorage.getItem('profileData')) || {};
+                data.shipping = shipping;
+                saveProfileData(data);
+                displayShippingAddress(shipping);
+                shippingOverlay.classList.add('hidden');
+            });
+
+            // Cancel shipping
+            cancelShippingBtn.addEventListener('click', () => shippingOverlay.classList.add('hidden'));
+
+            // Change password
+            changePasswordBtn.addEventListener('click', () => {
+                passwordOverlay.classList.remove('hidden');
+                passwordForm.reset();
+            });
+
+            closeOverlayBtn.addEventListener('click', () => passwordOverlay.classList.add('hidden'));
+            cancelPasswordBtn.addEventListener('click', () => passwordOverlay.classList.add('hidden'));
+
+            // Submit password
+            passwordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const oldPass = document.getElementById('oldPassword').value;
+                const newPass = document.getElementById('newPassword').value;
+                const confirmPass = document.getElementById('confirmPassword').value;
+                if (newPass !== confirmPass) {
+                    showMessage('Passwords do not match.', 'error');
+                    return;
+                }
+                if (newPass.length < 8) {
+                    showMessage('New password must be at least 8 characters.', 'error');
+                    return;
+                }
+                // Simulate password change (in real app, send to server)
+                localStorage.setItem('passwordChanged', Date.now().toString());
+                showMessage('Password updated successfully!', 'success');
+                passwordOverlay.classList.add('hidden');
+            });
+
+            // Close overlays on outside click
+            [shippingOverlay, passwordOverlay].forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        overlay.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Initial load
+            loadProfileData();
+        });
+    </script>
+</body>
+</html>

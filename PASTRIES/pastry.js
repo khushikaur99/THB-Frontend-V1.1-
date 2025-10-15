@@ -569,20 +569,25 @@ if (searchInput) {
 
 
 
-
-// Check login status (example: using localStorage; adjust based on your auth system)
+// Check login status (synchronized with login.html)
 function isLoggedIn() {
-    // Replace with your actual check, e.g., return localStorage.getItem('token') !== null;
-    return localStorage.getItem('isLoggedIn') === 'true'; // Demo: set to true/false in console
+  const session = localStorage.getItem('userSession');
+  if (!session) return false;
+  try {
+    const { expiry } = JSON.parse(session);
+    if (Date.now() < expiry) return true;
+  } catch (e) {}
+  localStorage.removeItem('userSession');
+  return false;
 }
 
 function populateDropdown() {
     const dropdowns = document.querySelectorAll('.dropdown-content');
     const content = isLoggedIn() ? `
-        <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
-        <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+        <a href="/profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
+        <a href="#" onclick="logout(); return false;" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
     ` : `
-        <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login/Signup</a>
+        <a href="/login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login/Signup</a>
     `;
     dropdowns.forEach(dropdown => {
         dropdown.innerHTML = content;
@@ -590,9 +595,11 @@ function populateDropdown() {
 }
 
 function logout() {
-    localStorage.setItem('isLoggedIn', 'false'); // Demo logout
+    localStorage.removeItem('userSession');
     populateDropdown();
-    // Add actual logout logic here (e.g., clear token, redirect)
+    // Optional: Show notification or redirect
+    // showNotification('You have been logged out successfully.');
+    // window.location.href = 'index.html';
 }
 
 // Initialize on load
