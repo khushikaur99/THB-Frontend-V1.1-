@@ -569,4 +569,28 @@
             }
         });
 
-        
+     // Check login status
+    function isLoggedIn() {
+        return localStorage.getItem('isLoggedIn') === 'true';
+    }
+
+    // Populate dropdowns for all login buttons
+    function populateDropdown() {
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        const content = isLoggedIn() ? `
+            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
+            <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+        ` : `
+            <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login/Signup</a>
+        `;
+        dropdowns.forEach(dropdown => dropdown.innerHTML = content);
+    }
+
+    function logout() {
+        localStorage.setItem('isLoggedIn', 'false');
+        populateDropdown();
+        // Optional: redirect or additional logout logic
+    }
+
+    document.addEventListener('DOMContentLoaded', populateDropdown);
+   

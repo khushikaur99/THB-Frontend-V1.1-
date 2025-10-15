@@ -985,3 +985,32 @@
   // Initial position
   updateSlide();
 });
+
+
+// Check login status (example: using localStorage; adjust based on your auth system)
+function isLoggedIn() {
+    // Replace with your actual check, e.g., return localStorage.getItem('token') !== null;
+    return localStorage.getItem('isLoggedIn') === 'true'; // Demo: set to true/false in console
+}
+
+function populateDropdown() {
+    const dropdowns = document.querySelectorAll('.dropdown-content');
+    const content = isLoggedIn() ? `
+        <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
+        <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+    ` : `
+        <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login/Signup</a>
+    `;
+    dropdowns.forEach(dropdown => {
+        dropdown.innerHTML = content;
+    });
+}
+
+function logout() {
+    localStorage.setItem('isLoggedIn', 'false'); // Demo logout
+    populateDropdown();
+    // Add actual logout logic here (e.g., clear token, redirect)
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', populateDropdown);

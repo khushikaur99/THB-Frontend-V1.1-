@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login / Signup</title>
   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="icon" type="image/png" href="/IMG/LOGO_1-removebg-preview.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -231,8 +232,8 @@
   <div id="successModal" class="modal-overlay">
     <div class="modal-content text-center">
       <div class="text-green-500 text-4xl mb-4">✓</div>
-      <h3 class="text-xl font-bold text-[#660B05] mb-2">Email Sent!</h3>
-      <p class="text-gray-600 text-sm mb-6">We've sent a password reset link to your email address. Please check your inbox and follow the instructions.</p>
+      <h3 id="successTitle" class="text-xl font-bold text-[#660B05] mb-2">Email Sent!</h3>
+      <p id="successMessage" class="text-gray-600 text-sm mb-6">We've sent a password reset link to your email address. Please check your inbox and follow the instructions.</p>
       <button onclick="closeSuccessModal()" class="w-full bg-[#660B05] hover:bg-[#954C2E] text-white font-medium py-2.5 rounded-lg shadow-md transition">
         OK
       </button>
@@ -240,6 +241,9 @@
   </div>
 
   <script>
+    // Assuming home page is 'index.html' - adjust if needed
+    const HOME_PAGE_URL = 'index.html';
+
     function isLoggedIn() {
       const session = localStorage.getItem('userSession');
       if (!session) return false;
@@ -251,21 +255,34 @@
       return false;
     }
 
+    function showSuccessModal(title, message, redirectAfter = true) {
+      document.getElementById('successTitle').textContent = title;
+      document.getElementById('successMessage').textContent = message;
+      document.getElementById("successModal").classList.add("show");
+      document.body.style.overflow = "hidden";
+
+      if (redirectAfter) {
+        setTimeout(() => {
+          window.location.href = HOME_PAGE_URL;
+        }, 2000); // Redirect after 2 seconds
+      }
+    }
+
     function handleLogin(event) {
       event.preventDefault();
       localStorage.setItem('userSession', JSON.stringify({ expiry: Date.now() + 24 * 60 * 60 * 1000 }));
-      location.reload();
+      showSuccessModal('Successfully Logged In!', 'You are now logged in. Redirecting to home page...');
     }
 
     function handleSignup(event) {
       event.preventDefault();
       localStorage.setItem('userSession', JSON.stringify({ expiry: Date.now() + 24 * 60 * 60 * 1000 }));
-      location.reload();
+      showSuccessModal('Successfully Signed Up!', 'Your account has been created. Redirecting to home page...');
     }
 
     function logout() {
       localStorage.removeItem('userSession');
-      location.reload();
+      showSuccessModal('Successfully Logged Out!', 'You have been logged out. Redirecting to home page...');
     }
 
     // Check session on load
@@ -311,14 +328,12 @@
       document.getElementById("forgotPasswordForm").reset();
     }
 
-    function showSuccessModal() {
-      document.getElementById("successModal").classList.add("show");
-    }
-
     function closeSuccessModal() {
       document.getElementById("successModal").classList.remove("show");
       document.body.style.overflow = "auto";
       closeForgotPasswordModal();
+      // If not auto-redirecting, manual redirect here if needed
+      window.location.href = HOME_PAGE_URL;
     }
 
     function handleForgotPassword(event) {
@@ -330,8 +345,8 @@
         // Here you would typically send the email to your backend
         console.log("Sending reset link to:", email);
         
-        // Show success modal
-        showSuccessModal();
+        // Show success modal (without auto-redirect for forgot password)
+        showSuccessModal('Email Sent!', "We've sent a password reset link to your email address. Please check your inbox and follow the instructions.", false);
         
         // In a real application, you would make an API call like:
         // fetch('/api/forgot-password', {
